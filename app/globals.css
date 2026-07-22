@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a1230;
+  color: #eaeef9;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@layer components {
+  /* Section shell — consistent horizontal rhythm */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6 md:px-8;
+  }
+
+  /* Poppins eyebrow label used across sections */
+  .eyebrow {
+    @apply font-display text-[11px] font-semibold uppercase tracking-[0.22em] text-orange;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3
+           font-sans text-sm font-medium transition-colors duration-200
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-orange;
+  }
+  .btn-primary {
+    @apply btn bg-orange text-white hover:bg-orange-bright;
+  }
+  .btn-ghost {
+    @apply btn border border-slate-line text-mist hover:border-orange hover:text-orange;
+  }
+  .btn-dark {
+    @apply btn bg-navy text-white hover:bg-[#1b2f96];
+  }
+
+  /* Hairline card on dark */
+  .card {
+    @apply rounded-xl border border-slate-line bg-slate-panel;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(100deg, #ff6f00 0%, #ff9e4d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .edge-glow {
+    box-shadow: 0 0 0 1px rgba(255, 111, 0, 0.18),
+      0 24px 80px -32px rgba(20, 37, 126, 0.65);
+  }
+  /* Subtle grid backdrop for dark hero */
+  .grid-backdrop {
+    background-image:
+      linear-gradient(to right, rgba(37, 51, 107, 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(37, 51, 107, 0.55) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
