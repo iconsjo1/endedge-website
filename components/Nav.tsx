@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SITES } from "@/lib/constants/sites";
 
 const LINKS = [
   { href: "#services", label: "Services" },
@@ -8,6 +9,7 @@ const LINKS = [
   { href: "#assessment", label: "AI Readiness" },
   { href: "#tech", label: "Technology" },
   { href: "#industries", label: "Industries" },
+  { href: `${SITES.portal}/pricing`, label: "VPS Hosting", external: true },
 ];
 
 export default function Nav() {
@@ -29,7 +31,7 @@ export default function Nav() {
     >
       <nav className="shell flex h-16 items-center justify-between">
         <a
-          href="#top"
+          href={SITES.corporate}
           className="flex items-center gap-1.5 font-display text-lg font-bold tracking-tight text-mist"
         >
           EndEdge
@@ -44,10 +46,14 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               className="font-sans text-sm text-muted transition-colors hover:text-mist"
+              {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             >
               {l.label}
             </a>
           ))}
+          <a href={`${SITES.portal}/pricing`} className="btn-ghost px-4 py-2 text-sm">
+            View hosting plans
+          </a>
           <a href="#contact" className="btn-primary px-4 py-2 text-sm">
             Book a consultation
           </a>
@@ -75,10 +81,18 @@ export default function Nav() {
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-2 py-2.5 text-sm text-muted hover:bg-slate-panel hover:text-mist"
+                {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
                 {l.label}
               </a>
             ))}
+            <a
+              href={`${SITES.portal}/pricing`}
+              onClick={() => setOpen(false)}
+              className="btn-ghost mt-2"
+            >
+              View hosting plans
+            </a>
             <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2">
               Book a consultation
             </a>

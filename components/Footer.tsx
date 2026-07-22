@@ -1,21 +1,41 @@
+import { SITES } from "@/lib/constants/sites";
+
 const COLUMNS = [
   {
+    heading: "Products",
+    links: [
+      { label: "VPS Hosting", href: `${SITES.portal}/pricing` },
+      { label: "Client Portal", href: `${SITES.portal}/login` },
+      { label: "System Status", href: `${SITES.portal}/status` },
+    ],
+  },
+  {
     heading: "Services",
-    links: ["Cloud Infrastructure", "Managed IT", "AI Automation", "Software & Consulting"],
+    links: [
+      { label: "Cloud Infrastructure", href: "#services" },
+      { label: "Managed IT", href: "#services" },
+      { label: "AI Automation", href: "#services" },
+      { label: "Software & Consulting", href: "#services" },
+    ],
   },
   {
     heading: "Company",
-    links: ["About", "Industries", "Insights", "Contact"],
+    links: [
+      { label: "About", href: "#top" },
+      { label: "Industries", href: "#industries" },
+      { label: "AI Readiness", href: "#assessment" },
+      { label: "Contact", href: "#contact" },
+    ],
   },
 ];
 
 export default function Footer() {
   return (
     <footer className="border-t border-slate-line bg-ink py-14">
-      <div className="shell grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="shell grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <a
-            href="#top"
+            href={SITES.corporate}
             className="flex items-center gap-1.5 font-display text-lg font-bold tracking-tight text-mist"
           >
             EndEdge
@@ -43,9 +63,9 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-2.5">
               {col.links.map((l) => (
-                <li key={l}>
-                  <a href="#" className="text-sm text-mist/80 transition-colors hover:text-orange">
-                    {l}
+                <li key={l.label}>
+                  <a href={l.href} className="text-sm text-mist/80 transition-colors hover:text-orange">
+                    {l.label}
                   </a>
                 </li>
               ))}
@@ -61,7 +81,7 @@ export default function Footer() {
         <div className="flex gap-6 font-display text-[11px] text-muted">
           <a href="#" className="hover:text-mist">Privacy</a>
           <a href="#" className="hover:text-mist">Terms</a>
-          <a href="https://endedge.co" className="hover:text-mist">endedge.co</a>
+          <a href={SITES.corporate} className="hover:text-mist">endedge.co</a>
         </div>
       </div>
     </footer>

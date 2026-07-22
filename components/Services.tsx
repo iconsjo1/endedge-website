@@ -1,8 +1,11 @@
+import { SITES } from "@/lib/constants/sites";
+
 const SERVICES = [
   {
     tag: "01",
     title: "Cloud Infrastructure",
     outcome: "Infrastructure that keeps your business running.",
+    portalLink: true,
     points: [
       "Secure, high-performance hosting & managed cloud",
       "Data-residency options for UAE compliance",
@@ -13,6 +16,7 @@ const SERVICES = [
     tag: "02",
     title: "Managed IT Services",
     outcome: "IT that just works — so your team can focus.",
+    portalLink: false,
     points: [
       "Proactive support & system administration",
       "Security hardening & endpoint protection",
@@ -23,6 +27,7 @@ const SERVICES = [
     tag: "03",
     title: "AI Automation & Agents",
     outcome: "Automate repetitive work with practical AI.",
+    portalLink: false,
     points: [
       "Workflow automation & intelligent assistants",
       "Document, contract & knowledge intelligence",
@@ -33,6 +38,7 @@ const SERVICES = [
     tag: "04",
     title: "Software & Consulting",
     outcome: "Custom systems and independent advice.",
+    portalLink: false,
     points: [
       "Custom software & platform development",
       "Architecture & digital-transformation strategy",
@@ -78,6 +84,14 @@ export default function Services() {
                   </li>
                 ))}
               </ul>
+              {s.portalLink ? (
+                <a
+                  href={`${SITES.portal}/pricing`}
+                  className="mt-6 inline-flex font-display text-sm font-semibold text-orange transition-colors hover:text-navy"
+                >
+                  Explore VPS plans →
+                </a>
+              ) : null}
             </article>
           ))}
         </div>
