@@ -3,6 +3,7 @@ import { SITES } from "@/lib/constants/sites";
 const SERVICES = [
   {
     tag: "01",
+    id: "cloud-infrastructure",
     title: "Cloud Infrastructure",
     outcome: "Infrastructure that keeps your business running.",
     portalLink: true,
@@ -14,6 +15,7 @@ const SERVICES = [
   },
   {
     tag: "02",
+    id: "managed-it",
     title: "Managed IT Services",
     outcome: "IT that just works — so your team can focus.",
     portalLink: false,
@@ -25,6 +27,7 @@ const SERVICES = [
   },
   {
     tag: "03",
+    id: "ai-automation",
     title: "AI Automation & Agents",
     outcome: "Automate repetitive work with practical AI.",
     portalLink: false,
@@ -36,6 +39,7 @@ const SERVICES = [
   },
   {
     tag: "04",
+    id: "software-consulting",
     title: "Software & Consulting",
     outcome: "Custom systems and independent advice.",
     portalLink: false,
@@ -67,7 +71,8 @@ export default function Services() {
           {SERVICES.map((s) => (
             <article
               key={s.tag}
-              className="group rounded-xl border border-black/[0.07] bg-white p-7 transition-shadow hover:shadow-[0_20px_60px_-30px_rgba(15,22,32,0.35)]"
+              id={s.id}
+              className="group scroll-mt-24 rounded-xl border border-black/[0.07] bg-white p-7 transition-shadow hover:shadow-[0_20px_60px_-30px_rgba(15,22,32,0.35)]"
             >
               <div className="flex items-start justify-between">
                 <h3 className="font-display text-xl font-semibold">{s.title}</h3>

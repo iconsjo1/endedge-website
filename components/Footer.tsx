@@ -12,10 +12,10 @@ const COLUMNS = [
   {
     heading: "Services",
     links: [
-      { label: "Cloud Infrastructure", href: "#services" },
-      { label: "Managed IT", href: "#services" },
-      { label: "AI Automation", href: "#services" },
-      { label: "Software & Consulting", href: "#services" },
+      { label: "Cloud Infrastructure", href: "#cloud-infrastructure" },
+      { label: "Managed IT", href: "#managed-it" },
+      { label: "AI Automation", href: "#ai-automation" },
+      { label: "Software & Consulting", href: "#software-consulting" },
     ],
   },
   {
@@ -79,8 +79,8 @@ export default function Footer() {
           © {new Date().getFullYear()} EndEdge. All rights reserved.
         </p>
         <div className="flex gap-6 font-display text-[11px] text-muted">
-          <a href="#" className="hover:text-mist">Privacy</a>
-          <a href="#" className="hover:text-mist">Terms</a>
+          <a href="/privacy" className="hover:text-mist">Privacy</a>
+          <a href="/terms" className="hover:text-mist">Terms</a>
           <a href={SITES.corporate} className="hover:text-mist">endedge.co</a>
         </div>
       </div>
