@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 import {
   QUESTIONS,
   scoreAssessment,
   fallbackReport,
   type AssessmentInput,
 } from "@/lib/assessment";
+import { deepseekChat } from "@/lib/deepseek";
 
 export const runtime = "nodejs";
 
@@ -17,6 +17,19 @@ interface ReportResponse {
   summary: string;
   recommendations: string[];
   source: "ai" | "fallback";
+}
+
+function parseReportJson(text: string) {
+  const cleaned = text
+    .replace(/^```json\s*/i, "")
+    .replace(/```$/, "")
+    .trim();
+
+  return JSON.parse(cleaned) as {
+    headline: string;
+    summary: string;
+    recommendations: string[];
+  };
 }
 
 export async function POST(req: NextRequest) {
@@ -35,9 +48,8 @@ export async function POST(req: NextRequest) {
   }
 
   const scored = scoreAssessment(body);
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.DEEPSEEK_API_KEY;
 
-  // No key configured -> deterministic report so the demo always works.
   if (!apiKey) {
     const fb = fallbackReport(scored);
     const res: ReportResponse = { ...scored, ...fb, source: "fallback" };
@@ -45,8 +57,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const client = new Anthropic({ apiKey });
-    const model = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
+    const model = process.env.DEEPSEEK_MODEL || "deepseek-chat";
 
     const readable = QUESTIONS.map((q) => {
       const idx = body.answers[q.id];
@@ -65,27 +76,14 @@ export async function POST(req: NextRequest) {
       `Return JSON with exactly these keys:\n` +
       `{"headline": string (max 12 words), "summary": string (2 short paragraphs, plain business language), "recommendations": string[] (exactly 3 concrete next steps, each one sentence)}`;
 
-    const msg = await client.messages.create({
+    const text = await deepseekChat({
+      apiKey,
       model,
-      max_tokens: 700,
       system,
-      messages: [{ role: "user", content: prompt }],
+      user: prompt,
     });
 
-    const text = msg.content
-      .filter((b): b is Anthropic.TextBlock => b.type === "text")
-      .map((b) => b.text)
-      .join("")
-      .trim()
-      .replace(/^```json\s*/i, "")
-      .replace(/```$/, "")
-      .trim();
-
-    const parsed = JSON.parse(text) as {
-      headline: string;
-      summary: string;
-      recommendations: string[];
-    };
+    const parsed = parseReportJson(text);
 
     const res: ReportResponse = {
       ...scored,
@@ -96,8 +94,7 @@ export async function POST(req: NextRequest) {
     };
     return NextResponse.json(res);
   } catch (err) {
-    // Any AI failure gracefully degrades to the deterministic report.
-    console.error("assess: AI generation failed, using fallback", err);
+    console.error("assess: DeepSeek generation failed, using fallback", err);
     const fb = fallbackReport(scored);
     const res: ReportResponse = { ...scored, ...fb, source: "fallback" };
     return NextResponse.json(res);

@@ -106,7 +106,7 @@ export function bandFor(total: number): Band {
   return "Optimized";
 }
 
-// Deterministic fallback report — used when no ANTHROPIC_API_KEY is set,
+// Deterministic fallback report — used when no DEEPSEEK_API_KEY is set,
 // so the demo works out of the box for the dev team.
 export function fallbackReport(scored: Scored): {
   headline: string;
