@@ -6,6 +6,8 @@ import {
   type AssessmentInput,
 } from "@/lib/assessment";
 import { deepseekChat } from "@/lib/deepseek";
+import { isLocale, type Locale } from "@/lib/i18n/config";
+import { getDictionarySync } from "@/lib/i18n/get-dictionary";
 
 export const runtime = "nodejs";
 
@@ -33,7 +35,7 @@ function parseReportJson(text: string) {
 }
 
 export async function POST(req: NextRequest) {
-  let body: AssessmentInput;
+  let body: AssessmentInput & { locale?: string };
   try {
     body = await req.json();
   } catch {
@@ -43,10 +45,11 @@ export async function POST(req: NextRequest) {
   if (!body?.answers || typeof body.answers !== "object") {
     return NextResponse.json(
       { error: "Please answer the questions before requesting a report." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
+  const locale: Locale = isLocale(body.locale ?? "") ? (body.locale as Locale) : "en";
   const scored = scoreAssessment(body);
   const apiKey = process.env.DEEPSEEK_API_KEY;
 
@@ -58,17 +61,27 @@ export async function POST(req: NextRequest) {
 
   try {
     const model = process.env.DEEPSEEK_MODEL || "deepseek-chat";
+    const dict = getDictionarySync(locale);
 
     const readable = QUESTIONS.map((q) => {
       const idx = body.answers[q.id];
-      const chosen = q.options[idx]?.label ?? "No answer";
-      return `- ${q.prompt} => ${chosen}`;
+      const dictQ = dict.readiness.questions.find((dq) => dq.id === q.id);
+      const prompt = dictQ?.prompt ?? q.prompt;
+      const chosen =
+        dictQ?.options[idx] ?? q.options[idx]?.label ?? "No answer";
+      return `- ${prompt} => ${chosen}`;
     }).join("\n");
+
+    const languageInstruction =
+      locale === "ar"
+        ? " Write headline, summary, and recommendations in Arabic (Modern Standard Arabic). Keep JSON keys in English."
+        : "";
 
     const system =
       "You are the assessment engine for EndEdge, an enterprise technology partner in Dubai that helps businesses modernize infrastructure, automate operations, and adopt practical AI. " +
       "Write a short, executive-level AI & technology readiness report. Be specific, honest, and practical — never hype. " +
-      "No greetings, no sign-off. Respond ONLY with valid JSON, no markdown fences.";
+      "No greetings, no sign-off. Respond ONLY with valid JSON, no markdown fences." +
+      languageInstruction;
 
     const prompt =
       `A business completed a readiness assessment. Their answers:\n${readable}\n\n` +

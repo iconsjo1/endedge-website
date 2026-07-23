@@ -2,19 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { SITES } from "@/lib/constants/sites";
-
-const LINKS = [
-  { href: "/#services", label: "Services" },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/#assessment", label: "AI Readiness" },
-  { href: "/#tech", label: "Technology" },
-  { href: "/#industries", label: "Industries" },
-  { href: `${SITES.portal}/pricing`, label: "VPS Hosting", external: true },
-];
+import { useI18n } from "@/components/I18nProvider";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Nav() {
+  const { locale, dict } = useI18n();
+  const n = dict.nav;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const links = [
+    { href: `/${locale}/#services`, label: n.services },
+    { href: `/${locale}/case-studies`, label: n.caseStudies },
+    { href: `/${locale}/#assessment`, label: n.aiReadiness },
+    { href: `/${locale}/#tech`, label: n.technology },
+    { href: `/${locale}/#industries`, label: n.industries },
+    { href: `${SITES.portal}/pricing`, label: n.vpsHosting, external: true },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,7 +35,7 @@ export default function Nav() {
     >
       <nav className="shell flex h-16 items-center justify-between">
         <a
-          href={SITES.corporate}
+          href={`/${locale}`}
           className="flex items-center gap-1.5 font-display text-lg font-bold tracking-tight text-mist"
         >
           EndEdge
@@ -41,7 +45,7 @@ export default function Nav() {
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
-          {LINKS.map((l) => (
+          {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
@@ -51,18 +55,19 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
+          <LanguageSwitcher />
           <a href={`${SITES.portal}/pricing`} className="btn-ghost px-4 py-2 text-sm">
-            View hosting plans
+            {n.viewHosting}
           </a>
-          <a href="/#contact" className="btn-primary px-4 py-2 text-sm">
-            Book a consultation
+          <a href={`/${locale}/#contact`} className="btn-primary px-4 py-2 text-sm">
+            {n.bookConsultation}
           </a>
         </div>
 
         <button
           onClick={() => setOpen((o) => !o)}
           className="text-mist md:hidden"
-          aria-label="Toggle menu"
+          aria-label={n.toggleMenu}
           aria-expanded={open}
         >
           <div className="space-y-1.5">
@@ -75,7 +80,7 @@ export default function Nav() {
       {open && (
         <div className="border-t border-slate-line bg-ink md:hidden">
           <div className="shell flex flex-col gap-1 py-4">
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
@@ -86,15 +91,22 @@ export default function Nav() {
                 {l.label}
               </a>
             ))}
+            <div className="px-2 py-2">
+              <LanguageSwitcher />
+            </div>
             <a
               href={`${SITES.portal}/pricing`}
               onClick={() => setOpen(false)}
               className="btn-ghost mt-2"
             >
-              View hosting plans
+              {n.viewHosting}
             </a>
-            <a href="/#contact" onClick={() => setOpen(false)} className="btn-primary mt-2">
-              Book a consultation
+            <a
+              href={`/${locale}/#contact`}
+              onClick={() => setOpen(false)}
+              className="btn-primary mt-2"
+            >
+              {n.bookConsultation}
             </a>
           </div>
         </div>

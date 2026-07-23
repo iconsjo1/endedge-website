@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { CHAT_FALLBACK, CHAT_SYSTEM_PROMPT } from "@/lib/chat";
+import { chatFallback, chatSystemPrompt } from "@/lib/chat";
 import { deepseekConversation } from "@/lib/deepseek";
+import { isLocale, type Locale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
 
@@ -38,12 +39,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { messages?: IncomingMessage[] };
+  let body: { messages?: IncomingMessage[]; locale?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
+
+  const locale: Locale = isLocale(body.locale ?? "") ? (body.locale as Locale) : "en";
+  const fallback = chatFallback(locale);
+  const systemPrompt = chatSystemPrompt(locale);
 
   const messages = Array.isArray(body.messages) ? body.messages : [];
   if (messages.length === 0 || messages.length > 16) {
@@ -70,7 +75,7 @@ export async function POST(req: NextRequest) {
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
     return NextResponse.json({
-      reply: CHAT_FALLBACK,
+      reply: fallback,
       source: "fallback" as const,
     });
   }
@@ -82,17 +87,17 @@ export async function POST(req: NextRequest) {
       model,
       maxTokens: 450,
       jsonMode: false,
-      messages: [{ role: "system", content: CHAT_SYSTEM_PROMPT }, ...cleaned],
+      messages: [{ role: "system", content: systemPrompt }, ...cleaned],
     });
 
     return NextResponse.json({
-      reply: reply || CHAT_FALLBACK,
+      reply: reply || fallback,
       source: "ai" as const,
     });
   } catch (err) {
     console.error("chat: DeepSeek failed", err);
     return NextResponse.json({
-      reply: CHAT_FALLBACK,
+      reply: fallback,
       source: "fallback" as const,
     });
   }

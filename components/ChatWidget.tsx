@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { CHAT_QUICK_PROMPTS } from "@/lib/chat";
+import { useI18n } from "@/components/I18nProvider";
 import { COMPANY } from "@/lib/constants/company";
 
 type ChatMessage = {
@@ -10,17 +10,25 @@ type ChatMessage = {
 };
 
 export default function ChatWidget() {
+  const { locale, dict } = useI18n();
+  const chat = dict.chat;
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi — I'm the EndEdge assistant. Ask about our services, VPS plans, AI readiness, or how to get in touch.",
-    },
+    { role: "assistant", content: chat.greeting },
   ]);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const greetingLocale = useRef(locale);
+
+  useEffect(() => {
+    if (greetingLocale.current !== locale) {
+      greetingLocale.current = locale;
+      setMessages([{ role: "assistant", content: chat.greeting }]);
+      setInput("");
+      setPending(false);
+    }
+  }, [locale, chat.greeting]);
 
   useEffect(() => {
     if (open) {
@@ -43,6 +51,7 @@ export default function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: nextMessages.filter((m) => m.role === "user" || m.role === "assistant"),
+          locale,
         }),
       });
       const data = (await res.json()) as { reply?: string; error?: string };
@@ -51,7 +60,7 @@ export default function ChatWidget() {
       }
       setMessages((current) => [
         ...current,
-        { role: "assistant", content: data.reply ?? "Sorry — please try again." },
+        { role: "assistant", content: data.reply ?? chat.fallback },
       ]);
     } catch (err) {
       setMessages((current) => [
@@ -61,7 +70,7 @@ export default function ChatWidget() {
           content:
             err instanceof Error
               ? err.message
-              : `Something went wrong. Email ${COMPANY.email} and we'll help.`,
+              : chat.fallback,
         },
       ]);
     } finally {
@@ -80,16 +89,16 @@ export default function ChatWidget() {
         <div className="pointer-events-auto flex h-[min(520px,70vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-line bg-slate-panel shadow-[0_24px_80px_-24px_rgba(0,0,0,0.65)]">
           <div className="flex items-start justify-between gap-3 border-b border-slate-line bg-ink px-4 py-3">
             <div>
-              <p className="font-display text-sm font-semibold text-mist">EndEdge Assistant</p>
-              <p className="mt-0.5 text-xs text-muted">Services · VPS · AI readiness</p>
+              <p className="font-display text-sm font-semibold text-mist">{chat.title}</p>
+              <p className="mt-0.5 text-xs text-muted">{chat.subtitle}</p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
               className="rounded-md px-2 py-1 text-sm text-muted hover:bg-slate-line/40 hover:text-mist"
-              aria-label="Close chat"
+              aria-label={chat.closeLabel}
             >
-              Close
+              {chat.close}
             </button>
           </div>
 
@@ -108,7 +117,7 @@ export default function ChatWidget() {
             ))}
             {pending ? (
               <div className="max-w-[90%] rounded-2xl bg-ink px-3.5 py-2.5 text-sm text-muted">
-                Thinking…
+                {chat.thinking}
               </div>
             ) : null}
             <div ref={bottomRef} />
@@ -116,7 +125,7 @@ export default function ChatWidget() {
 
           <div className="space-y-2 border-t border-slate-line px-3 py-3">
             <div className="flex flex-wrap gap-1.5">
-              {CHAT_QUICK_PROMPTS.map((prompt) => (
+              {chat.quick.map((prompt) => (
                 <button
                   key={prompt}
                   type="button"
@@ -132,7 +141,7 @@ export default function ChatWidget() {
               <input
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Ask a question…"
+                placeholder={chat.placeholder}
                 disabled={pending}
                 className="min-w-0 flex-1 rounded-xl border border-slate-line bg-ink px-3 py-2.5 text-sm text-mist placeholder:text-muted focus:border-orange focus:outline-none"
               />
@@ -141,14 +150,21 @@ export default function ChatWidget() {
                 disabled={pending || !input.trim()}
                 className="rounded-xl bg-orange px-3.5 py-2.5 text-sm font-medium text-white hover:bg-orange-bright disabled:opacity-50"
               >
-                Send
+                {chat.send}
               </button>
             </form>
             <p className="px-1 text-[10px] text-muted">
-              AI answers may be incomplete. For contracts or urgent help:{" "}
-              <a href={`mailto:${COMPANY.email}`} className="text-orange hover:underline">
-                {COMPANY.email}
-              </a>
+              {chat.disclaimer.includes(COMPANY.email) ? (
+                <>
+                  {chat.disclaimer.split(COMPANY.email)[0]}
+                  <a href={`mailto:${COMPANY.email}`} className="text-orange hover:underline">
+                    {COMPANY.email}
+                  </a>
+                  {chat.disclaimer.split(COMPANY.email)[1] ?? ""}
+                </>
+              ) : (
+                chat.disclaimer
+              )}
             </p>
           </div>
         </div>
@@ -159,7 +175,7 @@ export default function ChatWidget() {
         onClick={() => setOpen((value) => !value)}
         className="pointer-events-auto inline-flex h-14 items-center gap-2 rounded-full bg-orange px-5 text-sm font-semibold text-white shadow-[0_12px_40px_-12px_rgba(255,111,0,0.8)] transition-colors hover:bg-orange-bright"
         aria-expanded={open}
-        aria-label={open ? "Close chat" : "Open EndEdge assistant"}
+        aria-label={open ? chat.closeLabel : chat.openLabel}
       >
         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15">
           {open ? (
@@ -175,7 +191,7 @@ export default function ChatWidget() {
             </svg>
           )}
         </span>
-        {open ? "Close" : "Ask EndEdge"}
+        {open ? chat.close : chat.open}
       </button>
     </div>
   );

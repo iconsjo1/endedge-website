@@ -8,10 +8,12 @@
 export default function StackMark({
   className = "",
   labels = false,
+  rtl = false,
   animate = false,
 }: {
   className?: string;
-  labels?: boolean;
+  labels?: boolean | string[];
+  rtl?: boolean;
   animate?: boolean;
 }) {
   // Bottom (infra) -> top (growth). Bottom is widest/most solid.
@@ -22,6 +24,11 @@ export default function StackMark({
     { y: 144, fill: "#183072", stroke: "#3B54B0", label: "Applied AI" },
     { y: 92, fill: "#1B3A8A", stroke: "#FF6F00", label: "Growth" },
   ];
+
+  const labelTexts = Array.isArray(labels)
+    ? layers.map((l, i) => labels[i] ?? l.label)
+    : layers.map((l) => l.label);
+  const showLabels = labels === true || Array.isArray(labels);
 
   const plane = (cx: number, cy: number) => {
     const w = 150; // half-width
@@ -37,6 +44,9 @@ export default function StackMark({
   // Sit just past Growth's top apex, on the orange top-right edge.
   const chevronX = 236;
   const chevronY = 64;
+
+  const labelX = rtl ? 82 : 378;
+  const textAnchor = rtl ? "end" : "start";
 
   return (
     <svg
@@ -84,19 +94,19 @@ export default function StackMark({
               strokeWidth="2.5"
             />
           )}
-          {labels && (
+          {showLabels && (
             <text
               className={animate ? "stack-label" : undefined}
               style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
-              x="378"
+              x={labelX}
               y={l.y + 4}
               fill={i === layers.length - 1 ? "#FF6F00" : "#93A0C8"}
               fontSize="12"
               fontFamily="var(--font-poppins), sans-serif"
               fontWeight={i === layers.length - 1 ? 600 : 400}
-              textAnchor="start"
+              textAnchor={textAnchor}
             >
-              {l.label}
+              {labelTexts[i]}
             </text>
           )}
         </g>

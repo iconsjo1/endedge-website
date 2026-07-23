@@ -1,11 +1,13 @@
 import type { CaseStudy } from "@/lib/content/case-studies";
+import type { Dictionary } from "@/lib/i18n/types";
 
 type CaseStudyArticleProps = {
   study: CaseStudy;
   index: number;
+  labels: Dictionary["caseStudiesPage"];
 };
 
-export default function CaseStudyArticle({ study, index }: CaseStudyArticleProps) {
+export default function CaseStudyArticle({ study, index, labels }: CaseStudyArticleProps) {
   return (
     <article
       id={study.slug}
@@ -32,21 +34,21 @@ export default function CaseStudyArticle({ study, index }: CaseStudyArticleProps
           <div className="mt-10 space-y-8">
             <section>
               <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-orange">
-                Challenge
+                {labels.challenge}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-mist/85">{study.challenge}</p>
             </section>
 
             <section>
               <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-orange">
-                Approach
+                {labels.approach}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-mist/85">{study.approach}</p>
             </section>
 
             <section>
               <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-orange">
-                Outcomes
+                {labels.outcomes}
               </h3>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {study.outcomes.map((metric) => (
@@ -69,15 +71,15 @@ export default function CaseStudyArticle({ study, index }: CaseStudyArticleProps
         <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
           <div className="card p-5">
             <h3 className="font-display text-xs uppercase tracking-widest text-orange">
-              Engagement
+              {labels.engagement}
             </h3>
             <dl className="mt-4 space-y-3 text-sm">
               <div>
-                <dt className="text-muted">Duration</dt>
+                <dt className="text-muted">{labels.duration}</dt>
                 <dd className="mt-0.5 text-mist">{study.duration}</dd>
               </div>
               <div>
-                <dt className="text-muted">Services</dt>
+                <dt className="text-muted">{labels.servicesLabel}</dt>
                 <dd className="mt-1 flex flex-wrap gap-1.5">
                   {study.services.map((service) => (
                     <span
@@ -94,7 +96,7 @@ export default function CaseStudyArticle({ study, index }: CaseStudyArticleProps
 
           <div className="card p-5">
             <h3 className="font-display text-xs uppercase tracking-widest text-orange">
-              Technology stack
+              {labels.techStack}
             </h3>
             <div className="mt-4 space-y-4">
               {study.stack.map((group) => (

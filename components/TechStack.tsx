@@ -1,27 +1,21 @@
-const STACK = [
-  { group: "Cloud", items: ["AWS", "Microsoft Azure", "DigitalOcean", "Cloudflare"] },
-  { group: "Development", items: ["React", "Next.js", "Node.js", "PostgreSQL"] },
-  { group: "Artificial Intelligence", items: ["OpenAI", "Anthropic", "Gemini", "RAG", "MCP", "AI Agents"] },
-  { group: "Security", items: ["SSL / TLS", "Zero Trust", "Automated Backups", "24/7 Monitoring"] },
-];
+import type { Dictionary } from "@/lib/i18n/types";
 
-export default function TechStack() {
+export default function TechStack({ dict }: { dict: Dictionary }) {
+  const t = dict.tech;
+
   return (
     <section id="tech" className="border-t border-slate-line bg-ink py-24">
       <div className="shell">
         <div className="max-w-2xl">
-          <p className="eyebrow">Our technology</p>
+          <p className="eyebrow">{t.eyebrow}</p>
           <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-mist md:text-4xl">
-            Proven tools, chosen for you.
+            {t.title}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted">
-            We work across the full stack and pick the right tool for your needs — not
-            ours. No lock-in, no black boxes.
-          </p>
+          <p className="mt-4 text-base leading-relaxed text-muted">{t.body}</p>
         </div>
 
         <div className="mt-12 divide-y divide-slate-line border-y border-slate-line">
-          {STACK.map((s) => (
+          {t.groups.map((s) => (
             <div
               key={s.group}
               className="grid gap-3 py-6 sm:grid-cols-[220px_1fr] sm:items-center"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { QUESTIONS } from "@/lib/assessment";
+import { useI18n } from "@/components/I18nProvider";
 
 interface Report {
   total: number;
@@ -16,13 +16,17 @@ interface Report {
 type Phase = "intro" | "quiz" | "loading" | "result" | "error";
 
 export default function Readiness() {
+  const { locale, dict } = useI18n();
+  const r = dict.readiness;
+  const questions = r.questions;
+
   const [phase, setPhase] = useState<Phase>("intro");
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [report, setReport] = useState<Report | null>(null);
 
-  const total = QUESTIONS.length;
-  const q = QUESTIONS[step];
+  const total = questions.length;
+  const q = questions[step];
   const answered = q ? answers[q.id] !== undefined : false;
 
   function choose(idx: number) {
@@ -35,7 +39,7 @@ export default function Readiness() {
       const res = await fetch("/api/assess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answers }),
+        body: JSON.stringify({ answers, locale }),
       });
       if (!res.ok) throw new Error("Request failed");
       const data: Report = await res.json();
@@ -62,15 +66,11 @@ export default function Readiness() {
     <section id="assessment" className="relative border-t border-slate-line bg-ink py-24">
       <div className="shell">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow">Live demo · runs on AI</p>
+          <p className="eyebrow">{r.eyebrow}</p>
           <h2 className="mt-4 font-display text-3xl font-semibold text-mist md:text-4xl">
-            How AI-ready is your business?
+            {r.title}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted">
-            Answer five quick questions. Our engine scores your readiness and returns a
-            tailored report in seconds — the same kind of intelligence we build into your
-            operations.
-          </p>
+          <p className="mt-4 text-base leading-relaxed text-muted">{r.body}</p>
         </div>
 
         <div className="mx-auto mt-10 max-w-2xl">
@@ -82,20 +82,16 @@ export default function Readiness() {
                     <span className="font-display text-lg text-orange">AI</span>
                   </div>
                   <p className="font-display text-xs uppercase tracking-widest text-muted">
-                    5 questions · ~30 seconds · no email required
+                    {r.meta}
                   </p>
-                  <button
-                    onClick={() => setPhase("quiz")}
-                    className="btn-primary mt-6"
-                  >
-                    Start the assessment
+                  <button onClick={() => setPhase("quiz")} className="btn-primary mt-6">
+                    {r.start}
                   </button>
                 </div>
               )}
 
               {phase === "quiz" && q && (
                 <div className="animate-fade-up">
-                  {/* Progress */}
                   <div className="mb-6 flex items-center justify-between">
                     <span className="font-display text-xs text-muted">
                       {String(step + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
@@ -111,9 +107,7 @@ export default function Readiness() {
                   <p className="font-display text-[11px] uppercase tracking-widest text-orange">
                     {q.dimension}
                   </p>
-                  <h3 className="mt-2 font-display text-xl font-medium text-mist">
-                    {q.prompt}
-                  </h3>
+                  <h3 className="mt-2 font-display text-xl font-medium text-mist">{q.prompt}</h3>
 
                   <div className="mt-6 space-y-3">
                     {q.options.map((opt, i) => {
@@ -136,7 +130,7 @@ export default function Readiness() {
                           >
                             {selected && <span className="h-2 w-2 rounded-full bg-orange" />}
                           </span>
-                          {opt.label}
+                          {opt}
                         </button>
                       );
                     })}
@@ -147,14 +141,14 @@ export default function Readiness() {
                       onClick={() => (step > 0 ? setStep(step - 1) : setPhase("intro"))}
                       className="font-sans text-sm text-muted hover:text-mist"
                     >
-                      Back
+                      {r.back}
                     </button>
                     <button
                       onClick={next}
                       disabled={!answered}
                       className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
                     >
-                      {step < total - 1 ? "Next" : "See my report"}
+                      {step < total - 1 ? r.next : r.seeReport}
                     </button>
                   </div>
                 </div>
@@ -172,7 +166,7 @@ export default function Readiness() {
                     ))}
                   </div>
                   <p className="mt-5 font-display text-xs uppercase tracking-widest text-muted">
-                    Analyzing your responses
+                    {r.analyzing}
                   </p>
                 </div>
               )}
@@ -183,7 +177,7 @@ export default function Readiness() {
                     <ScoreDial value={report.total} band={report.band} />
                     <div>
                       <p className="font-display text-[11px] uppercase tracking-widest text-orange">
-                        Readiness · {report.band}
+                        {r.readinessLabel} · {report.band}
                       </p>
                       <h3 className="mt-1 font-display text-lg font-semibold leading-snug text-mist">
                         {report.headline}
@@ -197,26 +191,26 @@ export default function Readiness() {
 
                   <div className="mt-6 border-t border-slate-line pt-5">
                     <p className="font-display text-[11px] uppercase tracking-widest text-muted">
-                      Recommended next steps
+                      {r.nextSteps}
                     </p>
                     <ul className="mt-3 space-y-2.5">
-                      {report.recommendations.map((r, i) => (
+                      {report.recommendations.map((rec, i) => (
                         <li key={i} className="flex gap-3 text-sm text-mist">
                           <span className="mt-0.5 font-display text-xs text-orange">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="leading-relaxed">{r}</span>
+                          <span className="leading-relaxed">{rec}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                    <a href="#contact" className="btn-primary flex-1">
-                      Discuss these results with us
+                    <a href={`/${locale}/#contact`} className="btn-primary flex-1">
+                      {r.discuss}
                     </a>
                     <button onClick={reset} className="btn-ghost">
-                      Retake
+                      {r.retake}
                     </button>
                   </div>
                 </div>
@@ -224,11 +218,9 @@ export default function Readiness() {
 
               {phase === "error" && (
                 <div className="py-8 text-center">
-                  <p className="text-sm text-mist">
-                    Something went wrong generating your report.
-                  </p>
+                  <p className="text-sm text-mist">{r.error}</p>
                   <button onClick={submit} className="btn-ghost mt-5">
-                    Try again
+                    {r.tryAgain}
                   </button>
                 </div>
               )}
@@ -241,17 +233,17 @@ export default function Readiness() {
 }
 
 function ScoreDial({ value, band }: { value: number; band: string }) {
-  const r = 34;
-  const c = 2 * Math.PI * r;
+  const radius = 34;
+  const c = 2 * Math.PI * radius;
   const offset = c - (value / 100) * c;
   return (
     <div className="relative h-24 w-24 shrink-0">
       <svg viewBox="0 0 80 80" className="h-24 w-24 -rotate-90">
-        <circle cx="40" cy="40" r={r} fill="none" stroke="#1C2634" strokeWidth="7" />
+        <circle cx="40" cy="40" r={radius} fill="none" stroke="#1C2634" strokeWidth="7" />
         <circle
           cx="40"
           cy="40"
-          r={r}
+          r={radius}
           fill="none"
           stroke="url(#dial)"
           strokeWidth="7"
@@ -268,9 +260,7 @@ function ScoreDial({ value, band }: { value: number; band: string }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="font-display text-2xl font-semibold text-mist">{value}</span>
-        <span className="font-display text-[9px] uppercase tracking-wider text-muted">
-          / 100
-        </span>
+        <span className="font-display text-[9px] uppercase tracking-wider text-muted">/ 100</span>
       </div>
       <span className="sr-only">{band}</span>
     </div>

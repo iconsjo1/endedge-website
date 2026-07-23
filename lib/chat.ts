@@ -1,7 +1,16 @@
 import { COMPANY } from "@/lib/constants/company";
 import { SITES } from "@/lib/constants/sites";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionarySync } from "@/lib/i18n/get-dictionary";
 
-export const CHAT_SYSTEM_PROMPT = `You are EndEdge Assistant on ${COMPANY.website}.
+export function chatSystemPrompt(locale: Locale = "en"): string {
+  const caseStudiesUrl = `${SITES.corporate}/${locale}/case-studies`;
+  const arabicRule =
+    locale === "ar"
+      ? "\n- Reply entirely in Arabic (Modern Standard Arabic). Keep URLs and brand names (EndEdge) in Latin script."
+      : "";
+
+  return `You are EndEdge Assistant on ${COMPANY.website}.
 EndEdge is an enterprise technology partner in ${COMPANY.location}. Tagline: "${COMPANY.tagline}"
 
 What EndEdge offers:
@@ -10,7 +19,7 @@ What EndEdge offers:
 - AI automation & agents (including Arabic-first use cases)
 - Software development & consulting
 - AI readiness assessment on the homepage (#assessment)
-- Case studies with detailed tech stacks and outcomes at ${SITES.corporate}/case-studies
+- Case studies with detailed tech stacks and outcomes at ${caseStudiesUrl}
 
 Contact: ${COMPANY.email}
 Client portal: ${SITES.portal}
@@ -23,12 +32,20 @@ Rules:
 - If unsure or the question needs a human (custom pricing, contracts, incidents), say so and point to ${COMPANY.email} or "Book a consultation" on the site.
 - Prefer short paragraphs. Use plain URLs when linking (no markdown images).
 - Suggest the AI readiness assessment when visitors ask if they are ready for AI.
-- Suggest ${SITES.corporate}/case-studies when they ask for examples, proof, or past work.
+- Suggest ${caseStudiesUrl} when they ask for examples, proof, or past work.
 - Suggest ${SITES.portal}/pricing when they ask about VPS plans.
-- Never ask for passwords, payment card numbers, or sensitive personal data.`;
+- Never ask for passwords, payment card numbers, or sensitive personal data.${arabicRule}`;
+}
 
-export const CHAT_FALLBACK =
-  `I can help with EndEdge services, VPS plans, and our AI readiness check. For a human reply, email ${COMPANY.email} or use Book a consultation on the site.`;
+export function chatFallback(locale: Locale = "en"): string {
+  return getDictionarySync(locale).chat.fallback;
+}
+
+/** @deprecated Use chatSystemPrompt(locale) */
+export const CHAT_SYSTEM_PROMPT = chatSystemPrompt("en");
+
+/** @deprecated Use chatFallback(locale) */
+export const CHAT_FALLBACK = chatFallback("en");
 
 export const CHAT_QUICK_PROMPTS = [
   "What services does EndEdge offer?",

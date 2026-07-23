@@ -28,8 +28,8 @@ const config: Config = {
         stone: "#555555",     // brand gray — secondary text on light
       },
       fontFamily: {
-        display: ["var(--font-poppins)", "system-ui", "sans-serif"],
-        sans: ["var(--font-roboto)", "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)", "var(--font-cairo)", "system-ui", "sans-serif"],
+        sans: ["var(--font-roboto)", "var(--font-cairo)", "system-ui", "sans-serif"],
         arabic: ["var(--font-cairo)", "system-ui", "sans-serif"],
       },
       maxWidth: {

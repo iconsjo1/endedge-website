@@ -79,6 +79,12 @@ body {
   }
 }
 
+[dir="rtl"] .font-display,
+[dir="rtl"] .font-sans,
+[dir="rtl"] body {
+  font-family: var(--font-cairo), system-ui, sans-serif;
+}
+
 /* StackMark assemble + ambient motion (hero only via .stack-mark-animate) */
 @keyframes hero-reveal {
   from {
