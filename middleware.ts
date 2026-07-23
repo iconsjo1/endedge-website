@@ -7,6 +7,8 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
+    pathname.startsWith("/apple-icon") ||
+    pathname.startsWith("/icon") ||
     pathname.includes(".")
   ) {
     return NextResponse.next();
