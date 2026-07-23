@@ -1,39 +1,39 @@
 "use client";
 
 import { useI18n } from "@/components/I18nProvider";
-import { useTheme, type Theme } from "@/components/ThemeProvider";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const { dict } = useI18n();
   const t = dict.theme;
-
-  const options: { id: Theme; label: string }[] = [
-    { id: "dark", label: t.dark },
-    { id: "light", label: t.light },
-  ];
+  const nextLabel = theme === "dark" ? t.light : t.dark;
 
   return (
-    <div
-      className="inline-flex items-center rounded-md border border-slate-line bg-slate-panel/40 p-0.5"
-      role="group"
-      aria-label={t.label}
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-line bg-slate-panel/40 text-muted transition-colors hover:border-orange hover:text-orange"
+      aria-label={`${t.label}: ${nextLabel}`}
+      title={`${t.label}: ${nextLabel}`}
     >
-      {options.map((option) => (
-        <button
-          key={option.id}
-          type="button"
-          onClick={() => setTheme(option.id)}
-          className={`rounded px-2.5 py-1 font-display text-[11px] font-semibold tracking-wide transition-colors ${
-            theme === option.id
-              ? "bg-navy text-white"
-              : "text-muted hover:text-mist"
-          }`}
-          aria-pressed={theme === option.id}
-        >
-          {option.label}
-        </button>
-      ))}
-    </div>
+      {theme === "dark" ? (
+        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
+          <circle cx="12" cy="12" r="4" />
+          <path
+            strokeLinecap="round"
+            d="M12 2.5v2M12 19.5v2M4.5 12h-2M21.5 12h-2M6.2 6.2l-1.4-1.4M19.2 19.2l-1.4-1.4M6.2 17.8l-1.4 1.4M19.2 4.8l-1.4 1.4"
+          />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 7 7 0 1 0 20.5 14.2z"
+          />
+        </svg>
+      )}
+    </button>
   );
 }
