@@ -29,6 +29,15 @@ export default function StackMark({
     return `${cx - w},${cy} ${cx},${cy - h} ${cx + w},${cy} ${cx},${cy + h}`;
   };
 
+  // Top-right edge of each rhombus: slope matches halfHeight/halfWidth.
+  // Rotate the brand chevron so it leads along that isometric edge.
+  const EDGE_W = 150;
+  const EDGE_H = 34;
+  const edgeAngleDeg = (Math.atan2(EDGE_H, EDGE_W) * 180) / Math.PI;
+  // Sit just past Growth's top apex, on the orange top-right edge.
+  const chevronX = 236;
+  const chevronY = 64;
+
   return (
     <svg
       viewBox="0 0 460 380"
@@ -106,12 +115,14 @@ export default function StackMark({
         opacity="0.55"
       />
 
-      {/* Brand chevron leading off the top edge — "the edge" moving forward */}
-      <path
-        className={animate ? "stack-chevron" : undefined}
-        d="M234 40 L262 58 L234 76 L246 58 Z"
-        fill="#FF6F00"
-      />
+      {/* Brand chevron leading along the Growth top-right edge */}
+      <g transform={`translate(${chevronX} ${chevronY}) rotate(${edgeAngleDeg})`}>
+        <path
+          className={animate ? "stack-chevron" : undefined}
+          d="M-14 -18 L14 0 L-14 18 L-2 0 Z"
+          fill="#FF6F00"
+        />
+      </g>
     </svg>
   );
 }

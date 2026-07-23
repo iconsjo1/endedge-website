@@ -131,8 +131,20 @@ body {
     opacity: 1;
   }
   50% {
-    transform: translate(3px, -2px);
+    /* Nudge along the local +x axis (isometric edge after SVG rotate) */
+    transform: translate(4px, 0);
     opacity: 0.85;
+  }
+}
+
+@keyframes stack-chevron-in {
+  from {
+    opacity: 0;
+    transform: translate(-6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
   }
 }
 
@@ -164,7 +176,7 @@ body {
   transform-box: fill-box;
   transform-origin: center;
   animation:
-    stack-layer-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both,
+    stack-chevron-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both,
     stack-chevron-pulse 3.2s ease-in-out 1.4s infinite;
 }
 
