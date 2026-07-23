@@ -69,6 +69,10 @@ export async function generateMetadata({
       locale: locale === "ar" ? "ar_AE" : "en_AE",
       type: "website",
     },
+    icons: {
+      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+      apple: [{ url: "/apple-icon", type: "image/png" }],
+    },
     robots: { index: true, follow: true },
   };
 }
