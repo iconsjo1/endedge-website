@@ -622,4 +622,9 @@ export const en: Dictionary = {
     ar: "ع",
     switchTo: "Language",
   },
+  theme: {
+    label: "Theme",
+    dark: "Dark",
+    light: "Light",
+  },
 };

@@ -4,6 +4,7 @@ import { Poppins, Roboto, Cairo } from "next/font/google";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/ChatWidget";
 import { I18nProvider } from "@/components/I18nProvider";
+import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
 import {
   defaultLocale,
   isLocale,
@@ -89,12 +90,15 @@ export default async function LocaleLayout({
       : `${poppins.variable} ${roboto.variable} ${cairo.variable} font-sans`;
 
   return (
-    <html lang={locale} dir={dir} className={fontClass}>
+    <html lang={locale} dir={dir} className={fontClass} data-theme="dark" suppressHydrationWarning>
       <body>
-        <I18nProvider locale={locale} dict={dict}>
-          {children}
-          <ChatWidget />
-        </I18nProvider>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <ThemeProvider>
+          <I18nProvider locale={locale} dict={dict}>
+            {children}
+            <ChatWidget />
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

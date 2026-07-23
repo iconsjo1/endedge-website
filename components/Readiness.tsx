@@ -239,7 +239,7 @@ function ScoreDial({ value, band }: { value: number; band: string }) {
   return (
     <div className="relative h-24 w-24 shrink-0">
       <svg viewBox="0 0 80 80" className="h-24 w-24 -rotate-90">
-        <circle cx="40" cy="40" r={radius} fill="none" stroke="#1C2634" strokeWidth="7" />
+        <circle cx="40" cy="40" r={radius} fill="none" stroke="var(--dial-track)" strokeWidth="7" />
         <circle
           cx="40"
           cy="40"
@@ -253,8 +253,8 @@ function ScoreDial({ value, band }: { value: number; band: string }) {
         />
         <defs>
           <linearGradient id="dial" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ff6f00" />
-            <stop offset="100%" stopColor="#14257e" />
+            <stop offset="0%" stopColor="var(--orange)" />
+            <stop offset="100%" stopColor="var(--navy)" />
           </linearGradient>
         </defs>
       </svg>

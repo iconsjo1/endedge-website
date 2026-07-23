@@ -2,8 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* ── Semantic brand tokens ───────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
   color-scheme: dark;
+
+  --bg: #0a1230;
+  --bg-raised: #111c4a;
+  --bg-band: #faf9f6;
+  --line: #25336b;
+  --text: #eaeef9;
+  --text-muted: #93a0c8;
+  --text-on-band: #212121;
+  --text-muted-on-band: #555555;
+
+  --navy: #14257e;
+  --navy-hover: #1b2f96;
+  --orange: #ff6f00;
+  --orange-bright: #ff8a2b;
+
+  --grid-line: rgba(37, 51, 107, 0.55);
+  --edge-glow-ring: rgba(255, 111, 0, 0.18);
+  --edge-glow-bloom: rgba(20, 37, 126, 0.65);
+  --dial-track: #1c2634;
+
+  --stack-1-fill: #0e1a45;
+  --stack-1-stroke: #25336b;
+  --stack-2-fill: #122055;
+  --stack-2-stroke: #2c3e86;
+  --stack-3-fill: #152863;
+  --stack-3-stroke: #33489a;
+  --stack-4-fill: #183072;
+  --stack-4-stroke: #3b54b0;
+  --stack-5-fill: #1b3a8a;
+  --stack-5-stroke: #ff6f00;
+  --stack-label: #93a0c8;
+  --stack-label-active: #ff6f00;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f4f6fb;
+  --bg-raised: #ffffff;
+  --bg-band: #e8ecf6;
+  --line: #c5cee3;
+  --text: #0a1230;
+  --text-muted: #5a6a8f;
+  --text-on-band: #0a1230;
+  --text-muted-on-band: #5a6a8f;
+
+  --navy: #14257e;
+  --navy-hover: #1b2f96;
+  --orange: #ff6f00;
+  --orange-bright: #ff8a2b;
+
+  --grid-line: rgba(20, 37, 126, 0.12);
+  --edge-glow-ring: rgba(255, 111, 0, 0.22);
+  --edge-glow-bloom: rgba(20, 37, 126, 0.18);
+  --dial-track: #d5dceb;
+
+  --stack-1-fill: #d5dceb;
+  --stack-1-stroke: #a8b4d4;
+  --stack-2-fill: #c5d0ea;
+  --stack-2-stroke: #8fa0c8;
+  --stack-3-fill: #b0bfdf;
+  --stack-3-stroke: #6b7fb8;
+  --stack-4-fill: #8fa3d4;
+  --stack-4-stroke: #4a63a8;
+  --stack-5-fill: #14257e;
+  --stack-5-stroke: #ff6f00;
+  --stack-label: #5a6a8f;
+  --stack-label-active: #ff6f00;
 }
 
 html {
@@ -11,10 +81,11 @@ html {
 }
 
 body {
-  background-color: #0a1230;
-  color: #eaeef9;
+  background-color: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 @layer components {
@@ -42,7 +113,10 @@ body {
     @apply btn border border-slate-line text-mist hover:border-orange hover:text-orange;
   }
   .btn-dark {
-    @apply btn bg-navy text-white hover:bg-[#1b2f96];
+    @apply btn bg-navy text-white;
+  }
+  .btn-dark:hover {
+    background-color: var(--navy-hover);
   }
 
   /* Header nav links */
@@ -59,7 +133,7 @@ body {
     @apply scale-x-100;
   }
 
-  /* Hairline card on dark */
+  /* Hairline card */
   .card {
     @apply rounded-xl border border-slate-line bg-slate-panel;
   }
@@ -67,20 +141,19 @@ body {
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(100deg, #ff6f00 0%, #ff9e4d 100%);
+    background: linear-gradient(100deg, var(--orange) 0%, var(--orange-bright) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .edge-glow {
-    box-shadow: 0 0 0 1px rgba(255, 111, 0, 0.18),
-      0 24px 80px -32px rgba(20, 37, 126, 0.65);
+    box-shadow: 0 0 0 1px var(--edge-glow-ring),
+      0 24px 80px -32px var(--edge-glow-bloom);
   }
-  /* Subtle grid backdrop for dark hero */
   .grid-backdrop {
     background-image:
-      linear-gradient(to right, rgba(37, 51, 107, 0.55) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(37, 51, 107, 0.55) 1px, transparent 1px);
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size: 56px 56px;
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
@@ -151,7 +224,6 @@ body {
     opacity: 1;
   }
   50% {
-    /* Nudge along the local +x axis (isometric edge after SVG rotate) */
     transform: translate(4px, 0);
     opacity: 0.85;
   }

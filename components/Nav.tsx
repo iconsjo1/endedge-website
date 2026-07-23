@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SITES } from "@/lib/constants/sites";
 import { useI18n } from "@/components/I18nProvider";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Nav() {
   const { locale, dict } = useI18n();
@@ -88,6 +89,7 @@ export default function Nav() {
           </div>
 
           <div className="ms-3 flex items-center gap-2.5 border-s border-slate-line/70 ps-3">
+            <ThemeToggle />
             <LanguageSwitcher />
             <a href={`${SITES.portal}/pricing`} className="btn-ghost px-3.5 py-2 text-xs">
               {n.viewHosting}
@@ -147,8 +149,11 @@ export default function Nav() {
             </a>
           ))}
 
-          <div className="mt-3 flex items-center justify-between gap-3 border-t border-slate-line px-1 pt-4">
-            <LanguageSwitcher />
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-slate-line px-1 pt-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <ThemeToggle />
+              <LanguageSwitcher />
+            </div>
             <p className="font-display text-[11px] uppercase tracking-wider text-muted">
               EndEdge
             </p>

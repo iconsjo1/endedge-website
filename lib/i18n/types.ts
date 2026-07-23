@@ -199,4 +199,9 @@ export type Dictionary = {
     ar: string;
     switchTo: string;
   };
+  theme: {
+    label: string;
+    dark: string;
+    light: string;
+  };
 };

@@ -22,7 +22,9 @@ export default function LanguageSwitcher() {
         href={enHref}
         hrefLang="en"
         className={`rounded px-2.5 py-1 font-display text-[11px] font-semibold tracking-wide transition-colors ${
-          locale === "en" ? "bg-ink text-orange" : "text-muted hover:text-mist"
+          locale === "en"
+            ? "bg-navy text-white"
+            : "text-muted hover:text-mist"
         }`}
         aria-current={locale === "en" ? "true" : undefined}
       >
@@ -32,7 +34,9 @@ export default function LanguageSwitcher() {
         href={arHref}
         hrefLang="ar"
         className={`rounded px-2.5 py-1 font-display text-[11px] font-semibold tracking-wide transition-colors ${
-          locale === "ar" ? "bg-ink text-orange" : "text-muted hover:text-mist"
+          locale === "ar"
+            ? "bg-navy text-white"
+            : "text-muted hover:text-mist"
         }`}
         aria-current={locale === "ar" ? "true" : undefined}
       >

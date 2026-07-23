@@ -1,9 +1,6 @@
 /**
  * StackMark — EndEdge's signature visual.
- * A layered value stack (Infrastructure at the base -> Growth at the top),
- * with the brand's orange chevron leading off the top edge: the "edge" that
- * moves the business forward. Reused in the hero and the value section.
- * Brand palette: navy #14257E surfaces, orange #FF6F00 accent.
+ * Layer fills/strokes use CSS variables so they follow data-theme.
  */
 export default function StackMark({
   className = "",
@@ -16,37 +13,59 @@ export default function StackMark({
   rtl?: boolean;
   animate?: boolean;
 }) {
-  // Bottom (infra) -> top (growth). Bottom is widest/most solid.
   const layers = [
-    { y: 300, fill: "#0E1A45", stroke: "#25336B", label: "Infrastructure" },
-    { y: 248, fill: "#122055", stroke: "#2C3E86", label: "Applications" },
-    { y: 196, fill: "#152863", stroke: "#33489A", label: "Automation" },
-    { y: 144, fill: "#183072", stroke: "#3B54B0", label: "Applied AI" },
-    { y: 92, fill: "#1B3A8A", stroke: "#FF6F00", label: "Growth" },
+    {
+      y: 300,
+      fill: "var(--stack-1-fill)",
+      stroke: "var(--stack-1-stroke)",
+      fallbackLabel: "Infrastructure",
+    },
+    {
+      y: 248,
+      fill: "var(--stack-2-fill)",
+      stroke: "var(--stack-2-stroke)",
+      fallbackLabel: "Applications",
+    },
+    {
+      y: 196,
+      fill: "var(--stack-3-fill)",
+      stroke: "var(--stack-3-stroke)",
+      fallbackLabel: "Automation",
+    },
+    {
+      y: 144,
+      fill: "var(--stack-4-fill)",
+      stroke: "var(--stack-4-stroke)",
+      fallbackLabel: "Applied AI",
+    },
+    {
+      y: 92,
+      fill: "var(--stack-5-fill)",
+      stroke: "var(--stack-5-stroke)",
+      fallbackLabel: "Growth",
+    },
   ];
 
-  const labelTexts = Array.isArray(labels)
-    ? layers.map((l, i) => labels[i] ?? l.label)
-    : layers.map((l) => l.label);
-  const showLabels = labels === true || Array.isArray(labels);
+  const labelList =
+    Array.isArray(labels) && labels.length === layers.length
+      ? labels
+      : labels
+        ? layers.map((l) => l.fallbackLabel)
+        : null;
 
   const plane = (cx: number, cy: number) => {
-    const w = 150; // half-width
-    const h = 34; // vertical offset of the rhombus
+    const w = 150;
+    const h = 34;
     return `${cx - w},${cy} ${cx},${cy - h} ${cx + w},${cy} ${cx},${cy + h}`;
   };
 
-  // Top-right edge of each rhombus: slope matches halfHeight/halfWidth.
-  // Rotate the brand chevron so it leads along that isometric edge.
   const EDGE_W = 150;
   const EDGE_H = 34;
   const edgeAngleDeg = (Math.atan2(EDGE_H, EDGE_W) * 180) / Math.PI;
-  // Sit just past Growth's top apex, on the orange top-right edge.
   const chevronX = 236;
   const chevronY = 64;
-
   const labelX = rtl ? 82 : 378;
-  const textAnchor = rtl ? "end" : "start";
+  const labelAnchor = rtl ? "end" : "start";
 
   return (
     <svg
@@ -57,19 +76,18 @@ export default function StackMark({
     >
       <defs>
         <linearGradient id="edgeLine" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#FF6F00" />
-          <stop offset="100%" stopColor="#FF9E4D" />
+          <stop offset="0%" stopColor="var(--orange)" />
+          <stop offset="100%" stopColor="var(--orange-bright)" />
         </linearGradient>
         <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="7" />
         </filter>
       </defs>
 
-      {/* Ambient orange glow behind the top layer */}
       <polygon
         className={animate ? "stack-glow" : undefined}
         points={plane(210, 92)}
-        fill="#FF6F00"
+        fill="var(--orange)"
         opacity="0.16"
         filter="url(#soft)"
       />
@@ -94,25 +112,28 @@ export default function StackMark({
               strokeWidth="2.5"
             />
           )}
-          {showLabels && (
+          {labelList && (
             <text
               className={animate ? "stack-label" : undefined}
               style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
               x={labelX}
               y={l.y + 4}
-              fill={i === layers.length - 1 ? "#FF6F00" : "#93A0C8"}
+              fill={
+                i === layers.length - 1
+                  ? "var(--stack-label-active)"
+                  : "var(--stack-label)"
+              }
               fontSize="12"
-              fontFamily="var(--font-poppins), sans-serif"
+              fontFamily="var(--font-poppins), var(--font-cairo), sans-serif"
               fontWeight={i === layers.length - 1 ? 600 : 400}
-              textAnchor={textAnchor}
+              textAnchor={labelAnchor}
             >
-              {labelTexts[i]}
+              {labelList[i]}
             </text>
           )}
         </g>
       ))}
 
-      {/* Vertical edge line up through the stack */}
       <line
         className={animate ? "stack-spine" : undefined}
         x1="210"
@@ -125,12 +146,11 @@ export default function StackMark({
         opacity="0.55"
       />
 
-      {/* Brand chevron leading along the Growth top-right edge */}
       <g transform={`translate(${chevronX} ${chevronY}) rotate(${edgeAngleDeg})`}>
         <path
           className={animate ? "stack-chevron" : undefined}
           d="M-14 -18 L14 0 L-14 18 L-2 0 Z"
-          fill="#FF6F00"
+          fill="var(--orange)"
         />
       </g>
     </svg>

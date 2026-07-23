@@ -8,24 +8,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Dark surfaces — deep navy derived from brand #14257E
-        ink: "#0A1230",       // page background (dark sections)
+        // Semantic surfaces — values come from CSS variables (theme-aware)
+        ink: "var(--bg)",
         slate: {
-          panel: "#111C4A",   // raised dark panel
-          line: "#25336B",    // hairlines on dark
+          panel: "var(--bg-raised)",
+          line: "var(--line)",
         },
-        mist: "#EAEEF9",      // primary text on dark
-        muted: "#93A0C8",     // secondary text on dark
+        mist: "var(--text)",
+        muted: "var(--text-muted)",
 
         // Brand core
-        navy: "#14257E",      // brand dark blue
-        orange: "#FF6F00",    // brand accent
-        "orange-bright": "#FF8A2B",
+        navy: "var(--navy)",
+        orange: "var(--orange)",
+        "orange-bright": "var(--orange-bright)",
 
-        // Light surfaces
-        paper: "#FAF9F6",     // warm off-white light section
-        graphite: "#212121",  // brand black — text on light
-        stone: "#555555",     // brand gray — secondary text on light
+        // Alternating section bands
+        paper: "var(--bg-band)",
+        graphite: "var(--text-on-band)",
+        stone: "var(--text-muted-on-band)",
       },
       fontFamily: {
         display: ["var(--font-poppins)", "var(--font-cairo)", "system-ui", "sans-serif"],

@@ -627,4 +627,9 @@ export const ar: Dictionary = {
     ar: "ع",
     switchTo: "اللغة",
   },
+  theme: {
+    label: "المظهر",
+    dark: "داكن",
+    light: "فاتح",
+  },
 };
