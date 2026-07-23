@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Roboto, Cairo } from "next/font/google";
+import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -62,7 +63,10 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${roboto.variable} ${cairo.variable}`}
     >
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <ChatWidget />
+      </body>
     </html>
   );
 }

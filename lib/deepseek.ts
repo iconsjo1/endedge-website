@@ -1,9 +1,23 @@
+type ChatMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
+
 type DeepSeekChatParams = {
   apiKey: string;
   model: string;
   system: string;
   user: string;
   maxTokens?: number;
+  jsonMode?: boolean;
+};
+
+type DeepSeekConversationParams = {
+  apiKey: string;
+  model: string;
+  messages: ChatMessage[];
+  maxTokens?: number;
+  jsonMode?: boolean;
 };
 
 export async function deepseekChat({
@@ -12,7 +26,27 @@ export async function deepseekChat({
   system,
   user,
   maxTokens = 700,
+  jsonMode = true,
 }: DeepSeekChatParams): Promise<string> {
+  return deepseekConversation({
+    apiKey,
+    model,
+    maxTokens,
+    jsonMode,
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
+  });
+}
+
+export async function deepseekConversation({
+  apiKey,
+  model,
+  messages,
+  maxTokens = 500,
+  jsonMode = false,
+}: DeepSeekConversationParams): Promise<string> {
   const baseUrl = process.env.DEEPSEEK_BASE_URL || "https://api.deepseek.com";
   const response = await fetch(`${baseUrl}/chat/completions`, {
     method: "POST",
@@ -23,11 +57,8 @@ export async function deepseekChat({
     body: JSON.stringify({
       model,
       max_tokens: maxTokens,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-      response_format: { type: "json_object" },
+      messages,
+      ...(jsonMode ? { response_format: { type: "json_object" } } : {}),
     }),
   });
 
