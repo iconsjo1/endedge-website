@@ -8,9 +8,11 @@
 export default function StackMark({
   className = "",
   labels = false,
+  animate = false,
 }: {
   className?: string;
   labels?: boolean;
+  animate?: boolean;
 }) {
   // Bottom (infra) -> top (growth). Bottom is widest/most solid.
   const layers = [
@@ -30,7 +32,7 @@ export default function StackMark({
   return (
     <svg
       viewBox="0 0 460 380"
-      className={className}
+      className={`${className}${animate ? " stack-mark-animate" : ""}`}
       role="img"
       aria-label="EndEdge value stack: infrastructure, applications, automation, applied AI, growth"
     >
@@ -46,6 +48,7 @@ export default function StackMark({
 
       {/* Ambient orange glow behind the top layer */}
       <polygon
+        className={animate ? "stack-glow" : undefined}
         points={plane(210, 92)}
         fill="#FF6F00"
         opacity="0.16"
@@ -53,7 +56,11 @@ export default function StackMark({
       />
 
       {layers.map((l, i) => (
-        <g key={i}>
+        <g
+          key={i}
+          className={animate ? "stack-layer" : undefined}
+          style={animate ? { animationDelay: `${0.15 + i * 0.12}s` } : undefined}
+        >
           <polygon
             points={plane(210, l.y)}
             fill={l.fill}
@@ -70,6 +77,8 @@ export default function StackMark({
           )}
           {labels && (
             <text
+              className={animate ? "stack-label" : undefined}
+              style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
               x="378"
               y={l.y + 4}
               fill={i === layers.length - 1 ? "#FF6F00" : "#93A0C8"}
@@ -86,6 +95,7 @@ export default function StackMark({
 
       {/* Vertical edge line up through the stack */}
       <line
+        className={animate ? "stack-spine" : undefined}
         x1="210"
         y1="330"
         x2="210"
@@ -98,6 +108,7 @@ export default function StackMark({
 
       {/* Brand chevron leading off the top edge — "the edge" moving forward */}
       <path
+        className={animate ? "stack-chevron" : undefined}
         d="M234 40 L262 58 L234 76 L246 58 Z"
         fill="#FF6F00"
       />
