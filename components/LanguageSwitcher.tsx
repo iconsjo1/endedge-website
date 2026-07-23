@@ -3,25 +3,41 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
-import { stripLocale, type Locale } from "@/lib/i18n/config";
+import { stripLocale } from "@/lib/i18n/config";
 
 export default function LanguageSwitcher() {
   const { locale, dict } = useI18n();
   const pathname = usePathname() || "/";
   const path = stripLocale(pathname);
-  const other: Locale = locale === "en" ? "ar" : "en";
-  const href = path === "/" ? `/${other}` : `/${other}${path}`;
+  const enHref = path === "/" ? "/en" : `/en${path}`;
+  const arHref = path === "/" ? "/ar" : `/ar${path}`;
 
   return (
-    <Link
-      href={href}
-      className="inline-flex items-center gap-1.5 rounded-md border border-slate-line px-2.5 py-1.5 font-display text-xs font-semibold text-muted transition-colors hover:border-orange hover:text-orange"
-      hrefLang={other}
+    <div
+      className="inline-flex items-center rounded-md border border-slate-line bg-slate-panel/40 p-0.5"
+      role="group"
       aria-label={dict.language.switchTo}
     >
-      <span className={locale === "en" ? "text-orange" : undefined}>EN</span>
-      <span className="text-slate-line">/</span>
-      <span className={locale === "ar" ? "text-orange" : undefined}>ع</span>
-    </Link>
+      <Link
+        href={enHref}
+        hrefLang="en"
+        className={`rounded px-2.5 py-1 font-display text-[11px] font-semibold tracking-wide transition-colors ${
+          locale === "en" ? "bg-ink text-orange" : "text-muted hover:text-mist"
+        }`}
+        aria-current={locale === "en" ? "true" : undefined}
+      >
+        EN
+      </Link>
+      <Link
+        href={arHref}
+        hrefLang="ar"
+        className={`rounded px-2.5 py-1 font-display text-[11px] font-semibold tracking-wide transition-colors ${
+          locale === "ar" ? "bg-ink text-orange" : "text-muted hover:text-mist"
+        }`}
+        aria-current={locale === "ar" ? "true" : undefined}
+      >
+        ع
+      </Link>
+    </div>
   );
 }

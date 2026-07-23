@@ -45,6 +45,20 @@ body {
     @apply btn bg-navy text-white hover:bg-[#1b2f96];
   }
 
+  /* Header nav links */
+  .nav-link {
+    @apply relative rounded-md px-2.5 py-2 font-sans text-[13px] text-muted
+           transition-colors duration-200 hover:text-mist;
+  }
+  .nav-link::after {
+    content: "";
+    @apply pointer-events-none absolute inset-x-2.5 -bottom-0.5 h-px origin-center
+           scale-x-0 bg-orange transition-transform duration-300;
+  }
+  .nav-link:hover::after {
+    @apply scale-x-100;
+  }
+
   /* Hairline card on dark */
   .card {
     @apply rounded-xl border border-slate-line bg-slate-panel;

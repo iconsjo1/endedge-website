@@ -12,7 +12,7 @@ export default function Hero({
   const h = dict.hero;
 
   return (
-    <section id="top" className="relative overflow-hidden pt-16">
+    <section id="top" className="relative overflow-hidden pt-[4.25rem]">
       {/* Grid backdrop + animated edge trace */}
       <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
       <div
