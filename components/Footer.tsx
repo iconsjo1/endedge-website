@@ -22,6 +22,7 @@ const COLUMNS = [
     heading: "Company",
     links: [
       { label: "About", href: "#top" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "Industries", href: "#industries" },
       { label: "AI Readiness", href: "#assessment" },
       { label: "Contact", href: "#contact" },

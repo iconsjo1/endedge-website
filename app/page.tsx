@@ -5,6 +5,7 @@ import Services from "@/components/Services";
 import ValueStack from "@/components/ValueStack";
 import Readiness from "@/components/Readiness";
 import WhyEndEdge from "@/components/WhyEndEdge";
+import CaseStudiesTeaser from "@/components/CaseStudiesTeaser";
 import TechStack from "@/components/TechStack";
 import Industries from "@/components/Industries";
 import CTA from "@/components/CTA";
@@ -21,6 +22,7 @@ export default function Home() {
         <ValueStack />
         <Readiness />
         <WhyEndEdge />
+        <CaseStudiesTeaser />
         <TechStack />
         <Industries />
         <CTA />

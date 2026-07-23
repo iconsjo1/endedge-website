@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { SITES } from "@/lib/constants/sites";
 
 const LINKS = [
-  { href: "#services", label: "Services" },
-  { href: "#value", label: "Approach" },
-  { href: "#assessment", label: "AI Readiness" },
-  { href: "#tech", label: "Technology" },
-  { href: "#industries", label: "Industries" },
+  { href: "/#services", label: "Services" },
+  { href: "/case-studies", label: "Case Studies" },
+  { href: "/#assessment", label: "AI Readiness" },
+  { href: "/#tech", label: "Technology" },
+  { href: "/#industries", label: "Industries" },
   { href: `${SITES.portal}/pricing`, label: "VPS Hosting", external: true },
 ];
 
@@ -54,7 +54,7 @@ export default function Nav() {
           <a href={`${SITES.portal}/pricing`} className="btn-ghost px-4 py-2 text-sm">
             View hosting plans
           </a>
-          <a href="#contact" className="btn-primary px-4 py-2 text-sm">
+          <a href="/#contact" className="btn-primary px-4 py-2 text-sm">
             Book a consultation
           </a>
         </div>
@@ -93,7 +93,7 @@ export default function Nav() {
             >
               View hosting plans
             </a>
-            <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-2">
+            <a href="/#contact" onClick={() => setOpen(false)} className="btn-primary mt-2">
               Book a consultation
             </a>
           </div>

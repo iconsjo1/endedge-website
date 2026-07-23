@@ -10,6 +10,7 @@ What EndEdge offers:
 - AI automation & agents (including Arabic-first use cases)
 - Software development & consulting
 - AI readiness assessment on the homepage (#assessment)
+- Case studies with detailed tech stacks and outcomes at ${SITES.corporate}/case-studies
 
 Contact: ${COMPANY.email}
 Client portal: ${SITES.portal}
@@ -22,6 +23,7 @@ Rules:
 - If unsure or the question needs a human (custom pricing, contracts, incidents), say so and point to ${COMPANY.email} or "Book a consultation" on the site.
 - Prefer short paragraphs. Use plain URLs when linking (no markdown images).
 - Suggest the AI readiness assessment when visitors ask if they are ready for AI.
+- Suggest ${SITES.corporate}/case-studies when they ask for examples, proof, or past work.
 - Suggest ${SITES.portal}/pricing when they ask about VPS plans.
 - Never ask for passwords, payment card numbers, or sensitive personal data.`;
 
@@ -30,7 +32,7 @@ export const CHAT_FALLBACK =
 
 export const CHAT_QUICK_PROMPTS = [
   "What services does EndEdge offer?",
+  "Show me case studies",
   "Show me VPS pricing",
   "How does the AI readiness check work?",
-  "How do I book a consultation?",
 ] as const;
