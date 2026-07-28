@@ -14,9 +14,12 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  const links = [
+  const desktopLinks = [
     { href: `/${locale}/case-studies`, label: n.caseStudies },
     { href: `/${locale}/about`, label: n.about },
+  ];
+
+  const mobileExploreLinks = [
     { href: `/${locale}/#assessment`, label: n.aiReadiness },
     { href: `/${locale}/#tech`, label: n.technology },
     { href: `/${locale}/#industries`, label: n.industries },
@@ -60,10 +63,10 @@ export default function Nav() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="shell flex h-[4.25rem] items-center justify-between gap-4">
+      <nav className="shell flex h-[4.25rem] min-w-0 items-center justify-between gap-3">
         <a
           href={`/${locale}`}
-          className="group relative z-10 flex items-center gap-2 font-display text-lg font-bold tracking-tight text-mist"
+          className="group relative z-10 flex shrink-0 items-center gap-2 font-display text-lg font-bold tracking-tight text-mist"
           onClick={closeMobile}
         >
           <span className="relative">
@@ -84,29 +87,31 @@ export default function Nav() {
           </svg>
         </a>
 
-        <div className="hidden items-center gap-1 lg:flex">
-          <div className="flex items-center gap-0.5 rounded-lg border border-transparent px-1 py-1">
+        <div className="hidden min-w-0 items-center gap-1 xl:flex">
+          <div className="flex min-w-0 items-center gap-0.5">
             <NavServicesDesktop locale={locale} label={n.services} menu={n.servicesMenu} />
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="nav-link"
-                {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              >
+            {desktopLinks.map((l) => (
+              <a key={l.href} href={l.href} className="nav-link">
                 {l.label}
               </a>
             ))}
           </div>
 
-          <div className="ms-3 flex items-center gap-2.5 border-s border-slate-line/70 ps-3">
+          <div className="ms-2 flex shrink-0 items-center gap-2 border-s border-slate-line/70 ps-3 2xl:ms-3 2xl:gap-2.5">
             <ThemeToggle />
             <LanguageSwitcher />
-            <a href={`${SITES.portal}/pricing`} className="btn-ghost px-3.5 py-2 text-xs">
+            <a
+              href={`${SITES.portal}/pricing`}
+              className="btn-ghost hidden whitespace-nowrap px-3 py-2 text-xs 2xl:inline-flex"
+            >
               {n.viewHosting}
             </a>
-            <a href={`/${locale}/#contact`} className="btn-primary px-3.5 py-2 text-xs">
-              {n.bookConsultation}
+            <a
+              href={`/${locale}/#contact`}
+              className="btn-primary whitespace-nowrap px-3 py-2 text-xs 2xl:px-3.5"
+            >
+              <span className="2xl:hidden">{n.bookConsultationShort}</span>
+              <span className="hidden 2xl:inline">{n.bookConsultation}</span>
             </a>
           </div>
         </div>
@@ -114,7 +119,7 @@ export default function Nav() {
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
-          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-md border border-slate-line/60 text-mist transition-colors hover:border-orange hover:text-orange lg:hidden"
+          className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-line/60 text-mist transition-colors hover:border-orange hover:text-orange xl:hidden"
           aria-label={n.toggleMenu}
           aria-expanded={open}
           aria-controls="mobile-nav"
@@ -142,7 +147,7 @@ export default function Nav() {
 
       <div
         id="mobile-nav"
-        className={`border-t border-slate-line bg-ink/95 backdrop-blur-md transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
+        className={`border-t border-slate-line bg-ink/95 backdrop-blur-md transition-[max-height,opacity] duration-300 ease-out xl:hidden ${
           open ? "max-h-[min(85vh,640px)] overflow-y-auto opacity-100" : "max-h-0 overflow-hidden opacity-0"
         }`}
       >
@@ -157,13 +162,26 @@ export default function Nav() {
             onNavigate={closeMobile}
           />
 
-          {links.map((l, index) => (
+          {desktopLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={closeMobile}
               className="rounded-lg px-3 py-3 text-sm text-muted transition-colors hover:bg-slate-panel hover:text-mist"
-              style={open ? { animationDelay: `${index * 40}ms` } : undefined}
+            >
+              {l.label}
+            </a>
+          ))}
+
+          <p className="px-3 pt-3 font-display text-[10px] uppercase tracking-widest text-muted">
+            {n.exploreHeading}
+          </p>
+          {mobileExploreLinks.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={closeMobile}
+              className="rounded-lg px-3 py-3 text-sm text-muted transition-colors hover:bg-slate-panel hover:text-mist"
               {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             >
               {l.label}

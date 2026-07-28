@@ -14,12 +14,15 @@ export type Dictionary = {
     vpsHosting: string;
     viewHosting: string;
     bookConsultation: string;
+    bookConsultationShort: string;
     toggleMenu: string;
     toggleServices: string;
+    exploreHeading: string;
     servicesMenu: {
       coreHeading: string;
       licensedHeading: string;
       licensedActivities: string;
+      vpsPlans: string;
       cloud: string;
       managedIt: string;
       ai: string;

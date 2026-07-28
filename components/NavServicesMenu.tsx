@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SITES } from "@/lib/constants/sites";
 import type { Dictionary } from "@/lib/i18n/types";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -76,9 +77,22 @@ function ServicesMenuPanel({ locale, menu, variant, onNavigate }: MenuPanelProps
         ))}
       </ul>
       <div className={footerClass}>
+        <a
+          href={`${SITES.portal}/pricing`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={
+            variant === "desktop"
+              ? "block px-3 py-2 font-display text-xs font-semibold text-mist/90 transition-colors hover:text-mist"
+              : "block rounded-lg px-3 py-2.5 font-display text-sm font-semibold text-mist/90 transition-colors hover:bg-slate-panel hover:text-mist"
+          }
+          onClick={onNavigate}
+        >
+          {menu.vpsPlans} →
+        </a>
         <Link
           href={`/${locale}/about#licensed-activities`}
-          className={footerLinkClass}
+          className={`${footerLinkClass} ${variant === "mobile" ? "" : "mt-0"} mt-1 block`}
           onClick={onNavigate}
         >
           {menu.licensedActivities} →
@@ -149,7 +163,16 @@ export function NavServicesDesktop({ locale, label, menu }: DesktopProps) {
             </ul>
           </div>
         </div>
-        <div className="mt-3 border-t border-slate-line pt-3">
+        <div className="mt-3 flex flex-col gap-1 border-t border-slate-line pt-3">
+          <a
+            href={`${SITES.portal}/pricing`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-3 py-2 font-display text-xs font-semibold text-mist/90 transition-colors hover:text-mist"
+            role="menuitem"
+          >
+            {menu.vpsPlans} →
+          </a>
           <Link
             href={`/${locale}/about#licensed-activities`}
             className="block px-3 py-2 font-display text-xs font-semibold text-orange transition-colors hover:text-mist"

@@ -121,8 +121,8 @@ body {
 
   /* Header nav links */
   .nav-link {
-    @apply relative rounded-md px-2.5 py-2 font-sans text-[13px] text-muted
-           transition-colors duration-200 hover:text-mist;
+    @apply relative whitespace-nowrap rounded-md px-2 py-2 font-sans text-[13px] text-muted
+           transition-colors duration-200 hover:text-mist xl:px-2.5;
   }
   .nav-link::after {
     content: "";
