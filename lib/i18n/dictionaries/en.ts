@@ -278,15 +278,48 @@ export const en: Dictionary = {
   industries: {
     eyebrow: "Industries we serve",
     title: "Depth where it counts.",
+    body: "Sector experience from production deployments — not generic slide decks. We know the compliance, uptime, and integration pressure in each vertical.",
     items: [
-      "Government & Public Sector",
-      "Banking & Finance",
-      "Healthcare",
-      "Education",
-      "Retail & E-commerce",
-      "Real Estate",
-      "Professional Services",
-      "Logistics",
+      {
+        id: "government",
+        name: "Government & Public Sector",
+        hint: "Citizen portals, data residency, zero-downtime migrations",
+      },
+      {
+        id: "banking",
+        name: "Banking & Finance",
+        hint: "Clearing, compliance ops, audit-ready platforms",
+      },
+      {
+        id: "healthcare",
+        name: "Healthcare",
+        hint: "Modern workplace, secure collaboration, multi-site IT",
+      },
+      {
+        id: "education",
+        name: "Education",
+        hint: "SIS/LMS platforms, exam-period uptime, managed hosting",
+      },
+      {
+        id: "retail",
+        name: "Retail & E-commerce",
+        hint: "Peak-traffic scaling, cloud cost optimization, checkout SLAs",
+      },
+      {
+        id: "real-estate",
+        name: "Real Estate",
+        hint: "Portals, CRM integrations, document workflows",
+      },
+      {
+        id: "professional-services",
+        name: "Professional Services",
+        hint: "Knowledge search, client portals, bilingual delivery",
+      },
+      {
+        id: "logistics",
+        name: "Logistics",
+        hint: "Operations dashboards, integrations, field mobility",
+      },
     ],
   },
   cta: {

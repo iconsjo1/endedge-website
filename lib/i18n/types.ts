@@ -95,7 +95,8 @@ export type Dictionary = {
   industries: {
     eyebrow: string;
     title: string;
-    items: string[];
+    body: string;
+    items: { id: string; name: string; hint: string }[];
   };
   cta: {
     eyebrow: string;
