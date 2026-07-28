@@ -250,18 +250,28 @@ export const en: Dictionary = {
   },
   tech: {
     eyebrow: "Our technology",
-    title: "Proven tools, chosen for you.",
-    body: "We work across the full stack and pick the right tool for your needs — not ours. No lock-in, no black boxes.",
+    title: "Proven, state-of-the-art tools — chosen for you.",
+    body: "We work across the full stack with modern, battle-tested tech — cloud-native platforms, production LLMs, and full-stack frameworks — matched to your needs, not ours. No lock-in, no black boxes.",
     groups: [
-      { group: "Cloud", items: ["AWS", "Microsoft Azure", "DigitalOcean", "Cloudflare"] },
-      { group: "Web & Mobile", items: ["React", "Next.js", "Node.js", "React Native", "Flutter", "PostgreSQL"] },
       {
-        group: "Artificial Intelligence",
-        items: ["OpenAI", "Anthropic", "Gemini", "RAG", "MCP", "AI Agents"],
+        group: "Cloud & Infrastructure",
+        items: ["AWS", "Microsoft Azure", "Kubernetes", "Docker", "Terraform", "Cloudflare"],
       },
       {
-        group: "Security",
-        items: ["SSL / TLS", "Zero Trust", "Automated Backups", "24/7 Monitoring"],
+        group: "Web & Mobile",
+        items: ["React", "Next.js", "TypeScript", "Node.js", "React Native", "Flutter"],
+      },
+      {
+        group: "Data & Search",
+        items: ["PostgreSQL", "Redis", "Elasticsearch", "pgvector"],
+      },
+      {
+        group: "Artificial Intelligence",
+        items: ["OpenAI", "Anthropic", "Gemini", "DeepSeek", "RAG", "MCP", "AI Agents"],
+      },
+      {
+        group: "Security & DevOps",
+        items: ["Zero Trust", "TLS / WAF", "HashiCorp Vault", "GitHub Actions", "24/7 Monitoring"],
       },
     ],
   },

@@ -250,18 +250,28 @@ export const ar: Dictionary = {
   },
   tech: {
     eyebrow: "تقنيتنا",
-    title: "أدوات مُثبتة، مختارة لكم.",
-    body: "نعمل عبر المكدس الكامل ونختار الأداة المناسبة لاحتياجاتكم — لا لاحتياجاتنا. بلا قفل تقني، وبلا صناديق سوداء.",
+    title: "أدوات مُثبتة وحديثة — مختارة لكم.",
+    body: "نعمل عبر المكدس الكامل بتقنيات حديثة ومُجربة في الإنتاج — منصات cloud-native، نماذج LLM إنتاجية، وأُطر full-stack — بما يناسب احتياجاتكم لا احتياجاتنا. بلا قفل تقني، وبلا صناديق سوداء.",
     groups: [
-      { group: "السحابة", items: ["AWS", "Microsoft Azure", "DigitalOcean", "Cloudflare"] },
-      { group: "الويب والجوال", items: ["React", "Next.js", "Node.js", "React Native", "Flutter", "PostgreSQL"] },
       {
-        group: "الذكاء الاصطناعي",
-        items: ["OpenAI", "Anthropic", "Gemini", "RAG", "MCP", "AI Agents"],
+        group: "السحابة والبنية التحتية",
+        items: ["AWS", "Microsoft Azure", "Kubernetes", "Docker", "Terraform", "Cloudflare"],
       },
       {
-        group: "الأمن",
-        items: ["SSL / TLS", "Zero Trust", "Automated Backups", "24/7 Monitoring"],
+        group: "الويب والجوال",
+        items: ["React", "Next.js", "TypeScript", "Node.js", "React Native", "Flutter"],
+      },
+      {
+        group: "البيانات والبحث",
+        items: ["PostgreSQL", "Redis", "Elasticsearch", "pgvector"],
+      },
+      {
+        group: "الذكاء الاصطناعي",
+        items: ["OpenAI", "Anthropic", "Gemini", "DeepSeek", "RAG", "MCP", "AI Agents"],
+      },
+      {
+        group: "الأمن وDevOps",
+        items: ["Zero Trust", "TLS / WAF", "HashiCorp Vault", "GitHub Actions", "24/7 Monitoring"],
       },
     ],
   },
