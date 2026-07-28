@@ -175,14 +175,14 @@ html {
   filter: drop-shadow(0 0 6px rgba(255, 111, 0, 0.2));
 }
 
-/* Scroll edge trace */
+/* Scroll edge trace — under page content so cards/sections paint over it */
 .scroll-edge-trace {
   pointer-events: none;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 50%;
-  z-index: 40;
+  z-index: 0;
   width: 1px;
   transform: translateX(-50%);
 }
@@ -201,6 +201,13 @@ html {
   .scroll-edge-trace {
     display: none;
   }
+}
+
+/* Keep site content above the scroll edge */
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* Section chevron tick */
