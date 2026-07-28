@@ -29,7 +29,7 @@ export default async function HomePage({
       <main>
         <Hero dict={dict} locale={locale} />
         <LogoStrip dict={dict} />
-        <Services dict={dict} />
+        <Services dict={dict} locale={locale} />
         <ValueStack dict={dict} />
         <Readiness />
         <WhyEndEdge dict={dict} />

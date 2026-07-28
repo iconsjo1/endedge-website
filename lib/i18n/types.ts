@@ -40,6 +40,8 @@ export type Dictionary = {
       title: string;
       outcome: string;
       portalLink: boolean;
+      href?: string;
+      learnMore?: string;
       points: string[];
     }[];
   };
@@ -118,6 +120,7 @@ export type Dictionary = {
       managedIt: string;
       ai: string;
       software: string;
+      erp: string;
       about: string;
       caseStudies: string;
       industries: string;

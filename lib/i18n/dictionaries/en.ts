@@ -45,8 +45,8 @@ export const en: Dictionary = {
   },
   services: {
     eyebrow: "What we do",
-    title: "Four capabilities. One partner.",
-    body: "Every service is built around a business outcome — not a technology checklist. Hosting, IT, automation, and AI, owned end to end so nothing falls between vendors.",
+    title: "Five capabilities. One partner.",
+    body: "Every service is built around a business outcome — not a technology checklist. Hosting, IT, automation, AI, and ERP compliance, owned end to end so nothing falls between vendors.",
     explorePlans: "Explore VPS plans →",
     items: [
       {
@@ -95,6 +95,20 @@ export const en: Dictionary = {
           "Custom software & platform development",
           "Architecture & digital-transformation strategy",
           "Guidance from people who've shipped at scale",
+        ],
+      },
+      {
+        id: "erp-e-invoicing",
+        tag: "05",
+        title: "ERP & E-Invoicing",
+        outcome: "Meet the UAE ASP deadline without rebuilding ops.",
+        portalLink: false,
+        href: "/services/erp-e-invoicing",
+        learnMore: "UAE e-invoicing compliance →",
+        points: [
+          "ERPNext / SmartERP deployment or ERP adaptation",
+          "PINT AE mapping & ASP integration",
+          "Finance-team enablement before 30 Oct 2026",
         ],
       },
     ],
@@ -283,6 +297,7 @@ export const en: Dictionary = {
       managedIt: "Managed IT",
       ai: "AI Automation",
       software: "Software & Consulting",
+      erp: "ERP & E-Invoicing",
       about: "About",
       caseStudies: "Case Studies",
       industries: "Industries",

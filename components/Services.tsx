@@ -1,7 +1,15 @@
+import Link from "next/link";
 import { SITES } from "@/lib/constants/sites";
+import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/types";
 
-export default function Services({ dict }: { dict: Dictionary }) {
+export default function Services({
+  dict,
+  locale,
+}: {
+  dict: Dictionary;
+  locale: Locale;
+}) {
   const s = dict.services;
 
   return (
@@ -42,6 +50,14 @@ export default function Services({ dict }: { dict: Dictionary }) {
                 >
                   {s.explorePlans}
                 </a>
+              ) : null}
+              {item.href ? (
+                <Link
+                  href={`/${locale}${item.href}`}
+                  className="mt-6 inline-flex font-display text-sm font-semibold text-orange transition-colors hover:text-navy"
+                >
+                  {item.learnMore ?? "Learn more →"}
+                </Link>
               ) : null}
             </article>
           ))}
