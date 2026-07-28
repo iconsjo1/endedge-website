@@ -37,6 +37,7 @@ export default function BrandLogo({
         />
       </span>
       <svg
+        {...(size === "nav" ? { "data-brand-logo-chevron": "" } : {})}
         width={size === "nav" ? 13 : 12}
         height={size === "nav" ? 15 : 14}
         viewBox="0 0 12 14"

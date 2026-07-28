@@ -175,6 +175,42 @@ html {
   filter: drop-shadow(0 0 6px rgba(255, 111, 0, 0.2));
 }
 
+/* Home hero: logo chevron tour */
+.brand-logo [data-brand-logo-chevron].brand-logo-chevron--touring {
+  opacity: 0.18;
+  transition: opacity 0.35s ease;
+}
+
+.hero-chevron-tour-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: center;
+  filter: drop-shadow(0 0 12px rgba(255, 111, 0, 0.65));
+  will-change: transform;
+  transition: opacity 0.2s ease;
+}
+
+.hero-tour-stop--active {
+  position: relative;
+  border-radius: 0.35rem;
+  box-shadow: 0 0 0 1px rgba(255, 111, 0, 0.45), 0 0 28px rgba(255, 111, 0, 0.22);
+  transition: box-shadow 0.3s ease;
+}
+
+[data-hero-tour="stack"].hero-tour-stop--active {
+  border-radius: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-chevron-tour-ghost {
+    display: none !important;
+  }
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);

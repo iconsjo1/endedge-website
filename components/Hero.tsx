@@ -1,3 +1,4 @@
+import HeroChevronTour from "./HeroChevronTour";
 import StackMarkInteractive from "./ui/StackMarkInteractive";
 import type { Dictionary } from "@/lib/i18n/types";
 import type { Locale } from "@/lib/i18n/config";
@@ -13,6 +14,7 @@ export default function Hero({
 
   return (
     <section id="top" className="relative overflow-hidden pt-[4.25rem]">
+      <HeroChevronTour />
       {/* Grid backdrop + animated edge trace */}
       <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
       <div
@@ -35,7 +37,9 @@ export default function Hero({
             style={{ animationDelay: "0.15s" }}
           >
             {h.titleBefore}
-            <span className="text-gradient">{h.titleHighlight}</span>
+            <span className="text-gradient" data-hero-tour="highlight">
+              {h.titleHighlight}
+            </span>
             {h.titleAfter}
           </h1>
 
@@ -52,7 +56,7 @@ export default function Hero({
             className="hero-reveal mt-9 flex flex-col gap-3 sm:flex-row"
             style={{ animationDelay: "0.4s" }}
           >
-            <a href="#assessment" className="btn-primary">
+            <a href="#assessment" className="btn-primary" data-hero-tour="cta">
               {h.ctaPrimary}
             </a>
             <a href="#services" className="btn-ghost">
@@ -80,6 +84,7 @@ export default function Hero({
             locale === "ar" ? "max-w-[19rem] sm:max-w-md" : "max-w-sm"
           }`}
           style={{ animationDelay: "0.2s" }}
+          data-hero-tour="stack"
         >
           <StackMarkInteractive
             className="w-full"
