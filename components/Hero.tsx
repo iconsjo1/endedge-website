@@ -1,4 +1,4 @@
-import StackMark from "./ui/StackMark";
+import StackMarkInteractive from "./ui/StackMarkInteractive";
 import type { Dictionary } from "@/lib/i18n/types";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -81,7 +81,7 @@ export default function Hero({
           }`}
           style={{ animationDelay: "0.2s" }}
         >
-          <StackMark
+          <StackMarkInteractive
             className="w-full"
             labels={dict.stackLabels}
             rtl={locale === "ar"}

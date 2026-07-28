@@ -256,6 +256,26 @@ html.font-arabic .brand-logo,
   }
 }
 
+/* Hero StackMark: orange chevron cursor + tilt wrapper */
+.stack-mark-interactive--live {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 12 14'%3E%3Cpath d='M1 1 L8 7 L1 13 L4.5 7 Z' fill='%23FF6F00'/%3E%3C/svg%3E")
+      4 11,
+    pointer;
+}
+
+.stack-mark-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-mark-tilt {
+    transition: none;
+    transform: none !important;
+  }
+}
+
 /* StackMark assemble + ambient motion (hero only via .stack-mark-animate) */
 @keyframes hero-reveal {
   from {
