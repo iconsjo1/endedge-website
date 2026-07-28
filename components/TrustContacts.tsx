@@ -1,6 +1,11 @@
 "use client";
 
-import { COMPANY, hasTrustSignals, telHref, whatsappHref } from "@/lib/constants/company";
+import {
+  COMPANY,
+  hasTrustSignals,
+  telHref,
+  whatsappHrefForNumber,
+} from "@/lib/constants/company";
 import { trackEvent } from "@/lib/analytics";
 
 type TrustLabels = {
@@ -22,7 +27,6 @@ export default function TrustContacts({
   variant = "footer",
   whatsappPrefill,
 }: Props) {
-  const wa = whatsappHref(whatsappPrefill);
   const textClass =
     variant === "footer"
       ? "text-sm text-mist/85 transition-colors hover:text-orange"
@@ -67,26 +71,34 @@ export default function TrustContacts({
         >
           {labels.email}: {COMPANY.email}
         </a>
-        {COMPANY.phone ? (
+        {COMPANY.phones.map((phone, i) => (
           <a
-            href={telHref(COMPANY.phone)}
+            key={phone}
+            href={telHref(phone)}
             className={textClass}
             onClick={() => trackEvent("contact_click", { method: "phone", location: variant })}
           >
-            {labels.phone}: {COMPANY.phone}
+            {COMPANY.phones.length === 1 || i === 0 ? `${labels.phone}: ` : ""}
+            {phone}
           </a>
-        ) : null}
-        {wa ? (
-          <a
-            href={wa}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={textClass}
-            onClick={() => trackEvent("contact_click", { method: "whatsapp", location: variant })}
-          >
-            {labels.whatsapp}
-          </a>
-        ) : null}
+        ))}
+        {COMPANY.whatsapps.map((waNum, i) => {
+          const href = whatsappHrefForNumber(waNum, whatsappPrefill);
+          if (!href) return null;
+          return (
+            <a
+              key={waNum}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={textClass}
+              onClick={() => trackEvent("contact_click", { method: "whatsapp", location: variant })}
+            >
+              {labels.whatsapp}
+              {COMPANY.whatsapps.length === 1 ? "" : `: ${waNum}`}
+            </a>
+          );
+        })}
       </div>
     </div>
   );

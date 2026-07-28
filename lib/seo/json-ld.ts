@@ -22,6 +22,11 @@ export function organizationJsonLd(locale: Locale) {
     legalName: COMPANY.legalName,
     url: COMPANY.website,
     email: COMPANY.email,
+    ...(COMPANY.phones.length
+      ? {
+          telephone: COMPANY.phones.map((p) => p.replace(/[\s()-]/g, "")),
+        }
+      : {}),
     description:
       locale === "ar"
         ? "EndEdge — شريك تقني مؤسسي في دبي: بنية تحتية، وتقنية معلومات مُدارة، وذكاء اصطناعي، وامتثال الفوترة الإلكترونية في الإمارات."

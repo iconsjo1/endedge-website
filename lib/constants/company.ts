@@ -4,6 +4,16 @@ function env(key: string): string {
   return process.env[key]?.trim() ?? "";
 }
 
+/** Comma- or pipe-separated list (e.g. two regional numbers). */
+function envList(key: string): string[] {
+  const raw = env(key);
+  if (!raw) return [];
+  return raw
+    .split(/[,|]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 const BASE = {
   name: "EndEdge",
   legalName: "Endedge FZE",
@@ -19,8 +29,8 @@ export const COMPANY = {
   streetAddress: env("NEXT_PUBLIC_COMPANY_STREET_ADDRESS"),
   tradeLicense: env("NEXT_PUBLIC_COMPANY_TRADE_LICENSE"),
   trn: env("NEXT_PUBLIC_COMPANY_TRN"),
-  phone: env("NEXT_PUBLIC_COMPANY_PHONE"),
-  whatsapp: env("NEXT_PUBLIC_COMPANY_WHATSAPP"),
+  phones: envList("NEXT_PUBLIC_COMPANY_PHONE"),
+  whatsapps: envList("NEXT_PUBLIC_COMPANY_WHATSAPP"),
 } as const;
 
 export function hasTrustSignals(): boolean {
@@ -28,8 +38,8 @@ export function hasTrustSignals(): boolean {
     COMPANY.streetAddress ||
       COMPANY.tradeLicense ||
       COMPANY.trn ||
-      COMPANY.phone ||
-      COMPANY.whatsapp,
+      COMPANY.phones.length ||
+      COMPANY.whatsapps.length,
   );
 }
 
@@ -37,10 +47,16 @@ export function telHref(phone: string): string {
   return `tel:${phone.replace(/[\s()-]/g, "")}`;
 }
 
-/** WhatsApp Business deep link (digits only in env, e.g. 971501234567). */
-export function whatsappHref(text?: string): string | null {
-  const digits = COMPANY.whatsapp.replace(/\D/g, "");
+/** WhatsApp Business deep link for one number (E.164 or formatted). */
+export function whatsappHrefForNumber(phone: string, text?: string): string | null {
+  const digits = phone.replace(/\D/g, "");
   if (!digits) return null;
   const base = `https://wa.me/${digits}`;
   return text ? `${base}?text=${encodeURIComponent(text)}` : base;
+}
+
+/** First configured WhatsApp number (for single-link call sites). */
+export function whatsappHref(text?: string): string | null {
+  const first = COMPANY.whatsapps[0];
+  return first ? whatsappHrefForNumber(first, text) : null;
 }
