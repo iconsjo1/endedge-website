@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ServiceLandingPage from "@/components/services/ServiceLandingPage";
-import {
-  WEB_MOBILE_SLUG,
-  getWebMobilePageContent,
-} from "@/lib/content/web-mobile-development";
+import { MANAGED_IT_SLUG, getManagedItContent } from "@/lib/content/managed-it";
 import { servicePageMetadata } from "@/lib/content/service-landing";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 
@@ -19,8 +16,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   if (!isLocale(params.locale)) return {};
   const locale = params.locale as Locale;
-  const content = getWebMobilePageContent(locale);
-  const meta = servicePageMetadata(locale, WEB_MOBILE_SLUG, content);
+  const content = getManagedItContent(locale);
+  const meta = servicePageMetadata(locale, MANAGED_IT_SLUG, content);
   return {
     title: meta.title,
     description: meta.description,
@@ -29,12 +26,8 @@ export async function generateMetadata({
   };
 }
 
-export default function WebMobileDevelopmentPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default function ManagedItPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getWebMobilePageContent(locale)} />;
+  return <ServiceLandingPage locale={locale} content={getManagedItContent(locale)} />;
 }

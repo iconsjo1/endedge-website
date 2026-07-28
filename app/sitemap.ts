@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
+import { AI_AUTOMATION_SLUG } from "@/lib/content/ai-automation";
 import { ERP_SLUG } from "@/lib/content/erp-e-invoicing";
+import { MANAGED_IT_SLUG } from "@/lib/content/managed-it";
 import { WEB_MOBILE_SLUG } from "@/lib/content/web-mobile-development";
 import { locales } from "@/lib/i18n/config";
 
@@ -13,6 +15,8 @@ const PATHS = [
   "/terms",
   `/services/${ERP_SLUG}`,
   `/services/${WEB_MOBILE_SLUG}`,
+  `/services/${MANAGED_IT_SLUG}`,
+  `/services/${AI_AUTOMATION_SLUG}`,
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

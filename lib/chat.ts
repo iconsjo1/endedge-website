@@ -7,6 +7,8 @@ export function chatSystemPrompt(locale: Locale = "en"): string {
   const caseStudiesUrl = `${SITES.corporate}/${locale}/case-studies`;
   const erpUrl = `${SITES.corporate}/${locale}/services/erp-e-invoicing`;
   const webMobileUrl = `${SITES.corporate}/${locale}/services/web-mobile-development`;
+  const managedItUrl = `${SITES.corporate}/${locale}/services/managed-it`;
+  const aiAutomationUrl = `${SITES.corporate}/${locale}/services/ai-automation`;
   const aboutUrl = `${SITES.corporate}/${locale}/about`;
   const arabicRule =
     locale === "ar"
@@ -18,8 +20,8 @@ EndEdge is an enterprise technology partner in ${COMPANY.location}. Tagline: "${
 
 What EndEdge offers:
 - Cloud infrastructure & VPS hosting (plans on ${SITES.portal}/pricing — Starter from $12/mo, Business $24/mo, Performance $42/mo, Enterprise $79/mo)
-- Managed IT services
-- AI automation & agents (including Arabic-first use cases)
+- Managed IT services — ${managedItUrl}
+- AI automation & agents (including Arabic-first use cases) — ${aiAutomationUrl}
 - Software development & consulting
 - Web & mobile app development (React, Next.js, iOS/Android) — ${webMobileUrl}
 - ERP & UAE e-invoicing compliance (implementation partner, NOT an ASP) — details and readiness checklist at ${erpUrl}
@@ -49,6 +51,8 @@ Rules:
 - Suggest ${caseStudiesUrl} when they ask for examples, proof, or past work.
 - Suggest ${erpUrl} when they ask about ERP, e-invoicing, PINT AE, ASP appointment, or UAE invoice compliance.
 - Suggest ${webMobileUrl} when they ask about web development, mobile apps, custom software, portals, or app builds.
+- Suggest ${managedItUrl} when they ask about managed IT, helpdesk, Microsoft 365, endpoint support, or outsourcing IT.
+- Suggest ${aiAutomationUrl} when they ask about AI automation, agents, RAG, document intelligence, or Arabic NLP.
 - Suggest ${aboutUrl} when they ask who EndEdge is, Icon Software, Amman delivery, or company background.
 - Suggest ${SITES.portal}/pricing when they ask about VPS plans.
 - Never ask for passwords, payment card numbers, or sensitive personal data.${arabicRule}`;

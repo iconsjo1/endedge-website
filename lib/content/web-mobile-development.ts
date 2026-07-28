@@ -1,42 +1,9 @@
 import type { Locale } from "@/lib/i18n/config";
+import type { ServiceLandingContent } from "@/lib/content/service-landing";
 
 export const WEB_MOBILE_SLUG = "web-mobile-development";
 
-export type WebMobilePageContent = {
-  meta: { title: string; description: string };
-  hero: {
-    eyebrow: string;
-    headline: string;
-    subhead: string;
-    body: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
-    trustLine: string;
-  };
-  scope: {
-    headline: string;
-    items: { tag: string; title: string; body: string }[];
-  };
-  delivery: {
-    headline: string;
-    steps: { title: string; body: string }[];
-  };
-  proof: {
-    headline: string;
-    body: string;
-    caseStudiesCta: string;
-  };
-  faq: {
-    headline: string;
-    items: { q: string; a: string }[];
-  };
-  closing: {
-    headline: string;
-    body: string;
-    cta1: string;
-    cta2: string;
-  };
-};
+export type WebMobilePageContent = ServiceLandingContent;
 
 const en: WebMobilePageContent = {
   meta: {
@@ -53,6 +20,7 @@ const en: WebMobilePageContent = {
       "EndEdge is the Dubai front office of the Icon Software group: nearly two decades delivering production systems for government, banking, education, and enterprise clients across MENA.",
     ctaPrimary: "Book a scoping call",
     ctaSecondary: "View case studies",
+    ctaSecondaryPath: "/case-studies",
     trustLine: "Production-proven · Bilingual EN/AR · Web + mobile + cloud under one roof",
   },
   scope: {
@@ -146,6 +114,7 @@ const ar: WebMobilePageContent = {
       "EndEdge هي المكتب الأمامي في دبي لمجموعة Icon Software: ما يقارب عقدين في تسليم أنظمة إنتاج للحكومة والبنوك والتعليم والمؤسسات في منطقة الشرق الأوسط وشمال أفريقيا.",
     ctaPrimary: "احجزوا مكالمة تحديد النطاق",
     ctaSecondary: "عرض دراسات الحالة",
+    ctaSecondaryPath: "/case-studies",
     trustLine: "مُثبَت في الإنتاج · ثنائي EN/AR · ويب + جوال + سحابة تحت سقف واحد",
   },
   scope: {

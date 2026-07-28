@@ -67,10 +67,12 @@ export const en: Dictionary = {
         title: "Managed IT Services",
         outcome: "IT that just works — so your team can focus.",
         portalLink: false,
+        href: "/services/managed-it",
+        learnMore: "Managed IT services →",
         points: [
           "Proactive support & system administration",
-          "Security hardening & endpoint protection",
-          "Predictable cost, no in-house IT team needed",
+          "Microsoft 365, security & endpoint protection",
+          "24/7 monitoring — predictable cost, no in-house IT team",
         ],
       },
       {
@@ -79,9 +81,11 @@ export const en: Dictionary = {
         title: "AI Automation & Agents",
         outcome: "Automate repetitive work with practical AI.",
         portalLink: false,
+        href: "/services/ai-automation",
+        learnMore: "AI automation & agents →",
         points: [
           "Workflow automation & intelligent assistants",
-          "Document, contract & knowledge intelligence",
+          "Document, contract & knowledge intelligence (RAG)",
           "Arabic-first AI, built for how you work",
         ],
       },

@@ -21,8 +21,8 @@ export default function Footer() {
       heading: f.services,
       links: [
         { label: f.links.cloud, href: `/${locale}/#cloud-infrastructure` },
-        { label: f.links.managedIt, href: `/${locale}/#managed-it` },
-        { label: f.links.ai, href: `/${locale}/#ai-automation` },
+        { label: f.links.managedIt, href: `/${locale}/services/managed-it` },
+        { label: f.links.ai, href: `/${locale}/services/ai-automation` },
         { label: f.links.software, href: `/${locale}/services/web-mobile-development` },
         { label: f.links.erp, href: `/${locale}/services/erp-e-invoicing` },
       ],
