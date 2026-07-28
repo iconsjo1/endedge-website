@@ -1,7 +1,14 @@
-import type { Dictionary } from "@/lib/i18n/types";
+"use client";
 
-export default function CTA({ dict }: { dict: Dictionary }) {
+import { useI18n } from "@/components/I18nProvider";
+import TrustContacts from "@/components/TrustContacts";
+import { trackEvent } from "@/lib/analytics";
+import { COMPANY } from "@/lib/constants/company";
+
+export default function CTA() {
+  const { dict } = useI18n();
   const c = dict.cta;
+  const trust = dict.footer.trust;
 
   return (
     <section id="contact" className="border-t border-slate-line bg-ink py-24">
@@ -16,7 +23,11 @@ export default function CTA({ dict }: { dict: Dictionary }) {
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted">{c.body}</p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a href="mailto:hello@endedge.co" className="btn-primary">
+              <a
+                href={`mailto:${COMPANY.email}`}
+                className="btn-primary"
+                onClick={() => trackEvent("contact_click", { method: "email", location: "cta_primary" })}
+              >
                 {c.primary}
               </a>
               <a href="#assessment" className="btn-ghost">
@@ -24,9 +35,7 @@ export default function CTA({ dict }: { dict: Dictionary }) {
               </a>
             </div>
 
-            <p className="mt-8 font-display text-xs uppercase tracking-widest text-muted">
-              {c.location}
-            </p>
+            <TrustContacts labels={trust} variant="cta" />
           </div>
         </div>
       </div>

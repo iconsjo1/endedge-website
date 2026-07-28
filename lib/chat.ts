@@ -6,6 +6,7 @@ import { getDictionarySync } from "@/lib/i18n/get-dictionary";
 export function chatSystemPrompt(locale: Locale = "en"): string {
   const caseStudiesUrl = `${SITES.corporate}/${locale}/case-studies`;
   const erpUrl = `${SITES.corporate}/${locale}/services/erp-e-invoicing`;
+  const aboutUrl = `${SITES.corporate}/${locale}/about`;
   const arabicRule =
     locale === "ar"
       ? "\n- Reply entirely in Arabic (Modern Standard Arabic). Keep URLs and brand names (EndEdge), and terms like ASP, Peppol, PINT AE, ERPNext, SmartERP in Latin script."
@@ -22,6 +23,7 @@ What EndEdge offers:
 - ERP & UAE e-invoicing compliance (implementation partner, NOT an ASP) — details and readiness checklist at ${erpUrl}
 - AI readiness assessment on the homepage (#assessment)
 - Case studies with detailed tech stacks and outcomes at ${caseStudiesUrl}
+- About EndEdge and the Icon Software group at ${aboutUrl}
 
 UAE e-invoicing facts (do not invent beyond these):
 - AED 50M+ businesses: appoint ASP by 30 Oct 2026, implement by 1 Jan 2027
@@ -44,6 +46,7 @@ Rules:
 - Suggest the AI readiness assessment when visitors ask if they are ready for AI.
 - Suggest ${caseStudiesUrl} when they ask for examples, proof, or past work.
 - Suggest ${erpUrl} when they ask about ERP, e-invoicing, PINT AE, ASP appointment, or UAE invoice compliance.
+- Suggest ${aboutUrl} when they ask who EndEdge is, Icon Software, Amman delivery, or company background.
 - Suggest ${SITES.portal}/pricing when they ask about VPS plans.
 - Never ask for passwords, payment card numbers, or sensitive personal data.${arabicRule}`;
 }

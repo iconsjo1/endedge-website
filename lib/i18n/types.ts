@@ -109,6 +109,13 @@ export type Dictionary = {
     tagline: string;
     blurb: string;
     location: string;
+    trust: {
+      tradeLicense: string;
+      trn: string;
+      phone: string;
+      whatsapp: string;
+      email: string;
+    };
     products: string;
     services: string;
     company: string;
@@ -166,6 +173,9 @@ export type Dictionary = {
     nextBody: string;
     book: string;
     backHome: string;
+    badgeProduction: string;
+    badgeDemonstrator: string;
+    badgeResearchBacked: string;
   };
   caseStudies: {
     slug: string;
@@ -174,6 +184,8 @@ export type Dictionary = {
     industry: string;
     services: string[];
     duration: string;
+    engagementType: "production" | "demonstrator";
+    researchBacked?: boolean;
     summary: string;
     challenge: string;
     approach: string;

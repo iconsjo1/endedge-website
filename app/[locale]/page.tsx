@@ -36,7 +36,7 @@ export default async function HomePage({
         <CaseStudiesTeaser dict={dict} locale={locale} />
         <TechStack dict={dict} />
         <Industries dict={dict} />
-        <CTA dict={dict} />
+        <CTA />
       </main>
       <Footer />
     </>

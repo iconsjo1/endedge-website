@@ -3,7 +3,11 @@ import type { Metadata } from "next";
 import { Poppins, Roboto, Cairo } from "next/font/google";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/ChatWidget";
+import AnalyticsScripts from "@/components/AnalyticsScripts";
+import JsonLd from "@/components/JsonLd";
 import { I18nProvider } from "@/components/I18nProvider";
+import { GOOGLE_SITE_VERIFICATION } from "@/lib/analytics";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/json-ld";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
 import {
   defaultLocale,
@@ -74,6 +78,9 @@ export async function generateMetadata({
       apple: [{ url: "/apple-icon", type: "image/png" }],
     },
     robots: { index: true, follow: true },
+    ...(GOOGLE_SITE_VERIFICATION
+      ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+      : {}),
   };
 }
 
@@ -97,6 +104,8 @@ export default async function LocaleLayout({
     <html lang={locale} dir={dir} className={fontClass} data-theme="dark" suppressHydrationWarning>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <JsonLd data={[organizationJsonLd(locale as Locale), websiteJsonLd()]} />
+        <AnalyticsScripts />
         <ThemeProvider>
           <I18nProvider locale={locale} dict={dict}>
             {children}

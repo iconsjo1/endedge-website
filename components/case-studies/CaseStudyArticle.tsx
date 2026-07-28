@@ -1,8 +1,10 @@
-import type { CaseStudy } from "@/lib/content/case-studies";
 import type { Dictionary } from "@/lib/i18n/types";
+import EngagementBadge from "@/components/case-studies/EngagementBadge";
+
+type CaseStudyItem = Dictionary["caseStudies"][number];
 
 type CaseStudyArticleProps = {
-  study: CaseStudy;
+  study: CaseStudyItem;
   index: number;
   labels: Dictionary["caseStudiesPage"];
 };
@@ -22,6 +24,15 @@ export default function CaseStudyArticle({ study, index, labels }: CaseStudyArti
             <span className="rounded-full border border-slate-line px-3 py-1 font-display text-[11px] uppercase tracking-wider text-muted">
               {study.industry}
             </span>
+            <EngagementBadge
+              type={study.engagementType}
+              researchBacked={study.researchBacked}
+              labels={{
+                production: labels.badgeProduction,
+                demonstrator: labels.badgeDemonstrator,
+                researchBacked: labels.badgeResearchBacked,
+              }}
+            />
           </div>
 
           <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-mist md:text-3xl">

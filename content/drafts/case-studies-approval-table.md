@@ -18,15 +18,17 @@ Review each against the actual engagement. Proposed status is a starting point f
 | 4 | `retail-ecommerce-aws-migration` | UAE-based omnichannel retailer | **Confirm:** Named retail client or anonymized composite? | **Production** (if confirmed) | Descriptor passes honesty bar if engagement is real. Confirm anonymization level. |
 | 5 | `university-lms-managed-hosting` | Higher-education institution (MENA) | **Likely:** Al-Maarif SIS / school platform | **Production** | ⚠️ Confirm: Al-Maarif mapping? If yes, consider retitling to "School SIS / LMS platform" for accuracy. "University" may overstate if K–12. |
 
-**Your sign-off column:**
+**Your sign-off column (partial — applied 28 Jul 2026):**
 
 | # | Approve as-is? | Revised descriptor (if any) | Revised label |
 |---|----------------|------------------------------|---------------|
-| 1 | ☐ | | |
-| 2 | ☐ | | |
-| 3 | ☐ | | |
-| 4 | ☐ | | |
-| 5 | ☐ | | |
+| 1 | ☐ Pending | Regional government digital authority (unchanged) | Production |
+| 2 | ☑ Partial | Central bank / national payments authority (GCC-adjacent) | Production |
+| 3 | ☑ Partial | Media intelligence platform (MENA) — Rasad basis | Production + research-backed |
+| 4 | ☐ Pending | UAE-based omnichannel retailer (unchanged) | Production |
+| 5 | ☑ Partial | Private school group (Jordan) — Al-Maarif basis | Production |
+
+**Shipped in site (partial batch):** #2 slug → `central-bank-cheque-clearing`; #3 → `arabic-media-document-intelligence`; #5 → `school-sis-platform`; Production/Demonstrator badges on all studies. **Held:** new studies #6–13, NEI ERP proof block, #1 and #4 descriptor confirmation.
 
 ---
 

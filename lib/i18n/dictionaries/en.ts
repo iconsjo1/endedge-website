@@ -207,7 +207,7 @@ export const en: Dictionary = {
   },
   why: {
     eyebrow: "Why EndEdge",
-    title: "Most Dubai startups can't say this.",
+    title: "Most Dubai tech vendors can't say this.",
     reasons: [
       {
         title: "End-to-end accountability",
@@ -286,6 +286,13 @@ export const en: Dictionary = {
     blurb:
       "Enterprise technology & AI, delivered end to end. Modernize your infrastructure, automate operations, and adopt practical AI — with one trusted partner.",
     location: "Dubai, UAE",
+    trust: {
+      tradeLicense: "Trade license",
+      trn: "TRN",
+      phone: "Phone",
+      whatsapp: "WhatsApp",
+      email: "Email",
+    },
     products: "Products",
     services: "Services",
     company: "Company",
@@ -353,10 +360,14 @@ export const en: Dictionary = {
       "Share your context — infrastructure, compliance constraints, or AI use cases — and we'll give you an honest view of what's feasible and how we'd approach it.",
     book: "Book a consultation",
     backHome: "Back to home",
+    badgeProduction: "Production",
+    badgeDemonstrator: "Demonstrator",
+    badgeResearchBacked: "Research-backed",
   },
   caseStudies: [
     {
       slug: "government-portal-kubernetes-migration",
+      engagementType: "production",
       title: "National digital services portal — zero-downtime cloud migration",
       clientDescriptor: "Regional government digital authority",
       industry: "Government & Public Sector",
@@ -386,34 +397,35 @@ export const en: Dictionary = {
       ],
     },
     {
-      slug: "banking-compliance-operations-platform",
-      title: "Compliance operations dashboard for a GCC retail bank",
-      clientDescriptor: "Mid-size retail bank (GCC)",
+      slug: "central-bank-cheque-clearing",
+      engagementType: "production",
+      title: "National cheque clearing & operations system",
+      clientDescriptor: "Central bank / national payments authority (GCC-adjacent)",
       industry: "Banking & Finance",
       services: ["Software & Consulting", "Managed IT"],
       duration: "20 weeks",
       summary:
-        "Replaced spreadsheet-driven compliance workflows with an auditable operations platform — role-based access, immutable event logs, and automated regulatory report packs.",
+        "Delivered cheque clearing workflows and operations tooling for a national payments authority — high-volume batch processing, reconciliation dashboards, and audit-ready regulatory reporting.",
       challenge:
-        "Compliance teams spent days each month reconciling data across core banking exports, email threads, and shared drives. Audit findings cited weak traceability; the bank needed a system that could demonstrate who changed what, when, and why — without slowing day-to-day operations.",
+        "Cheque clearing relied on manual reconciliation across fragmented systems. Settlement delays and weak traceability created audit exposure; operations needed a platform that could handle peak clearing volumes with attributable actions at every step.",
       approach:
-        "We designed a modular service architecture behind Docker, with separate services for ingestion, workflow, and reporting. Every state transition is append-only in an audit store; exports are generated from signed snapshots rather than live queries. Secrets and keys are managed through a dedicated vault integration; deployments run through gated CI pipelines with environment promotion checks.",
+        "We designed a modular service architecture behind Docker, with separate services for ingestion, clearing workflow, and reporting. Every state transition is append-only in an audit store; exports are generated from signed snapshots rather than live queries. Batch jobs were tuned for peak clearing windows; secrets and keys are managed through a dedicated vault integration with gated CI promotion.",
       outcomes: [
         {
           value: "65%",
-          label: "Reduction in manual reporting effort",
-          detail: "Monthly compliance cycle",
+          label: "Reduction in manual reconciliation effort",
+          detail: "Monthly clearing cycle",
         },
         {
           value: "3 days → 4 hrs",
           label: "Audit evidence preparation",
           detail: "Per examination cycle",
         },
-        { value: "100%", label: "Actions with attributable audit trail" },
+        { value: "100%", label: "Clearing actions with attributable audit trail" },
         {
           value: "12",
           label: "Integrated data sources",
-          detail: "Core banking + HR + ticketing",
+          detail: "Clearing, core banking + operations feeds",
         },
       ],
       stack: [
@@ -430,22 +442,24 @@ export const en: Dictionary = {
       ],
     },
     {
-      slug: "arabic-rag-legal-knowledge-assistant",
-      title: "Arabic-first RAG assistant for contract and policy knowledge",
-      clientDescriptor: "Regional law firm network",
-      industry: "Professional Services",
+      slug: "arabic-media-document-intelligence",
+      engagementType: "production",
+      researchBacked: true,
+      title: "Arabic-first media monitoring & document intelligence",
+      clientDescriptor: "Media intelligence platform (MENA)",
+      industry: "Media & Research",
       services: ["AI Automation & Agents", "Software & Consulting"],
       duration: "10 weeks (pilot → production)",
       summary:
-        "Built a retrieval-augmented assistant that answers questions across thousands of internal memos, templates, and bilingual policy documents — with citations, not guesses.",
+        "Built a retrieval-augmented intelligence pipeline for Arabic media archives and document collections — monitoring, search, and cited answers across bilingual news and report corpora.",
       challenge:
-        "Associates spent hours searching shared drives for clause precedents and internal guidance. Generic chat tools hallucinated on firm-specific language, and English-only models performed poorly on Arabic legal phrasing and mixed-language contracts.",
+        "Analysts spent hours manually scanning feeds and shared drives for coverage patterns and source references. Generic chat tools hallucinated on domain-specific Arabic phrasing, and English-only models underperformed on mixed-language media documents.",
       approach:
-        "We implemented a custom RAG pipeline: document ingestion with OCR for scanned PDFs, language-aware chunking for Arabic and English segments, embeddings stored in pgvector, and a reranking step before the LLM composes answers. Responses are constrained to retrieved passages with inline citations. An MCP-style connector lets the assistant pull matter metadata from the firm's CRM when authorized — without sending full matter files to the model.",
+        "We implemented a custom RAG pipeline: document ingestion with OCR for scanned PDFs, language-aware chunking for Arabic and English segments, embeddings stored in pgvector, and a reranking step before the LLM composes answers. Responses are constrained to retrieved passages with inline citations. Collections are scoped by role; query logs support governance review.",
       outcomes: [
         {
           value: "72%",
-          label: "Faster clause and precedent lookup",
+          label: "Faster source and precedent lookup",
           detail: "Pilot cohort (n=18)",
         },
         {
@@ -466,7 +480,7 @@ export const en: Dictionary = {
           items: ["Custom RAG pipeline", "pgvector", "Reranking", "DeepSeek / OpenAI"],
         },
         { category: "Backend", items: ["Python", "FastAPI", "Celery workers", "Redis queue"] },
-        { category: "Integration", items: ["MCP connector", "CRM metadata API", "SSO (SAML)"] },
+        { category: "Integration", items: ["Feed ingestion API", "Collection metadata", "SSO (SAML)"] },
         {
           category: "Governance",
           items: ["Role-scoped collections", "Query audit logs", "PII redaction rules"],
@@ -475,6 +489,7 @@ export const en: Dictionary = {
     },
     {
       slug: "retail-ecommerce-aws-migration",
+      engagementType: "production",
       title: "E-commerce platform migration and cost optimization",
       clientDescriptor: "UAE-based omnichannel retailer",
       industry: "Retail & E-commerce",
@@ -514,18 +529,19 @@ export const en: Dictionary = {
       ],
     },
     {
-      slug: "university-lms-managed-hosting",
-      title: "University LMS modernization and managed hosting",
-      clientDescriptor: "Higher-education institution (MENA)",
+      slug: "school-sis-platform",
+      engagementType: "production",
+      title: "School information system — unified SIS platform",
+      clientDescriptor: "Private school group (Jordan)",
       industry: "Education",
       services: ["Cloud Infrastructure", "Managed IT", "Software & Consulting"],
       duration: "Ongoing engagement (16-week initial delivery)",
       summary:
-        "Rebuilt a legacy learning portal on modern web stack, deployed on resilient VPS infrastructure with 24/7 monitoring — supporting tens of thousands of students across exam periods.",
+        "Rebuilt a legacy school portal on a modern web stack, deployed on resilient VPS infrastructure with 24/7 monitoring — supporting tens of thousands of students across registration and exam periods.",
       challenge:
-        "The prior LMS suffered outages during registration and exam windows, with no clear on-call ownership. Faculty needed a faster interface; IT needed predictable hosting costs and a partner who could operate the platform day-to-day.",
+        "The prior SIS suffered outages during registration and exam windows, with no clear on-call ownership. Faculty needed a faster interface; IT needed predictable hosting costs and a partner who could operate the platform day-to-day.",
       approach:
-        "EndEdge delivered a Next.js front end with a Node.js API layer, hosted on dedicated KVM infrastructure with Cloudflare edge protection. PM2 process management, automated backups, and disk/CPU alerting were configured from day one. We run patching, certificate renewal, and incident response under a managed services agreement while the institution retains data ownership in-region.",
+        "EndEdge delivered a Next.js front end with a Node.js API layer, hosted on dedicated KVM infrastructure with Cloudflare edge protection. PM2 process management, automated backups, and disk/CPU alerting were configured from day one. We run patching, certificate renewal, and incident response under a managed services agreement while the school group retains data ownership in-region.",
       outcomes: [
         { value: "22,000+", label: "Active students per term" },
         { value: "99.9%", label: "Platform availability", detail: "Trailing 12 months" },

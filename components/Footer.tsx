@@ -2,6 +2,7 @@
 
 import { SITES } from "@/lib/constants/sites";
 import { useI18n } from "@/components/I18nProvider";
+import TrustContacts from "@/components/TrustContacts";
 
 export default function Footer() {
   const { locale, dict } = useI18n();
@@ -29,7 +30,7 @@ export default function Footer() {
     {
       heading: f.company,
       links: [
-        { label: f.links.about, href: `/${locale}/#top` },
+        { label: f.links.about, href: `/${locale}/about` },
         { label: f.links.caseStudies, href: `/${locale}/case-studies` },
         { label: f.links.industries, href: `/${locale}/#industries` },
         { label: f.links.readiness, href: `/${locale}/#assessment` },
@@ -56,6 +57,7 @@ export default function Footer() {
           <p className="mt-5 font-display text-xs uppercase tracking-widest text-muted">
             {f.location}
           </p>
+          <TrustContacts labels={f.trust} variant="footer" />
         </div>
 
         {columns.map((col) => (

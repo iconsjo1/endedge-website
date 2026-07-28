@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { ErpPageContent } from "@/lib/content/erp-e-invoicing";
 import type { Locale } from "@/lib/i18n/config";
+import { trackEvent } from "@/lib/analytics";
 
 type Props = {
   locale: Locale;
@@ -47,6 +48,7 @@ export default function ChecklistLeadMagnet({
         setError(true);
         return;
       }
+      trackEvent("checklist_submit", { locale });
       setUnlocked(true);
       requestAnimationFrame(() => {
         document.getElementById("checklist-unlocked")?.scrollIntoView({

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
+import { trackEvent } from "@/lib/analytics";
 import { COMPANY } from "@/lib/constants/company";
 
 type ChatMessage = {
@@ -39,6 +40,8 @@ export default function ChatWidget() {
   async function send(content: string) {
     const text = content.trim();
     if (!text || pending) return;
+
+    trackEvent("chat_message");
 
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: text }];
     setMessages(nextMessages);
@@ -172,7 +175,12 @@ export default function ChatWidget() {
 
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() =>
+          setOpen((value) => {
+            if (!value) trackEvent("chat_open");
+            return !value;
+          })
+        }
         className="pointer-events-auto inline-flex h-14 items-center gap-2 rounded-full bg-orange px-5 text-sm font-semibold text-white shadow-[0_12px_40px_-12px_rgba(255,111,0,0.8)] transition-colors hover:bg-orange-bright"
         aria-expanded={open}
         aria-label={open ? chat.closeLabel : chat.openLabel}

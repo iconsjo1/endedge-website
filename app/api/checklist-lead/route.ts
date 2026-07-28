@@ -15,6 +15,30 @@ function isEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+async function notifyWebhook(payload: Record<string, unknown>) {
+  const webhook = process.env.CHECKLIST_LEAD_WEBHOOK_URL?.trim();
+  if (!webhook) return;
+
+  try {
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    const secret = process.env.CHECKLIST_LEAD_WEBHOOK_SECRET?.trim();
+    if (secret) headers["X-Webhook-Secret"] = secret;
+
+    const res = await fetch(webhook, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(10_000),
+    });
+
+    if (!res.ok) {
+      console.error("[checklist-lead] webhook HTTP", res.status, await res.text().catch(() => ""));
+    }
+  } catch (error) {
+    console.error("[checklist-lead] webhook failed", error);
+  }
+}
+
 export async function POST(req: NextRequest) {
   let body: LeadBody;
   try {
@@ -32,8 +56,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid lead fields." }, { status: 400 });
   }
 
-  // Lead capture — log for now; wire CRM/email webhook later.
-  console.info("[checklist-lead]", {
+  const lead = {
     name,
     email,
     company,
@@ -41,7 +64,10 @@ export async function POST(req: NextRequest) {
     locale: body.locale ?? "en",
     source: body.source ?? "erp-e-invoicing-checklist",
     at: new Date().toISOString(),
-  });
+  };
+
+  console.info("[checklist-lead]", lead);
+  await notifyWebhook(lead);
 
   return NextResponse.json({ ok: true });
 }

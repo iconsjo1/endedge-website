@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
+import { trackEvent } from "@/lib/analytics";
 
 interface Report {
   total: number;
@@ -45,6 +46,7 @@ export default function Readiness() {
       const data: Report = await res.json();
       setReport(data);
       setPhase("result");
+      trackEvent("assessment_complete", { score: data.total, source: data.source });
     } catch {
       setPhase("error");
     }
@@ -84,7 +86,13 @@ export default function Readiness() {
                   <p className="font-display text-xs uppercase tracking-widest text-muted">
                     {r.meta}
                   </p>
-                  <button onClick={() => setPhase("quiz")} className="btn-primary mt-6">
+                  <button
+                    onClick={() => {
+                      trackEvent("assessment_start");
+                      setPhase("quiz");
+                    }}
+                    className="btn-primary mt-6"
+                  >
                     {r.start}
                   </button>
                 </div>
