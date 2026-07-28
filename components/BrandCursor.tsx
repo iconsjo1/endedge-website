@@ -31,7 +31,7 @@ function isPrimaryCta(el: EventTarget | null): boolean {
   return Boolean(el.closest(".btn-primary, a.btn-primary, button.btn-primary"));
 }
 
-/** Brand chevron: quiet by default; trail + commit pulse on CTAs. */
+/** Brand chevron with sitewide trail; stronger scale + ring on CTAs. */
 export default function BrandCursor() {
   const layerRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
@@ -107,12 +107,10 @@ export default function BrandCursor() {
       marks.forEach((el, i) => {
         const p = pts[i];
         const base = 1 - i * 0.14;
-        const scale = i === 0 ? headScale : base * (0.55 + mix * 0.45);
-        // Trail only near CTAs (#11)
+        const scale = i === 0 ? headScale : base * (1 - mix * 0.55);
+        // Sitewide trail; soften ghosts slightly on CTA so ring reads clearly
         const opacity =
-          i === 0
-            ? 0.55 + mix * 0.45
-            : Math.max(0, (0.32 - i * 0.08) * mix);
+          i === 0 ? 1 : Math.max(0, (0.28 - i * 0.08) * (1 - mix * 0.85));
         el.style.opacity = String(opacity);
         el.style.transform = `translate3d(${p.x}px, ${p.y}px, 0) translate(-4px, -11px) scale(${scale})`;
       });
@@ -193,7 +191,7 @@ export default function BrandCursor() {
           width="20"
           height="22"
           viewBox="0 0 12 14"
-          style={{ opacity: i === 0 ? 1 : 0 }}
+          style={{ opacity: i === 0 ? 1 : 0.28 - i * 0.08 }}
         >
           <path
             d="M1 1 L8 7 L1 13 L4.5 7 Z"
