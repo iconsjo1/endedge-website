@@ -88,13 +88,15 @@ export const ar: Dictionary = {
       {
         id: "software-consulting",
         tag: "04",
-        title: "البرمجيات والاستشارات",
-        outcome: "أنظمة مخصّصة واستشارات مستقلة.",
+        title: "الويب والجوال والبرمجيات",
+        outcome: "تطبيقات وبوابات وواجهات برمجة — نبنيها ونشغّلها.",
         portalLink: false,
+        href: "/services/web-mobile-development",
+        learnMore: "تطوير الويب والجوال ←",
         points: [
-          "تطوير برمجيات ومنصات مخصّصة",
-          "استراتيجية الهندسة المعمارية والتحول الرقمي",
-          "إرشاد من فريق سلّم أنظمة على نطاق واسع",
+          "تطبيقات ويب — بوابات، لوحات، تجارة إلكترونية (React، Next.js)",
+          "تطبيقات جوال — iOS وAndroid، أصلية أو متعددة المنصات",
+          "واجهات برمجة، تكاملات واستشارات هندسة معمارية",
         ],
       },
       {
@@ -248,7 +250,7 @@ export const ar: Dictionary = {
     body: "نعمل عبر المكدس الكامل ونختار الأداة المناسبة لاحتياجاتكم — لا لاحتياجاتنا. بلا قفل تقني، وبلا صناديق سوداء.",
     groups: [
       { group: "السحابة", items: ["AWS", "Microsoft Azure", "DigitalOcean", "Cloudflare"] },
-      { group: "التطوير", items: ["React", "Next.js", "Node.js", "PostgreSQL"] },
+      { group: "الويب والجوال", items: ["React", "Next.js", "Node.js", "React Native", "Flutter", "PostgreSQL"] },
       {
         group: "الذكاء الاصطناعي",
         items: ["OpenAI", "Anthropic", "Gemini", "RAG", "MCP", "AI Agents"],
@@ -303,7 +305,7 @@ export const ar: Dictionary = {
       cloud: "البنية التحتية السحابية",
       managedIt: "تقنية المعلومات المُدارة",
       ai: "الأتمتة بالذكاء الاصطناعي",
-      software: "البرمجيات والاستشارات",
+      software: "الويب والجوال والبرمجيات",
       erp: "ERP والفوترة الإلكترونية",
       about: "من نحن",
       caseStudies: "دراسات الحالة",

@@ -88,13 +88,15 @@ export const en: Dictionary = {
       {
         id: "software-consulting",
         tag: "04",
-        title: "Software & Consulting",
-        outcome: "Custom systems and independent advice.",
+        title: "Web, Mobile & Software",
+        outcome: "Apps, portals, and APIs — built and operated.",
         portalLink: false,
+        href: "/services/web-mobile-development",
+        learnMore: "Web & mobile development →",
         points: [
-          "Custom software & platform development",
-          "Architecture & digital-transformation strategy",
-          "Guidance from people who've shipped at scale",
+          "Web apps — portals, dashboards, e-commerce (React, Next.js)",
+          "Mobile apps — iOS & Android, native or cross-platform",
+          "APIs, integrations & architecture consulting",
         ],
       },
       {
@@ -248,7 +250,7 @@ export const en: Dictionary = {
     body: "We work across the full stack and pick the right tool for your needs — not ours. No lock-in, no black boxes.",
     groups: [
       { group: "Cloud", items: ["AWS", "Microsoft Azure", "DigitalOcean", "Cloudflare"] },
-      { group: "Development", items: ["React", "Next.js", "Node.js", "PostgreSQL"] },
+      { group: "Web & Mobile", items: ["React", "Next.js", "Node.js", "React Native", "Flutter", "PostgreSQL"] },
       {
         group: "Artificial Intelligence",
         items: ["OpenAI", "Anthropic", "Gemini", "RAG", "MCP", "AI Agents"],
@@ -303,7 +305,7 @@ export const en: Dictionary = {
       cloud: "Cloud Infrastructure",
       managedIt: "Managed IT",
       ai: "AI Automation",
-      software: "Software & Consulting",
+      software: "Web, Mobile & Software",
       erp: "ERP & E-Invoicing",
       about: "About",
       caseStudies: "Case Studies",

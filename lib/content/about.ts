@@ -47,7 +47,7 @@ const EN: AboutContent = {
       {
         name: "Icon Software · Amman, Jordan",
         role: "Delivery center",
-        body: "Software engineering, cloud architecture, AI/R&D, and long-running production systems for government, banking, education, and enterprise clients across MENA.",
+        body: "Software engineering, web & mobile development, cloud architecture, AI/R&D, and long-running production systems for government, banking, education, and enterprise clients across MENA.",
       },
     ],
     closing:
@@ -110,7 +110,7 @@ const AR: AboutContent = {
       {
         name: "Icon Software · عمّان، الأردن",
         role: "مركز التسليم",
-        body: "هندسة البرمجيات، ومعمارية السحابة، والذكاء الاصطناعي/البحث، وأنظمة إنتاج طويلة الأمد للحكومة والبنوك والتعليم وعملاء المؤسسات في منطقة الشرق الأوسط وشمال أفريقيا.",
+        body: "هندسة البرمجيات، وتطوير الويب والجوال، ومعمارية السحابة، والذكاء الاصطناعي/البحث، وأنظمة إنتاج طويلة الأمد للحكومة والبنوك والتعليم وعملاء المؤسسات في منطقة الشرق الأوسط وشمال أفريقيا.",
       },
     ],
     closing:

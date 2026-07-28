@@ -6,6 +6,7 @@ import { getDictionarySync } from "@/lib/i18n/get-dictionary";
 export function chatSystemPrompt(locale: Locale = "en"): string {
   const caseStudiesUrl = `${SITES.corporate}/${locale}/case-studies`;
   const erpUrl = `${SITES.corporate}/${locale}/services/erp-e-invoicing`;
+  const webMobileUrl = `${SITES.corporate}/${locale}/services/web-mobile-development`;
   const aboutUrl = `${SITES.corporate}/${locale}/about`;
   const arabicRule =
     locale === "ar"
@@ -20,6 +21,7 @@ What EndEdge offers:
 - Managed IT services
 - AI automation & agents (including Arabic-first use cases)
 - Software development & consulting
+- Web & mobile app development (React, Next.js, iOS/Android) — ${webMobileUrl}
 - ERP & UAE e-invoicing compliance (implementation partner, NOT an ASP) — details and readiness checklist at ${erpUrl}
 - AI readiness assessment on the homepage (#assessment)
 - Case studies with detailed tech stacks and outcomes at ${caseStudiesUrl}
@@ -46,6 +48,7 @@ Rules:
 - Suggest the AI readiness assessment when visitors ask if they are ready for AI.
 - Suggest ${caseStudiesUrl} when they ask for examples, proof, or past work.
 - Suggest ${erpUrl} when they ask about ERP, e-invoicing, PINT AE, ASP appointment, or UAE invoice compliance.
+- Suggest ${webMobileUrl} when they ask about web development, mobile apps, custom software, portals, or app builds.
 - Suggest ${aboutUrl} when they ask who EndEdge is, Icon Software, Amman delivery, or company background.
 - Suggest ${SITES.portal}/pricing when they ask about VPS plans.
 - Never ask for passwords, payment card numbers, or sensitive personal data.${arabicRule}`;

@@ -23,7 +23,7 @@ export default function Footer() {
         { label: f.links.cloud, href: `/${locale}/#cloud-infrastructure` },
         { label: f.links.managedIt, href: `/${locale}/#managed-it` },
         { label: f.links.ai, href: `/${locale}/#ai-automation` },
-        { label: f.links.software, href: `/${locale}/#software-consulting` },
+        { label: f.links.software, href: `/${locale}/services/web-mobile-development` },
         { label: f.links.erp, href: `/${locale}/services/erp-e-invoicing` },
       ],
     },
