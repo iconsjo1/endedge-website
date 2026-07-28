@@ -28,9 +28,9 @@ const config: Config = {
         stone: "var(--text-muted-on-band)",
       },
       fontFamily: {
-        display: ["var(--font-poppins)", "var(--font-cairo)", "system-ui", "sans-serif"],
-        sans: ["var(--font-roboto)", "var(--font-cairo)", "system-ui", "sans-serif"],
-        arabic: ["var(--font-cairo)", "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        sans: ["var(--font-roboto)", "system-ui", "sans-serif"],
+        arabic: ["var(--font-el-messiri)", "system-ui", "sans-serif"],
       },
       maxWidth: {
         shell: "1180px",

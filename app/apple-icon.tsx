@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { ICON_BG, ICON_CHEVRON_PATH } from "@/lib/brand/icon-mark";
 
 export const runtime = "edge";
 export const size = { width: 180, height: 180 };
@@ -14,20 +15,13 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0A1230",
-          borderRadius: 36,
+          background: ICON_BG,
+          borderRadius: 40,
         }}
       >
-        <div
-          style={{
-            width: 0,
-            height: 0,
-            borderTop: "42px solid transparent",
-            borderBottom: "42px solid transparent",
-            borderLeft: "68px solid #FF6F00",
-            marginLeft: 12,
-          }}
-        />
+        <svg width="112" height="112" viewBox="0 0 32 32" fill="none">
+          <path d={ICON_CHEVRON_PATH} fill="#FF6F00" />
+        </svg>
       </div>
     ),
     { ...size },

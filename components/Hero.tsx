@@ -21,13 +21,17 @@ export default function Hero({
       />
 
       <div className="shell relative grid items-center gap-12 py-20 md:grid-cols-[1.15fr_0.85fr] md:py-28">
-        <div>
+        <div className={locale === "ar" ? "md:pe-4" : undefined}>
           <p className="eyebrow hero-reveal" style={{ animationDelay: "0.05s" }}>
             {h.eyebrow}
           </p>
 
           <h1
-            className="hero-reveal mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-mist sm:text-5xl md:text-[3.4rem]"
+            className={`hero-reveal mt-5 font-display font-semibold tracking-tight text-mist ${
+              locale === "ar"
+                ? "text-4xl leading-[1.22] sm:text-[2.65rem] md:text-[3rem]"
+                : "text-4xl leading-[1.08] sm:text-5xl md:text-[3.4rem]"
+            }`}
             style={{ animationDelay: "0.15s" }}
           >
             {h.titleBefore}
@@ -36,7 +40,9 @@ export default function Hero({
           </h1>
 
           <p
-            className="hero-reveal mt-6 max-w-xl text-lg leading-relaxed text-muted"
+            className={`hero-reveal mt-6 max-w-xl leading-relaxed text-muted ${
+              locale === "ar" ? "text-base md:text-[1.05rem]" : "text-lg"
+            }`}
             style={{ animationDelay: "0.28s" }}
           >
             {h.body}
@@ -61,7 +67,7 @@ export default function Hero({
             {h.stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="font-display text-xl font-semibold text-mist">{stat.value}</dt>
-                <dd className="mt-1 font-display text-[11px] uppercase tracking-wide text-muted">
+                <dd className="mt-1 font-display text-[11px] text-muted rtl:normal-case rtl:tracking-normal uppercase tracking-wide">
                   {stat.label}
                 </dd>
               </div>
@@ -70,7 +76,9 @@ export default function Hero({
         </div>
 
         <div
-          className="hero-reveal relative mx-auto w-full max-w-sm md:max-w-none"
+          className={`hero-reveal relative mx-auto w-full md:max-w-none ${
+            locale === "ar" ? "max-w-[19rem] sm:max-w-md" : "max-w-sm"
+          }`}
           style={{ animationDelay: "0.2s" }}
         >
           <StackMark

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Poppins, Roboto, Cairo } from "next/font/google";
+import { Poppins, Roboto, El_Messiri } from "next/font/google";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/ChatWidget";
 import AnalyticsScripts from "@/components/AnalyticsScripts";
@@ -33,10 +33,10 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const cairo = Cairo({
+const elMessiri = El_Messiri({
   subsets: ["arabic", "latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-cairo",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-el-messiri",
   display: "swap",
 });
 
@@ -74,9 +74,13 @@ export async function generateMetadata({
       type: "website",
     },
     icons: {
-      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-      apple: [{ url: "/apple-icon", type: "image/png" }],
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
     },
+    manifest: "/site.webmanifest",
     robots: { index: true, follow: true },
     ...(GOOGLE_SITE_VERIFICATION
       ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
@@ -97,8 +101,8 @@ export default async function LocaleLayout({
   const dir = localeDirection(locale);
   const fontClass =
     locale === "ar"
-      ? `${cairo.variable} ${poppins.variable} ${roboto.variable} font-arabic`
-      : `${poppins.variable} ${roboto.variable} ${cairo.variable} font-sans`;
+      ? `${elMessiri.variable} font-arabic`
+      : `${poppins.variable} ${roboto.variable} font-sans`;
 
   return (
     <html lang={locale} dir={dir} className={fontClass} data-theme="dark" suppressHydrationWarning>

@@ -188,10 +188,63 @@ body {
   }
 }
 
+html.font-arabic,
+html.font-arabic .font-display,
+html.font-arabic .font-sans,
+html.font-arabic body,
 [dir="rtl"] .font-display,
 [dir="rtl"] .font-sans,
 [dir="rtl"] body {
-  font-family: var(--font-cairo), system-ui, sans-serif;
+  font-family: var(--font-el-messiri), system-ui, sans-serif;
+}
+
+[dir="rtl"] .eyebrow {
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.stack-mark-animate.stack-mark-rtl .stack-label {
+  animation-name: stack-label-in-rtl;
+}
+
+@keyframes stack-label-in-rtl {
+  from {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.stack-mark-animate.stack-mark-rtl .stack-chevron {
+  animation:
+    stack-chevron-in-rtl 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both,
+    stack-chevron-pulse-rtl 3.2s ease-in-out 1.4s infinite;
+}
+
+@keyframes stack-chevron-in-rtl {
+  from {
+    opacity: 0;
+    transform: translate(6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes stack-chevron-pulse-rtl {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-4px, 0);
+    opacity: 0.85;
+  }
 }
 
 /* StackMark assemble + ambient motion (hero only via .stack-mark-animate) */
