@@ -3,7 +3,10 @@ import type { ServiceLandingContent } from "@/lib/content/service-landing";
 
 export const AI_AUTOMATION_SLUG = "ai-automation";
 
+const aiCodes = ["6201"];
+
 const en: ServiceLandingContent = {
+  licenseCodes: aiCodes,
   meta: {
     title: "AI Automation & Agents",
     description:
@@ -98,6 +101,7 @@ const en: ServiceLandingContent = {
 };
 
 const ar: ServiceLandingContent = {
+  licenseCodes: aiCodes,
   meta: {
     title: "الأتمتة بالذكاء الاصطناعي والوكلاء الأذكياء",
     description:

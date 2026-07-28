@@ -2,6 +2,8 @@ import type { Locale } from "@/lib/i18n/config";
 
 export type ServiceLandingContent = {
   meta: { title: string; description: string };
+  /** SPC FZ license activity codes covered by this service page. */
+  licenseCodes?: string[];
   hero: {
     eyebrow: string;
     headline: string;

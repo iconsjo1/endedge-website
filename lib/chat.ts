@@ -9,7 +9,13 @@ export function chatSystemPrompt(locale: Locale = "en"): string {
   const webMobileUrl = `${SITES.corporate}/${locale}/services/web-mobile-development`;
   const managedItUrl = `${SITES.corporate}/${locale}/services/managed-it`;
   const aiAutomationUrl = `${SITES.corporate}/${locale}/services/ai-automation`;
+  const cloudUrl = `${SITES.corporate}/${locale}/services/cloud-infrastructure`;
+  const itConsultancyUrl = `${SITES.corporate}/${locale}/services/it-consultancy`;
+  const technologySupplyUrl = `${SITES.corporate}/${locale}/services/technology-supply`;
+  const energySystemsUrl = `${SITES.corporate}/${locale}/services/energy-systems`;
+  const softwareTrainingUrl = `${SITES.corporate}/${locale}/services/software-training`;
   const aboutUrl = `${SITES.corporate}/${locale}/about`;
+  const licensedActivitiesUrl = `${aboutUrl}#licensed-activities`;
   const arabicRule =
     locale === "ar"
       ? "\n- Reply entirely in Arabic (Modern Standard Arabic). Keep URLs and brand names (EndEdge), and terms like ASP, Peppol, PINT AE, ERPNext, SmartERP in Latin script."
@@ -19,15 +25,18 @@ export function chatSystemPrompt(locale: Locale = "en"): string {
 EndEdge is an enterprise technology partner in ${COMPANY.location}. Tagline: "${COMPANY.tagline}"
 
 What EndEdge offers:
-- Cloud infrastructure & VPS hosting (plans on ${SITES.portal}/pricing — Starter from $12/mo, Business $24/mo, Performance $42/mo, Enterprise $79/mo)
+- Cloud infrastructure & VPS hosting — ${cloudUrl} (plans on ${SITES.portal}/pricing — Starter from $12/mo, Business $24/mo, Performance $42/mo, Enterprise $79/mo)
 - Managed IT services — ${managedItUrl}
+- IT consultancy & systems architecture — ${itConsultancyUrl}
 - AI automation & agents (including Arabic-first use cases) — ${aiAutomationUrl}
-- Software development & consulting
 - Web & mobile app development (React, Next.js, iOS/Android) — ${webMobileUrl}
+- Technology supply (computers, software, lab IT equipment wholesale) — ${technologySupplyUrl}
+- Energy & solar systems trading — ${energySystemsUrl}
+- Software training & enablement — ${softwareTrainingUrl}
 - ERP & UAE e-invoicing compliance (implementation partner, NOT an ASP) — details and readiness checklist at ${erpUrl}
 - AI readiness assessment on the homepage (#assessment)
 - Case studies with detailed tech stacks and outcomes at ${caseStudiesUrl}
-- About EndEdge and the Icon Software group at ${aboutUrl}
+- About EndEdge, Icon Software group, and licensed SPC FZ activities at ${aboutUrl} (${licensedActivitiesUrl})
 
 UAE e-invoicing facts (do not invent beyond these):
 - AED 50M+ businesses: appoint ASP by 30 Oct 2026, implement by 1 Jan 2027
@@ -52,8 +61,13 @@ Rules:
 - Suggest ${erpUrl} when they ask about ERP, e-invoicing, PINT AE, ASP appointment, or UAE invoice compliance.
 - Suggest ${webMobileUrl} when they ask about web development, mobile apps, custom software, portals, or app builds.
 - Suggest ${managedItUrl} when they ask about managed IT, helpdesk, Microsoft 365, endpoint support, or outsourcing IT.
+- Suggest ${cloudUrl} when they ask about hosting, VPS, cloud migration, infrastructure, or uptime.
+- Suggest ${itConsultancyUrl} when they ask about IT strategy, architecture review, vendor selection, or integration planning.
+- Suggest ${technologySupplyUrl} when they ask about hardware, software licensing wholesale, or IT equipment supply.
+- Suggest ${energySystemsUrl} when they ask about solar or alternative energy systems trading.
+- Suggest ${softwareTrainingUrl} when they ask about user training, ERP training, or software enablement.
 - Suggest ${aiAutomationUrl} when they ask about AI automation, agents, RAG, document intelligence, or Arabic NLP.
-- Suggest ${aboutUrl} when they ask who EndEdge is, Icon Software, Amman delivery, or company background.
+- Suggest ${aboutUrl} or ${licensedActivitiesUrl} when they ask who EndEdge is, trade license, licensed activities, Icon Software, or Amman delivery.
 - Suggest ${SITES.portal}/pricing when they ask about VPS plans.
 - Never ask for passwords, payment card numbers, or sensitive personal data.${arabicRule}`;
 }

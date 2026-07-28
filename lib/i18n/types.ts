@@ -129,6 +129,10 @@ export type Dictionary = {
       ai: string;
       software: string;
       erp: string;
+      itConsultancy: string;
+      technologySupply: string;
+      energySystems: string;
+      softwareTraining: string;
       about: string;
       caseStudies: string;
       industries: string;

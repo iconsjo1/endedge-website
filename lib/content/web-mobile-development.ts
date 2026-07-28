@@ -1,11 +1,15 @@
 import type { Locale } from "@/lib/i18n/config";
+import { licenseCodesForService } from "@/lib/constants/license-activities";
 import type { ServiceLandingContent } from "@/lib/content/service-landing";
 
 export const WEB_MOBILE_SLUG = "web-mobile-development";
 
+const webCodes = licenseCodesForService(WEB_MOBILE_SLUG);
+
 export type WebMobilePageContent = ServiceLandingContent;
 
 const en: WebMobilePageContent = {
+  licenseCodes: webCodes,
   meta: {
     title: "Web & Mobile Development",
     description:
@@ -100,6 +104,7 @@ const en: WebMobilePageContent = {
 };
 
 const ar: WebMobilePageContent = {
+  licenseCodes: webCodes,
   meta: {
     title: "تطوير الويب والتطبيقات",
     description:

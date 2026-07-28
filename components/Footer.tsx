@@ -20,11 +20,15 @@ export default function Footer() {
     {
       heading: f.services,
       links: [
-        { label: f.links.cloud, href: `/${locale}/#cloud-infrastructure` },
+        { label: f.links.cloud, href: `/${locale}/services/cloud-infrastructure` },
         { label: f.links.managedIt, href: `/${locale}/services/managed-it` },
         { label: f.links.ai, href: `/${locale}/services/ai-automation` },
         { label: f.links.software, href: `/${locale}/services/web-mobile-development` },
         { label: f.links.erp, href: `/${locale}/services/erp-e-invoicing` },
+        { label: f.links.itConsultancy, href: `/${locale}/services/it-consultancy` },
+        { label: f.links.technologySupply, href: `/${locale}/services/technology-supply` },
+        { label: f.links.energySystems, href: `/${locale}/services/energy-systems` },
+        { label: f.links.softwareTraining, href: `/${locale}/services/software-training` },
       ],
     },
     {

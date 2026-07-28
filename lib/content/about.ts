@@ -11,6 +11,12 @@ export type AboutContent = {
     offices: { name: string; role: string; body: string }[];
     closing: string;
   };
+  license: {
+    headline: string;
+    intro: string;
+    authorityNote: string;
+    serviceLink: string;
+  };
   principles: { headline: string; items: { title: string; body: string }[] };
   cta: { headline: string; body: string; primary: string; secondary: string };
 };
@@ -52,6 +58,14 @@ const EN: AboutContent = {
     ],
     closing:
       "One group narrative, one delivery standard — whether your contract is with EndEdge in Dubai or delivery runs through Icon Software in Amman.",
+  },
+  license: {
+    headline: "Licensed activities",
+    intro:
+      "Endedge FZE (trade license 4423081.01) is registered in Sharjah Publishing City Free Zone. The activities below are listed exactly as on our trade license. Each links to the EndEdge service page that covers that scope.",
+    authorityNote:
+      "Issued by Sharjah Publishing City Free Zone Authority · License 4423081.01 · Valid through 30 July 2026",
+    serviceLink: "View service",
   },
   principles: {
     headline: "How we work",
@@ -115,6 +129,14 @@ const AR: AboutContent = {
     ],
     closing:
       "سرد مجموعة واحد، ومعيار تسليم واحد — سواء كان عقدكم مع EndEdge في دبي أو كان التسليم عبر Icon Software في عمّان.",
+  },
+  license: {
+    headline: "الأنشطة المرخصة",
+    intro:
+      "إنديدج FZE (الرخصة التجارية 4423081.01) مسجّلة في مدينة الشارقة للنشر — المنطقة الحرة. الأنشطة أدناه مدرجة كما في الرخصة التجارية. كل نشاط يرتبط بصفحة الخدمة في EndEdge التي تغطي هذا النطاق.",
+    authorityNote:
+      "صادرة عن هيئة مدينة الشارقة للنشر — المنطقة الحرة · الرخصة 4423081.01 · سارية حتى 30 يوليو 2026",
+    serviceLink: "عرض الخدمة",
   },
   principles: {
     headline: "كيف نعمل",

@@ -1,9 +1,13 @@
 import type { Locale } from "@/lib/i18n/config";
+import { licenseCodesForService } from "@/lib/constants/license-activities";
 import type { ServiceLandingContent } from "@/lib/content/service-landing";
 
 export const MANAGED_IT_SLUG = "managed-it";
 
+const codes = licenseCodesForService(MANAGED_IT_SLUG);
+
 const en: ServiceLandingContent = {
+  licenseCodes: codes,
   meta: {
     title: "Managed IT Services",
     description:
@@ -98,6 +102,7 @@ const en: ServiceLandingContent = {
 };
 
 const ar: ServiceLandingContent = {
+  licenseCodes: codes,
   meta: {
     title: "خدمات تقنية المعلومات المُدارة",
     description:

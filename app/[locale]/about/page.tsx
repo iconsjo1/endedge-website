@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import LicensedActivities from "@/components/about/LicensedActivities";
 import { aboutEmail, getAboutContent } from "@/lib/content/about";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 
@@ -91,6 +92,17 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
               ))}
             </div>
             <p className="mt-8 max-w-2xl text-sm leading-relaxed text-muted">{c.group.closing}</p>
+          </div>
+        </section>
+
+        <section id="licensed-activities" className="border-t border-slate-line py-16">
+          <div className="shell max-w-3xl">
+            <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+              {c.license.headline}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted">{c.license.intro}</p>
+            <LicensedActivities locale={locale} labels={{ serviceLink: c.license.serviceLink }} />
+            <p className="mt-6 text-xs leading-relaxed text-muted">{c.license.authorityNote}</p>
           </div>
         </section>
 

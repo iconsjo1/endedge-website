@@ -11,7 +11,10 @@ type Props = {
 };
 
 export default function ServiceLandingPage({ locale, content: c }: Props) {
-  const secondaryHref = `/${locale}${c.hero.ctaSecondaryPath}`;
+  const secondaryHref = c.hero.ctaSecondaryPath.startsWith("http")
+    ? c.hero.ctaSecondaryPath
+    : `/${locale}${c.hero.ctaSecondaryPath}`;
+  const secondaryExternal = c.hero.ctaSecondaryPath.startsWith("http");
 
   return (
     <>
@@ -28,13 +31,25 @@ export default function ServiceLandingPage({ locale, content: c }: Props) {
             <a href={`mailto:${COMPANY.email}`} className="btn-primary">
               {c.hero.ctaPrimary}
             </a>
-            <Link href={secondaryHref} className="btn-ghost">
-              {c.hero.ctaSecondary}
-            </Link>
+            {secondaryExternal ? (
+              <a href={secondaryHref} className="btn-ghost" target="_blank" rel="noopener noreferrer">
+                {c.hero.ctaSecondary}
+              </a>
+            ) : (
+              <Link href={secondaryHref} className="btn-ghost">
+                {c.hero.ctaSecondary}
+              </Link>
+            )}
           </div>
           <p className="mt-6 font-display text-xs uppercase tracking-widest text-muted">
             {c.hero.trustLine}
           </p>
+          {c.licenseCodes && c.licenseCodes.length > 0 ? (
+            <p className="mt-3 font-mono text-xs text-muted/90">
+              {locale === "ar" ? "الأنشطة المرخصة" : "Licensed activities"}:{" "}
+              <span className="text-mist/80">{c.licenseCodes.join(" · ")}</span>
+            </p>
+          ) : null}
         </section>
 
         <section className="shell py-16">
