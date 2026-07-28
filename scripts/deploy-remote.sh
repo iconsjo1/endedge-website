@@ -27,9 +27,9 @@ fi
 echo "==> Node $(node -v), npm $(npm -v)"
 
 if [ "${SKIP_GIT_PULL:-0}" != "1" ]; then
-  echo "==> Pull latest code"
+  echo "==> Pull latest code (main)"
   git fetch origin main
-  git reset --hard origin/main
+  git checkout -B main origin/main
 else
   echo "==> Skipping git pull (runner synced this commit)"
 fi
