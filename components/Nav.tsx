@@ -5,6 +5,7 @@ import { SITES } from "@/lib/constants/sites";
 import { useI18n } from "@/components/I18nProvider";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ThemeToggle from "@/components/ThemeToggle";
+import BrandLogo from "@/components/BrandLogo";
 import { NavServicesDesktop, NavServicesMobile } from "@/components/NavServicesMenu";
 
 export default function Nav() {
@@ -77,28 +78,7 @@ export default function Nav() {
       }`}
     >
       <nav className="shell flex h-[4.25rem] min-w-0 items-center justify-between gap-3">
-        <a
-          href={`/${locale}`}
-          className="group relative z-10 flex shrink-0 items-center gap-2 font-display text-lg font-bold tracking-tight text-mist"
-          onClick={closeMobile}
-        >
-          <span className="relative">
-            EndEdge
-            <span
-              className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-orange/70 transition-transform duration-300 group-hover:scale-x-100"
-              aria-hidden
-            />
-          </span>
-          <svg
-            width="13"
-            height="15"
-            viewBox="0 0 12 14"
-            aria-hidden
-            className="mt-0.5 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-          >
-            <path d="M1 1 L8 7 L1 13 L4.5 7 Z" fill="#FF6F00" />
-          </svg>
-        </a>
+        <BrandLogo href={`/${locale}`} onClick={closeMobile} />
 
         <div className="hidden min-w-0 items-center gap-1 xl:flex">
           <div className="flex min-w-0 items-center gap-0.5">
@@ -206,7 +186,9 @@ export default function Nav() {
               <ThemeToggle />
               <LanguageSwitcher />
             </div>
-            <p className="font-display text-[11px] uppercase tracking-wider text-muted">EndEdge</p>
+            <p className="brand-logo font-display text-[11px] uppercase tracking-wider text-muted" dir="ltr" lang="en">
+              EndEdge
+            </p>
           </div>
 
           <div className="mt-3 grid gap-2">

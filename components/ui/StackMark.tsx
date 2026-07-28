@@ -13,33 +13,36 @@ export default function StackMark({
   rtl?: boolean;
   animate?: boolean;
 }) {
+  /** Vertical gap between layer centers (was 52 — labels felt cramped). */
+  const LAYER_GAP = 62;
+  const TOP_Y = 78;
   const layers = [
     {
-      y: 300,
+      y: TOP_Y + LAYER_GAP * 4,
       fill: "var(--stack-1-fill)",
       stroke: "var(--stack-1-stroke)",
       fallbackLabel: "Infrastructure",
     },
     {
-      y: 248,
+      y: TOP_Y + LAYER_GAP * 3,
       fill: "var(--stack-2-fill)",
       stroke: "var(--stack-2-stroke)",
       fallbackLabel: "Applications",
     },
     {
-      y: 196,
+      y: TOP_Y + LAYER_GAP * 2,
       fill: "var(--stack-3-fill)",
       stroke: "var(--stack-3-stroke)",
       fallbackLabel: "Automation",
     },
     {
-      y: 144,
+      y: TOP_Y + LAYER_GAP,
       fill: "var(--stack-4-fill)",
       stroke: "var(--stack-4-stroke)",
       fallbackLabel: "Applied AI",
     },
     {
-      y: 92,
+      y: TOP_Y,
       fill: "var(--stack-5-fill)",
       stroke: "var(--stack-5-stroke)",
       fallbackLabel: "Growth",
@@ -59,15 +62,22 @@ export default function StackMark({
     return `${cx - w},${cy} ${cx},${cy - h} ${cx + w},${cy} ${cx},${cy + h}`;
   };
 
-  const STACK_CX = 210;
+  const STACK_CX = 200;
   const EDGE_W = 150;
   const EDGE_H = 34;
+  const STACK_RIGHT = STACK_CX + EDGE_W;
+  const LABEL_GAP = 36;
   const edgeAngleDeg = (Math.atan2(EDGE_H, EDGE_W) * 180) / Math.PI;
   const chevronOffset = 26;
   const chevronX = rtl ? STACK_CX - chevronOffset : STACK_CX + chevronOffset;
-  const chevronY = 64;
-  const labelX = rtl ? 368 : 378;
-  const labelAnchor = "start";
+  const chevronY = TOP_Y - 28;
+  /**
+   * LTR: labels sit to the right; start anchor, text grows right.
+   * RTL: labels sit to the right of the stack; end + rtl makes text grow right
+   * from a point clear of the diamond tip (avoids text running into the plane).
+   */
+  const labelX = STACK_RIGHT + LABEL_GAP;
+  const labelAnchor = rtl ? "end" : "start";
 
   const labelLines = (text: string): { fontSize: number; lines: string[] } => {
     if (!rtl) return { fontSize: 12, lines: [text] };
@@ -86,9 +96,12 @@ export default function StackMark({
     return { fontSize: 12, lines: [text] };
   };
 
+  const bottomY = TOP_Y + LAYER_GAP * 4;
+  const viewH = bottomY + 70;
+
   return (
     <svg
-      viewBox="0 0 460 380"
+      viewBox={`0 0 520 ${viewH}`}
       className={`${className}${animate ? " stack-mark-animate" : ""}${rtl ? " stack-mark-rtl" : ""}`}
       role="img"
       aria-label="EndEdge value stack: infrastructure, applications, automation, applied AI, growth"
@@ -105,7 +118,7 @@ export default function StackMark({
 
       <polygon
         className={animate ? "stack-glow" : undefined}
-        points={plane(STACK_CX, 92)}
+        points={plane(STACK_CX, TOP_Y)}
         fill="var(--orange)"
         opacity="0.16"
         filter="url(#soft)"
@@ -131,49 +144,50 @@ export default function StackMark({
               strokeWidth="2.5"
             />
           )}
-          {labelList && (() => {
-            const { fontSize, lines } = labelLines(labelList[i]);
-            const lineHeight = fontSize * 1.35;
-            const startY = l.y + 4 - ((lines.length - 1) * lineHeight) / 2;
-            return (
-              <text
-                className={animate ? "stack-label" : undefined}
-                style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
-                x={labelX}
-                y={startY}
-                fill={
-                  i === layers.length - 1
-                    ? "var(--stack-label-active)"
-                    : "var(--stack-label)"
-                }
-                fontSize={fontSize}
-                fontFamily={
-                  rtl
-                    ? "var(--font-el-messiri), sans-serif"
-                    : "var(--font-poppins), sans-serif"
-                }
-                fontWeight={i === layers.length - 1 ? 600 : 500}
-                textAnchor={labelAnchor}
-                direction={rtl ? "rtl" : "ltr"}
-                unicodeBidi={rtl ? "plaintext" : undefined}
-              >
-                {lines.map((line, j) => (
-                  <tspan key={j} x={labelX} dy={j === 0 ? 0 : lineHeight}>
-                    {line}
-                  </tspan>
-                ))}
-              </text>
-            );
-          })()}
+          {labelList &&
+            (() => {
+              const { fontSize, lines } = labelLines(labelList[i]);
+              const lineHeight = fontSize * 1.4;
+              const startY = l.y + 4 - ((lines.length - 1) * lineHeight) / 2;
+              return (
+                <text
+                  className={animate ? "stack-label" : undefined}
+                  style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
+                  x={labelX}
+                  y={startY}
+                  fill={
+                    i === layers.length - 1
+                      ? "var(--stack-label-active)"
+                      : "var(--stack-label)"
+                  }
+                  fontSize={fontSize}
+                  fontFamily={
+                    rtl
+                      ? "var(--font-el-messiri), sans-serif"
+                      : "var(--font-poppins), sans-serif"
+                  }
+                  fontWeight={i === layers.length - 1 ? 600 : 500}
+                  textAnchor={labelAnchor}
+                  direction={rtl ? "rtl" : "ltr"}
+                  unicodeBidi={rtl ? "plaintext" : undefined}
+                >
+                  {lines.map((line, j) => (
+                    <tspan key={j} x={labelX} dy={j === 0 ? 0 : lineHeight}>
+                      {line}
+                    </tspan>
+                  ))}
+                </text>
+              );
+            })()}
         </g>
       ))}
 
       <line
         className={animate ? "stack-spine" : undefined}
         x1={STACK_CX}
-        y1="330"
+        y1={bottomY + 28}
         x2={STACK_CX}
-        y2="66"
+        y2={TOP_Y - 12}
         stroke="url(#edgeLine)"
         strokeWidth="1.5"
         strokeDasharray="2 6"

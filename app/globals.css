@@ -203,6 +203,15 @@ html.font-arabic body,
   text-transform: none;
 }
 
+/* Brand wordmark stays Latin / LTR on Arabic pages */
+.brand-logo,
+html.font-arabic .brand-logo,
+[dir="rtl"] .brand-logo {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 .stack-mark-animate.stack-mark-rtl .stack-label {
   animation-name: stack-label-in-rtl;
 }

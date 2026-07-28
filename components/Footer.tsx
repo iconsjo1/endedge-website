@@ -3,6 +3,7 @@
 import { SITES } from "@/lib/constants/sites";
 import { useI18n } from "@/components/I18nProvider";
 import TrustContacts from "@/components/TrustContacts";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
   const { locale, dict } = useI18n();
@@ -48,15 +49,7 @@ export default function Footer() {
     <footer className="border-t border-slate-line bg-ink py-14">
       <div className="shell grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <a
-            href={`/${locale}`}
-            className="flex items-center gap-1.5 font-display text-lg font-bold tracking-tight text-mist"
-          >
-            EndEdge
-            <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden className="mt-0.5">
-              <path d="M1 1 L8 7 L1 13 L4.5 7 Z" fill="#FF6F00" />
-            </svg>
-          </a>
+          <BrandLogo href={`/${locale}`} size="footer" />
           <p className="mt-3 font-display text-sm font-medium text-orange">{f.tagline}</p>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">{f.blurb}</p>
           <p className="mt-5 font-display text-xs uppercase tracking-widest text-muted">

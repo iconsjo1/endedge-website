@@ -101,7 +101,7 @@ export default async function LocaleLayout({
   const dir = localeDirection(locale);
   const fontClass =
     locale === "ar"
-      ? `${elMessiri.variable} font-arabic`
+      ? `${elMessiri.variable} ${poppins.variable} font-arabic`
       : `${poppins.variable} ${roboto.variable} font-sans`;
 
   return (
