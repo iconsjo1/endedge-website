@@ -119,6 +119,28 @@ body {
     background-color: var(--navy-hover);
   }
 
+  /* Header — opaque bar over light page bands (Services, Why EndEdge, etc.) */
+  .site-header--solid {
+    background-color: var(--bg);
+  }
+
+  [data-theme="dark"] .site-header--solid {
+    background-color: #0a1230;
+  }
+
+  .site-header--solid .nav-link {
+    color: var(--text);
+    opacity: 0.92;
+  }
+
+  .site-header--solid .nav-link:hover {
+    opacity: 1;
+  }
+
+  .site-header--solid .btn-ghost {
+    @apply border-slate-line text-mist hover:border-orange hover:text-orange;
+  }
+
   /* Header nav links */
   .nav-link {
     @apply relative whitespace-nowrap rounded-md px-2 py-2 font-sans text-[13px] text-muted

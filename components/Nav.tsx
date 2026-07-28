@@ -10,7 +10,7 @@ import { NavServicesDesktop, NavServicesMobile } from "@/components/NavServicesM
 export default function Nav() {
   const { locale, dict } = useI18n();
   const n = dict.nav;
-  const [scrolled, setScrolled] = useState(false);
+  const [solidHeader, setSolidHeader] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
@@ -32,10 +32,22 @@ export default function Nav() {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const updateHeader = () => {
+      const scrolledNow = window.scrollY > 12;
+      const x = Math.round(window.innerWidth / 2);
+      const hits = document.elementsFromPoint(x, 40);
+      const overLight = hits.some(
+        (el) => el.classList.contains("bg-paper") || el.closest(".bg-paper") !== null,
+      );
+      setSolidHeader(scrolledNow || overLight);
+    };
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    window.addEventListener("resize", updateHeader);
+    return () => {
+      window.removeEventListener("scroll", updateHeader);
+      window.removeEventListener("resize", updateHeader);
+    };
   }, []);
 
   useEffect(() => {
@@ -57,9 +69,9 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
-        scrolled || open
-          ? "border-b border-slate-line/80 bg-ink/90 shadow-[0_12px_40px_-24px_rgba(0,0,0,0.65)] backdrop-blur-md"
+      className={`site-header fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
+        solidHeader || open
+          ? "site-header--solid border-b border-slate-line shadow-[0_8px_32px_-12px_rgba(0,0,0,0.45)]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -147,7 +159,7 @@ export default function Nav() {
 
       <div
         id="mobile-nav"
-        className={`border-t border-slate-line bg-ink/95 backdrop-blur-md transition-[max-height,opacity] duration-300 ease-out xl:hidden ${
+        className={`site-header--solid border-t border-slate-line transition-[max-height,opacity] duration-300 ease-out xl:hidden ${
           open ? "max-h-[min(85vh,640px)] overflow-y-auto opacity-100" : "max-h-0 overflow-hidden opacity-0"
         }`}
       >
