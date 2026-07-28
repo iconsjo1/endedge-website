@@ -7,6 +7,7 @@ export type Dictionary = {
   nav: {
     services: string;
     caseStudies: string;
+    about: string;
     aiReadiness: string;
     technology: string;
     industries: string;
@@ -14,6 +15,21 @@ export type Dictionary = {
     viewHosting: string;
     bookConsultation: string;
     toggleMenu: string;
+    toggleServices: string;
+    servicesMenu: {
+      coreHeading: string;
+      licensedHeading: string;
+      licensedActivities: string;
+      cloud: string;
+      managedIt: string;
+      ai: string;
+      software: string;
+      erp: string;
+      itConsultancy: string;
+      technologySupply: string;
+      energySystems: string;
+      softwareTraining: string;
+    };
   };
   hero: {
     eyebrow: string;

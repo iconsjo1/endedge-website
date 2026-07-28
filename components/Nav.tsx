@@ -5,21 +5,28 @@ import { SITES } from "@/lib/constants/sites";
 import { useI18n } from "@/components/I18nProvider";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ThemeToggle from "@/components/ThemeToggle";
+import { NavServicesDesktop, NavServicesMobile } from "@/components/NavServicesMenu";
 
 export default function Nav() {
   const { locale, dict } = useI18n();
   const n = dict.nav;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   const links = [
-    { href: `/${locale}/#services`, label: n.services },
     { href: `/${locale}/case-studies`, label: n.caseStudies },
+    { href: `/${locale}/about`, label: n.about },
     { href: `/${locale}/#assessment`, label: n.aiReadiness },
     { href: `/${locale}/#tech`, label: n.technology },
     { href: `/${locale}/#industries`, label: n.industries },
     { href: `${SITES.portal}/pricing`, label: n.vpsHosting, external: true },
   ];
+
+  const closeMobile = () => {
+    setOpen(false);
+    setServicesOpen(false);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -29,7 +36,10 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setServicesOpen(false);
+      return;
+    }
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (event: KeyboardEvent) => {
@@ -54,7 +64,7 @@ export default function Nav() {
         <a
           href={`/${locale}`}
           className="group relative z-10 flex items-center gap-2 font-display text-lg font-bold tracking-tight text-mist"
-          onClick={() => setOpen(false)}
+          onClick={closeMobile}
         >
           <span className="relative">
             EndEdge
@@ -76,6 +86,7 @@ export default function Nav() {
 
         <div className="hidden items-center gap-1 lg:flex">
           <div className="flex items-center gap-0.5 rounded-lg border border-transparent px-1 py-1">
+            <NavServicesDesktop locale={locale} label={n.services} menu={n.servicesMenu} />
             {links.map((l) => (
               <a
                 key={l.href}
@@ -132,15 +143,25 @@ export default function Nav() {
       <div
         id="mobile-nav"
         className={`border-t border-slate-line bg-ink/95 backdrop-blur-md transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
-          open ? "max-h-[min(80vh,560px)] opacity-100" : "max-h-0 overflow-hidden opacity-0"
+          open ? "max-h-[min(85vh,640px)] overflow-y-auto opacity-100" : "max-h-0 overflow-hidden opacity-0"
         }`}
       >
         <div className="shell flex flex-col gap-1 py-5">
+          <NavServicesMobile
+            locale={locale}
+            label={n.services}
+            toggleLabel={n.toggleServices}
+            menu={n.servicesMenu}
+            open={servicesOpen}
+            onToggle={() => setServicesOpen((v) => !v)}
+            onNavigate={closeMobile}
+          />
+
           {links.map((l, index) => (
             <a
               key={l.href}
               href={l.href}
-              onClick={() => setOpen(false)}
+              onClick={closeMobile}
               className="rounded-lg px-3 py-3 text-sm text-muted transition-colors hover:bg-slate-panel hover:text-mist"
               style={open ? { animationDelay: `${index * 40}ms` } : undefined}
               {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -154,24 +175,14 @@ export default function Nav() {
               <ThemeToggle />
               <LanguageSwitcher />
             </div>
-            <p className="font-display text-[11px] uppercase tracking-wider text-muted">
-              EndEdge
-            </p>
+            <p className="font-display text-[11px] uppercase tracking-wider text-muted">EndEdge</p>
           </div>
 
           <div className="mt-3 grid gap-2">
-            <a
-              href={`${SITES.portal}/pricing`}
-              onClick={() => setOpen(false)}
-              className="btn-ghost"
-            >
+            <a href={`${SITES.portal}/pricing`} onClick={closeMobile} className="btn-ghost">
               {n.viewHosting}
             </a>
-            <a
-              href={`/${locale}/#contact`}
-              onClick={() => setOpen(false)}
-              className="btn-primary"
-            >
+            <a href={`/${locale}/#contact`} onClick={closeMobile} className="btn-primary">
               {n.bookConsultation}
             </a>
           </div>
