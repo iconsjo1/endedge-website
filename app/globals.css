@@ -267,11 +267,11 @@ html {
   }
 }
 
-/* Back to top */
+/* Back to top — stacked above ChatWidget FAB */
 .back-to-top-chevron {
   position: fixed;
   right: 1.25rem;
-  bottom: 1.25rem;
+  bottom: 5.75rem;
   z-index: 60;
   display: grid;
   place-items: center;
@@ -290,6 +290,13 @@ html {
     border-color 0.2s ease;
 }
 
+@media (min-width: 640px) {
+  .back-to-top-chevron {
+    right: 1.5rem;
+    bottom: 6.5rem;
+  }
+}
+
 .back-to-top-chevron.is-visible {
   opacity: 1;
   pointer-events: auto;
@@ -300,9 +307,16 @@ html {
   border-color: var(--orange);
 }
 
+/* Stay above chat (chat is always bottom-right, including RTL) */
 [dir="rtl"] .back-to-top-chevron {
-  right: auto;
-  left: 1.25rem;
+  right: 1.25rem;
+  left: auto;
+}
+
+@media (min-width: 640px) {
+  [dir="rtl"] .back-to-top-chevron {
+    right: 1.5rem;
+  }
 }
 
 .back-to-top-ghost {
