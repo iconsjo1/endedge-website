@@ -1,11 +1,27 @@
 /** Public company + UAE trust signals (set via NEXT_PUBLIC_* in .env.local). */
 
-function env(key: string): string {
-  return process.env[key]?.trim() ?? "";
+/**
+ * Next.js only inlines NEXT_PUBLIC_* when accessed with a static property path.
+ * Dynamic `process.env[key]` works on the server but is empty after client hydration —
+ * which made address / phone / WhatsApp vanish in the footer after load.
+ */
+function env(key: "STREET" | "LICENSE" | "TRN" | "PHONE" | "WHATSAPP"): string {
+  switch (key) {
+    case "STREET":
+      return process.env.NEXT_PUBLIC_COMPANY_STREET_ADDRESS?.trim() ?? "";
+    case "LICENSE":
+      return process.env.NEXT_PUBLIC_COMPANY_TRADE_LICENSE?.trim() ?? "";
+    case "TRN":
+      return process.env.NEXT_PUBLIC_COMPANY_TRN?.trim() ?? "";
+    case "PHONE":
+      return process.env.NEXT_PUBLIC_COMPANY_PHONE?.trim() ?? "";
+    case "WHATSAPP":
+      return process.env.NEXT_PUBLIC_COMPANY_WHATSAPP?.trim() ?? "";
+  }
 }
 
 /** Comma- or pipe-separated list (e.g. two regional numbers). */
-function envList(key: string): string[] {
+function envList(key: "PHONE" | "WHATSAPP"): string[] {
   const raw = env(key);
   if (!raw) return [];
   return raw
@@ -26,11 +42,11 @@ const BASE = {
 
 export const COMPANY = {
   ...BASE,
-  streetAddress: env("NEXT_PUBLIC_COMPANY_STREET_ADDRESS"),
-  tradeLicense: env("NEXT_PUBLIC_COMPANY_TRADE_LICENSE"),
-  trn: env("NEXT_PUBLIC_COMPANY_TRN"),
-  phones: envList("NEXT_PUBLIC_COMPANY_PHONE"),
-  whatsapps: envList("NEXT_PUBLIC_COMPANY_WHATSAPP"),
+  streetAddress: env("STREET"),
+  tradeLicense: env("LICENSE"),
+  trn: env("TRN"),
+  phones: envList("PHONE"),
+  whatsapps: envList("WHATSAPP"),
 } as const;
 
 export function hasTrustSignals(): boolean {

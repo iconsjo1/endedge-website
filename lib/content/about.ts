@@ -4,6 +4,7 @@ import { COMPANY } from "@/lib/constants/company";
 export type AboutContent = {
   meta: { title: string; description: string };
   hero: { eyebrow: string; headline: string; subhead: string };
+  video: { ariaLabel: string };
   story: { headline: string; paragraphs: string[] };
   group: {
     headline: string;
@@ -32,6 +33,9 @@ const EN: AboutContent = {
     headline: "Dubai presence. Regional delivery depth. Integrity first.",
     subhead:
       "EndEdge is the UAE entity of the Icon Software group — a technology partner for organizations that need infrastructure, applications, automation, and AI under one accountable team.",
+  },
+  video: {
+    ariaLabel: "EndEdge — enterprise technology and AI in practice (muted video)",
   },
   story: {
     headline: "Built on production work, not pitch decks",
@@ -103,6 +107,9 @@ const AR: AboutContent = {
     headline: "حضور في دبي. عمق إقليمي في التسليم. النزاهة أولاً.",
     subhead:
       "EndEdge هي الكيان الإماراتي لمجموعة Icon Software — شريك تقني للمؤسسات التي تحتاج البنية التحتية والتطبيقات والأتمتة والذكاء الاصطناعي ضمن فريق واحد مسؤول.",
+  },
+  video: {
+    ariaLabel: "EndEdge — تقنية مؤسسية وذكاء اصطناعي في الممارسة (فيديو صامت)",
   },
   story: {
     headline: "مبنيّة على أعمال إنتاجية، لا على عروض تقديمية",

@@ -53,12 +53,29 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
     <>
       <Nav />
       <main className="bg-ink pt-24 text-mist">
-        <div className="shell pb-16">
+        <div className="shell pb-10">
           <p className="eyebrow">{c.hero.eyebrow}</p>
           <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
             {c.hero.headline}
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted">{c.hero.subhead}</p>
+        </div>
+
+        <div className="shell pb-16">
+          <div className="overflow-hidden rounded-xl border border-slate-line bg-slate-panel">
+            <video
+              className="aspect-video h-auto w-full object-cover"
+              src="/videos/endedge-about.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              disablePictureInPicture
+              controlsList="nodownload noplaybackrate"
+              aria-label={c.video.ariaLabel}
+            />
+          </div>
         </div>
 
         <section className="border-t border-slate-line py-16">
