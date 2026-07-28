@@ -6,7 +6,7 @@ function env(key: string): string {
 
 const BASE = {
   name: "EndEdge",
-  legalName: "EndEdge",
+  legalName: "Endedge FZE",
   tagline: "At the Edge of Innovation.",
   location: "Dubai, United Arab Emirates",
   email: "hello@endedge.co",

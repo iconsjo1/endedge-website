@@ -12,6 +12,8 @@
 .env.local
 .env.*.local
 ssh
+*.pdf
+BUSINESS_LICENSE*
 
 # debug
 npm-debug.log*
