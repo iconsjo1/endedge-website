@@ -7,6 +7,7 @@ export type Dictionary = {
   nav: {
     services: string;
     caseStudies: string;
+    insights: string;
     about: string;
     aiReadiness: string;
     technology: string;
@@ -154,6 +155,7 @@ export type Dictionary = {
       softwareTraining: string;
       about: string;
       caseStudies: string;
+      insights: string;
       industries: string;
       readiness: string;
       contact: string;
@@ -200,6 +202,19 @@ export type Dictionary = {
     badgeProduction: string;
     badgeDemonstrator: string;
     badgeResearchBacked: string;
+  };
+  insightsPage: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    readArticle: string;
+    related: string;
+    allInsights: string;
+    nextEyebrow: string;
+    nextTitle: string;
+    nextBody: string;
+    book: string;
+    backHome: string;
   };
   caseStudies: {
     slug: string;

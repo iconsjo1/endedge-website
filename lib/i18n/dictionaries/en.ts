@@ -10,6 +10,7 @@ export const en: Dictionary = {
   nav: {
     services: "Services",
     caseStudies: "Case Studies",
+    insights: "Insights",
     about: "About",
     aiReadiness: "AI Readiness",
     technology: "Technology",
@@ -381,6 +382,7 @@ export const en: Dictionary = {
       softwareTraining: "Software Training",
       about: "About",
       caseStudies: "Case Studies",
+      insights: "Insights",
       industries: "Industries",
       readiness: "AI Readiness",
       contact: "Contact",
@@ -437,6 +439,21 @@ export const en: Dictionary = {
     badgeProduction: "Production",
     badgeDemonstrator: "Demonstrator",
     badgeResearchBacked: "Research-backed",
+  },
+  insightsPage: {
+    eyebrow: "Insights",
+    title: "Practical guidance for UAE enterprises.",
+    description:
+      "Short, opinionated articles on e-invoicing, AI readiness, Arabic-first NLP, cloud migration, managed IT, and building systems that hold up under real load.",
+    readArticle: "Read article",
+    related: "Learn more",
+    allInsights: "All insights",
+    nextEyebrow: "Next step",
+    nextTitle: "Want to apply this to your organization?",
+    nextBody:
+      "Tell us about your stack, compliance timeline, or AI use case — and we'll give you a clear view of what's feasible.",
+    book: "Book a consultation",
+    backHome: "Back to home",
   },
   caseStudies: [
     {

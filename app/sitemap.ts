@@ -3,6 +3,7 @@ import { AI_AUTOMATION_SLUG } from "@/lib/content/ai-automation";
 import { CLOUD_SLUG } from "@/lib/content/cloud-infrastructure";
 import { ENERGY_SYSTEMS_SLUG } from "@/lib/content/energy-systems";
 import { ERP_SLUG } from "@/lib/content/erp-e-invoicing";
+import { getInsightSlugs } from "@/lib/content/insights";
 import { IT_CONSULTANCY_SLUG } from "@/lib/content/it-consultancy";
 import { MANAGED_IT_SLUG } from "@/lib/content/managed-it";
 import { SOFTWARE_TRAINING_SLUG } from "@/lib/content/software-training";
@@ -16,6 +17,8 @@ const PATHS = [
   "",
   "/about",
   "/case-studies",
+  "/insights",
+  ...getInsightSlugs().map((slug) => `/insights/${slug}`),
   "/privacy",
   "/terms",
   `/services/${ERP_SLUG}`,

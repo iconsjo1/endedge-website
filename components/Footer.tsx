@@ -36,6 +36,7 @@ export default function Footer() {
       links: [
         { label: f.links.about, href: `/${locale}/about` },
         { label: f.links.caseStudies, href: `/${locale}/case-studies` },
+        { label: f.links.insights, href: `/${locale}/insights` },
         { label: f.links.industries, href: `/${locale}/#industries` },
         { label: f.links.readiness, href: `/${locale}/#assessment` },
         { label: f.links.contact, href: `/${locale}/#contact` },

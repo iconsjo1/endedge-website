@@ -10,6 +10,7 @@ export const ar: Dictionary = {
   nav: {
     services: "الخدمات",
     caseStudies: "دراسات الحالة",
+    insights: "رؤى",
     about: "من نحن",
     aiReadiness: "جاهزية الذكاء الاصطناعي",
     technology: "التقنية",
@@ -381,6 +382,7 @@ export const ar: Dictionary = {
       softwareTraining: "تدريب البرمجيات",
       about: "من نحن",
       caseStudies: "دراسات الحالة",
+      insights: "رؤى",
       industries: "القطاعات",
       readiness: "جاهزية الذكاء الاصطناعي",
       contact: "تواصل معنا",
@@ -443,6 +445,21 @@ export const ar: Dictionary = {
     badgeProduction: "إنتاج",
     badgeDemonstrator: "نموذج تجريبي",
     badgeResearchBacked: "مدعوم بأبحاث",
+  },
+  insightsPage: {
+    eyebrow: "رؤى",
+    title: "إرشادات عملية للمؤسسات في الإمارات.",
+    description:
+      "مقالات موجزة ومباشرة حول الفوترة الإلكترونية، وجاهزية الذكاء الاصطناعي، ومعالجة العربية أولًا، وترحيل السحابة، وتقنية المعلومات المُدارة، وبناء أنظمة تصمد أمام الحمل الحقيقي.",
+    readArticle: "اقرأ المقال",
+    related: "اعرفوا المزيد",
+    allInsights: "جميع الرؤى",
+    nextEyebrow: "الخطوة التالية",
+    nextTitle: "هل تريدون تطبيق هذا على مؤسستكم؟",
+    nextBody:
+      "أخبرونا عن مكدسكم أو جدول الامتثال أو حالة استخدام الذكاء الاصطناعي — وسنقدّم لكم رؤية واضحة عما هو ممكن.",
+    book: "احجزوا استشارة",
+    backHome: "→ العودة إلى الرئيسية",
   },
   caseStudies: [
     {
