@@ -83,32 +83,96 @@ html {
     auto;
 }
 
-/* Brand chevron cursor site-wide (mouse / trackpad only) */
+/* Fallback CSS chevron when JS cursor trail is off */
 @media (pointer: fine) {
-  html,
-  body,
-  a,
-  button,
-  label,
-  summary,
-  select,
-  [role="button"],
-  [type="button"],
-  [type="submit"],
-  [type="reset"] {
+  html:not(.cursor-brand-follow),
+  html:not(.cursor-brand-follow) body,
+  html:not(.cursor-brand-follow) a,
+  html:not(.cursor-brand-follow) button,
+  html:not(.cursor-brand-follow) label,
+  html:not(.cursor-brand-follow) summary,
+  html:not(.cursor-brand-follow) select,
+  html:not(.cursor-brand-follow) [role="button"],
+  html:not(.cursor-brand-follow) [type="button"],
+  html:not(.cursor-brand-follow) [type="submit"],
+  html:not(.cursor-brand-follow) [type="reset"] {
     cursor: var(--cursor-brand);
   }
 
-  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
-  textarea,
-  [contenteditable="true"] {
+  html:not(.cursor-brand-follow)
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
+  html:not(.cursor-brand-follow) textarea,
+  html:not(.cursor-brand-follow) [contenteditable="true"] {
     cursor: text;
   }
 
-  :disabled,
-  [aria-disabled="true"] {
+  html:not(.cursor-brand-follow) :disabled,
+  html:not(.cursor-brand-follow) [aria-disabled="true"] {
     cursor: not-allowed;
   }
+}
+
+/* Smooth trailing chevron (BrandCursor) */
+@media (pointer: fine) {
+  html.cursor-brand-follow,
+  html.cursor-brand-follow *,
+  html.cursor-brand-follow body,
+  html.cursor-brand-follow a,
+  html.cursor-brand-follow button {
+    cursor: none !important;
+  }
+
+  html.cursor-brand-follow.cursor-brand-text,
+  html.cursor-brand-follow.cursor-brand-text * {
+    cursor: text !important;
+  }
+
+  html.cursor-brand-follow :disabled,
+  html.cursor-brand-follow [aria-disabled="true"] {
+    cursor: not-allowed !important;
+  }
+}
+
+.brand-cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.brand-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 111, 0, 0.85);
+  background: rgba(255, 111, 0, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 0 18px rgba(255, 111, 0, 0.45);
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.brand-cursor-layer.is-action .brand-cursor-mark--head {
+  filter: drop-shadow(0 0 8px rgba(255, 111, 0, 0.75));
+}
+
+.brand-cursor-mark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 4px rgba(255, 111, 0, 0.35));
+}
+
+.brand-cursor-mark--tail {
+  filter: drop-shadow(0 0 6px rgba(255, 111, 0, 0.2));
 }
 
 body {

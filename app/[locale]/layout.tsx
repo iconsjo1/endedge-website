@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Poppins, Roboto, El_Messiri } from "next/font/google";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/ChatWidget";
+import BrandCursor from "@/components/BrandCursor";
 import AnalyticsScripts from "@/components/AnalyticsScripts";
 import JsonLd from "@/components/JsonLd";
 import { I18nProvider } from "@/components/I18nProvider";
@@ -114,6 +115,7 @@ export default async function LocaleLayout({
           <I18nProvider locale={locale} dict={dict}>
             {children}
             <ChatWidget />
+            <BrandCursor />
           </I18nProvider>
         </ThemeProvider>
       </body>
