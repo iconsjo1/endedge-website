@@ -1,14 +1,24 @@
+"use client";
+
+import { useState } from "react";
 import StackMark from "./ui/StackMark";
+import { valueStackRowToLayer } from "@/lib/brand/stack-layers";
 import type { Dictionary } from "@/lib/i18n/types";
 
 export default function ValueStack({ dict }: { dict: Dictionary }) {
   const v = dict.valueStack;
+  const [hoverLayer, setHoverLayer] = useState<number | null>(null);
 
   return (
-    <section id="value" className="border-t border-slate-line bg-ink py-24">
+    <section id="value" className="border-t border-slate-line bg-ink py-24" data-edge-section>
       <div className="shell grid items-center gap-14 md:grid-cols-[0.8fr_1.2fr]">
         <div className="order-2 md:order-1">
-          <StackMark className="mx-auto w-full max-w-xs" />
+          <StackMark
+            className="mx-auto w-full max-w-xs"
+            labels={dict.stackLabels}
+            highlightIndex={hoverLayer}
+            idPrefix="value-stack"
+          />
         </div>
 
         <div className="order-1 md:order-2">
@@ -19,17 +29,33 @@ export default function ValueStack({ dict }: { dict: Dictionary }) {
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">{v.body}</p>
 
           <div className="mt-8 divide-y divide-slate-line border-y border-slate-line">
-            {v.layers.map((l, i) => (
-              <div key={l.name} className="flex gap-5 py-4">
-                <span className="mt-0.5 font-display text-xs text-orange">
-                  {String(v.layers.length - i).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-display text-base font-medium text-mist">{l.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted">{l.desc}</p>
+            {v.layers.map((l, i) => {
+              const layerIdx = valueStackRowToLayer(i, v.layers.length);
+              const active = hoverLayer === layerIdx;
+              return (
+                <div
+                  key={l.name}
+                  className={`flex gap-5 py-4 transition-colors ${active ? "bg-orange/5" : ""}`}
+                  onMouseEnter={() => setHoverLayer(layerIdx)}
+                  onMouseLeave={() => setHoverLayer(null)}
+                  onFocus={() => setHoverLayer(layerIdx)}
+                  onBlur={() => setHoverLayer(null)}
+                  tabIndex={0}
+                >
+                  <span className="mt-0.5 font-display text-xs text-orange">
+                    {String(v.layers.length - i).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3
+                      className={`font-display text-base font-medium ${active ? "text-orange" : "text-mist"}`}
+                    >
+                      {l.name}
+                    </h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">{l.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

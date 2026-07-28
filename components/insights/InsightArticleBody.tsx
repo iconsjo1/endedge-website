@@ -16,7 +16,7 @@ export default function InsightArticleBody({
   const relatedHref = `/${locale}${article.relatedPath}`;
 
   return (
-    <article className="mx-auto max-w-3xl">
+    <article className="mx-auto max-w-3xl" data-insight-article>
       <p className="eyebrow">{article.category}</p>
       <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-mist md:text-4xl">
         {article.title}

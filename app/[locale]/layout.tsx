@@ -4,6 +4,10 @@ import { Poppins, Roboto, El_Messiri } from "next/font/google";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/ChatWidget";
 import BrandCursor from "@/components/BrandCursor";
+import ScrollEdgeTrace from "@/components/brand/ScrollEdgeTrace";
+import SectionTicks from "@/components/brand/SectionTicks";
+import BackToTopChevron from "@/components/brand/BackToTopChevron";
+import LocaleCutWipe from "@/components/brand/LocaleCutWipe";
 import AnalyticsScripts from "@/components/AnalyticsScripts";
 import JsonLd from "@/components/JsonLd";
 import { I18nProvider } from "@/components/I18nProvider";
@@ -116,6 +120,10 @@ export default async function LocaleLayout({
             {children}
             <ChatWidget />
             <BrandCursor />
+            <ScrollEdgeTrace />
+            <SectionTicks />
+            <BackToTopChevron />
+            <LocaleCutWipe />
           </I18nProvider>
         </ThemeProvider>
       </body>

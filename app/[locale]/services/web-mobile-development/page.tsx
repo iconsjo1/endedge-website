@@ -36,5 +36,7 @@ export default function WebMobileDevelopmentPage({
 }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getWebMobilePageContent(locale)} />;
+  return (
+    <ServiceLandingPage locale={locale} content={getWebMobilePageContent(locale)} stackLayer={1} />
+  );
 }

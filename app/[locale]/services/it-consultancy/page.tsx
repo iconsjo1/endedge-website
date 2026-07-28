@@ -24,5 +24,7 @@ export async function generateMetadata({
 export default function ItConsultancyPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getItConsultancyContent(locale)} />;
+  return (
+    <ServiceLandingPage locale={locale} content={getItConsultancyContent(locale)} stackLayer={2} />
+  );
 }

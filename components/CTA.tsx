@@ -11,7 +11,7 @@ export default function CTA() {
   const trust = dict.footer.trust;
 
   return (
-    <section id="contact" className="border-t border-slate-line bg-ink py-24">
+    <section id="contact" className="border-t border-slate-line bg-ink py-24" data-edge-section>
       <div className="shell">
         <div className="card edge-glow relative overflow-hidden px-8 py-14 text-center md:px-16 md:py-20">
           <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-40" aria-hidden />

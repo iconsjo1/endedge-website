@@ -24,5 +24,7 @@ export async function generateMetadata({
 export default function EnergySystemsPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getEnergySystemsContent(locale)} />;
+  return (
+    <ServiceLandingPage locale={locale} content={getEnergySystemsContent(locale)} stackLayer={0} />
+  );
 }

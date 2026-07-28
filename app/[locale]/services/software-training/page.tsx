@@ -27,5 +27,11 @@ export async function generateMetadata({
 export default function SoftwareTrainingPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getSoftwareTrainingContent(locale)} />;
+  return (
+    <ServiceLandingPage
+      locale={locale}
+      content={getSoftwareTrainingContent(locale)}
+      stackLayer={2}
+    />
+  );
 }

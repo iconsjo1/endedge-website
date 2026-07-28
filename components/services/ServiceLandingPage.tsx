@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import StackMark from "@/components/ui/StackMark";
 import { COMPANY } from "@/lib/constants/company";
 import type { ServiceLandingContent } from "@/lib/content/service-landing";
 import type { Locale } from "@/lib/i18n/config";
@@ -8,9 +9,11 @@ import type { Locale } from "@/lib/i18n/config";
 type Props = {
   locale: Locale;
   content: ServiceLandingContent;
+  /** StackMark layer to light (0 Infrastructure … 4 Growth). */
+  stackLayer?: number;
 };
 
-export default function ServiceLandingPage({ locale, content: c }: Props) {
+export default function ServiceLandingPage({ locale, content: c, stackLayer = 0 }: Props) {
   const secondaryHref = c.hero.ctaSecondaryPath.startsWith("http")
     ? c.hero.ctaSecondaryPath
     : `/${locale}${c.hero.ctaSecondaryPath}`;
@@ -20,39 +23,53 @@ export default function ServiceLandingPage({ locale, content: c }: Props) {
     <>
       <Nav />
       <main className="bg-ink pt-24 text-mist">
-        <section className="shell pb-16">
-          <p className="eyebrow">{c.hero.eyebrow}</p>
-          <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
-            {c.hero.headline}
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{c.hero.subhead}</p>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-mist/90">{c.hero.body}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href={`mailto:${COMPANY.email}`} className="btn-primary">
-              {c.hero.ctaPrimary}
-            </a>
-            {secondaryExternal ? (
-              <a href={secondaryHref} className="btn-ghost" target="_blank" rel="noopener noreferrer">
-                {c.hero.ctaSecondary}
-              </a>
-            ) : (
-              <Link href={secondaryHref} className="btn-ghost">
-                {c.hero.ctaSecondary}
-              </Link>
-            )}
+        <section className="shell pb-16" data-edge-section>
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <p className="eyebrow">{c.hero.eyebrow}</p>
+              <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+                {c.hero.headline}
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{c.hero.subhead}</p>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-mist/90">{c.hero.body}</p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <a href={`mailto:${COMPANY.email}`} className="btn-primary">
+                  {c.hero.ctaPrimary}
+                </a>
+                {secondaryExternal ? (
+                  <a href={secondaryHref} className="btn-ghost" target="_blank" rel="noopener noreferrer">
+                    {c.hero.ctaSecondary}
+                  </a>
+                ) : (
+                  <Link href={secondaryHref} className="btn-ghost">
+                    {c.hero.ctaSecondary}
+                  </Link>
+                )}
+              </div>
+              <p className="mt-6 font-display text-xs uppercase tracking-widest text-muted">
+                {c.hero.trustLine}
+              </p>
+              {c.licenseCodes && c.licenseCodes.length > 0 ? (
+                <p className="mt-3 font-mono text-xs text-muted/90">
+                  {locale === "ar" ? "الأنشطة المرخصة" : "Licensed activities"}:{" "}
+                  <span className="text-mist/80">{c.licenseCodes.join(" · ")}</span>
+                </p>
+              ) : null}
+            </div>
+            <div className="mx-auto w-full max-w-sm lg:max-w-none">
+              <StackMark
+                className="w-full"
+                labels
+                rtl={locale === "ar"}
+                activeThrough={stackLayer}
+                highlightIndex={stackLayer}
+                idPrefix={`svc-${stackLayer}`}
+              />
+            </div>
           </div>
-          <p className="mt-6 font-display text-xs uppercase tracking-widest text-muted">
-            {c.hero.trustLine}
-          </p>
-          {c.licenseCodes && c.licenseCodes.length > 0 ? (
-            <p className="mt-3 font-mono text-xs text-muted/90">
-              {locale === "ar" ? "الأنشطة المرخصة" : "Licensed activities"}:{" "}
-              <span className="text-mist/80">{c.licenseCodes.join(" · ")}</span>
-            </p>
-          ) : null}
         </section>
 
-        <section className="shell py-16">
+        <section className="shell py-16" data-edge-section>
           <h2 className="font-display text-3xl font-semibold tracking-tight">{c.scope.headline}</h2>
           <ol className="mt-10 grid gap-5 md:grid-cols-2">
             {c.scope.items.map((item) => (
@@ -68,7 +85,7 @@ export default function ServiceLandingPage({ locale, content: c }: Props) {
           </ol>
         </section>
 
-        <section className="border-y border-slate-line bg-slate-panel py-16">
+        <section className="border-y border-slate-line bg-slate-panel py-16" data-edge-section>
           <div className="shell">
             <h2 className="font-display text-3xl font-semibold tracking-tight">
               {c.delivery.headline}
@@ -87,7 +104,7 @@ export default function ServiceLandingPage({ locale, content: c }: Props) {
           </div>
         </section>
 
-        <section className="border-b border-slate-line bg-paper py-16 text-graphite">
+        <section className="border-b border-slate-line bg-paper py-16 text-graphite" data-edge-section>
           <div className="shell max-w-3xl">
             <h2 className="font-display text-3xl font-semibold tracking-tight">
               {c.proof.headline}
@@ -102,7 +119,7 @@ export default function ServiceLandingPage({ locale, content: c }: Props) {
           </div>
         </section>
 
-        <section className="border-b border-slate-line py-16">
+        <section className="border-b border-slate-line py-16" data-edge-section>
           <div className="shell max-w-3xl">
             <h2 className="font-display text-3xl font-semibold tracking-tight">{c.faq.headline}</h2>
             <dl className="mt-10 space-y-8">
@@ -116,7 +133,7 @@ export default function ServiceLandingPage({ locale, content: c }: Props) {
           </div>
         </section>
 
-        <section className="shell py-16">
+        <section className="shell py-16" data-edge-section>
           <h2 className="max-w-2xl font-display text-3xl font-semibold tracking-tight">
             {c.closing.headline}
           </h2>

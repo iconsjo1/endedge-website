@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import InsightArticleBody from "@/components/insights/InsightArticleBody";
+import InsightReadingProgress from "@/components/insights/InsightReadingProgress";
 import { COMPANY } from "@/lib/constants/company";
 import {
   getInsightArticle,
@@ -70,8 +71,9 @@ export default async function InsightArticlePage({
   return (
     <>
       <Nav />
+      <InsightReadingProgress />
       <main className="bg-ink pt-24 text-mist">
-        <div className="shell py-10 md:py-14">
+        <div className="shell py-10 md:py-14" data-edge-section>
           <InsightArticleBody
             article={article}
             locale={locale}

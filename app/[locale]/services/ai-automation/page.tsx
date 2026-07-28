@@ -29,5 +29,7 @@ export async function generateMetadata({
 export default function AiAutomationPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getAiAutomationContent(locale)} />;
+  return (
+    <ServiceLandingPage locale={locale} content={getAiAutomationContent(locale)} stackLayer={3} />
+  );
 }

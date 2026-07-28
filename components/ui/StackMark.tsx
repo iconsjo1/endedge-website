@@ -7,13 +7,23 @@ export default function StackMark({
   labels = false,
   rtl = false,
   animate = false,
+  highlightIndex = null,
+  activeThrough = null,
+  missingIndex = null,
+  idPrefix = "sm",
 }: {
   className?: string;
   labels?: boolean | string[];
   rtl?: boolean;
   animate?: boolean;
+  /** Emphasize one layer (0 = Infrastructure … 4 = Growth). */
+  highlightIndex?: number | null;
+  /** Light layers 0..n (inclusive); dim the rest — readiness / service ascent. */
+  activeThrough?: number | null;
+  /** Draw an empty dashed slot (404 broken edge). */
+  missingIndex?: number | null;
+  idPrefix?: string;
 }) {
-  /** Vertical gap between layer centers (was 52 — labels felt cramped). */
   const LAYER_GAP = 62;
   const TOP_Y = 78;
   const layers = [
@@ -71,11 +81,6 @@ export default function StackMark({
   const chevronOffset = 26;
   const chevronX = rtl ? STACK_CX - chevronOffset : STACK_CX + chevronOffset;
   const chevronY = TOP_Y - 28;
-  /**
-   * LTR: labels sit to the right; start anchor, text grows right.
-   * RTL: labels sit to the right of the stack; end + rtl makes text grow right
-   * from a point clear of the diamond tip (avoids text running into the plane).
-   */
   const labelX = STACK_RIGHT + LABEL_GAP;
   const labelAnchor = rtl ? "end" : "start";
 
@@ -98,6 +103,20 @@ export default function StackMark({
 
   const bottomY = TOP_Y + LAYER_GAP * 4;
   const viewH = bottomY + 70;
+  const gradId = `${idPrefix}-edgeLine`;
+  const softId = `${idPrefix}-soft`;
+
+  const layerOpacity = (i: number) => {
+    if (missingIndex === i) return 0.15;
+    if (highlightIndex != null) return i === highlightIndex ? 1 : 0.38;
+    if (activeThrough != null) return i <= activeThrough ? 1 : 0.32;
+    return 1;
+  };
+
+  const isHot = (i: number) =>
+    highlightIndex === i ||
+    (activeThrough != null && i === activeThrough) ||
+    (highlightIndex == null && activeThrough == null && missingIndex == null && i === layers.length - 1);
 
   return (
     <svg
@@ -107,11 +126,11 @@ export default function StackMark({
       aria-label="EndEdge value stack: infrastructure, applications, automation, applied AI, growth"
     >
       <defs>
-        <linearGradient id="edgeLine" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="var(--orange)" />
           <stop offset="100%" stopColor="var(--orange-bright)" />
         </linearGradient>
-        <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+        <filter id={softId} x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="7" />
         </filter>
       </defs>
@@ -121,66 +140,70 @@ export default function StackMark({
         points={plane(STACK_CX, TOP_Y)}
         fill="var(--orange)"
         opacity="0.16"
-        filter="url(#soft)"
+        filter={`url(#${softId})`}
       />
 
-      {layers.map((l, i) => (
-        <g
-          key={i}
-          className={animate ? "stack-layer" : undefined}
-          style={animate ? { animationDelay: `${0.15 + i * 0.12}s` } : undefined}
-        >
-          <polygon
-            points={plane(STACK_CX, l.y)}
-            fill={l.fill}
-            stroke={l.stroke}
-            strokeWidth="1.5"
-          />
-          {i === layers.length - 1 && (
+      {layers.map((l, i) => {
+        const missing = missingIndex === i;
+        return (
+          <g
+            key={i}
+            className={animate ? "stack-layer" : undefined}
+            style={{
+              opacity: layerOpacity(i),
+              transition: "opacity 0.35s ease",
+              ...(animate ? { animationDelay: `${0.15 + i * 0.12}s` } : {}),
+            }}
+          >
             <polygon
               points={plane(STACK_CX, l.y)}
-              fill="none"
-              stroke="url(#edgeLine)"
-              strokeWidth="2.5"
+              fill={missing ? "transparent" : l.fill}
+              stroke={missing ? "var(--orange)" : isHot(i) ? "var(--orange)" : l.stroke}
+              strokeWidth={isHot(i) || missing ? 2.25 : 1.5}
+              strokeDasharray={missing ? "6 5" : undefined}
             />
-          )}
-          {labelList &&
-            (() => {
-              const { fontSize, lines } = labelLines(labelList[i]);
-              const lineHeight = fontSize * 1.4;
-              const startY = l.y + 4 - ((lines.length - 1) * lineHeight) / 2;
-              return (
-                <text
-                  className={animate ? "stack-label" : undefined}
-                  style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
-                  x={labelX}
-                  y={startY}
-                  fill={
-                    i === layers.length - 1
-                      ? "var(--stack-label-active)"
-                      : "var(--stack-label)"
-                  }
-                  fontSize={fontSize}
-                  fontFamily={
-                    rtl
-                      ? "var(--font-el-messiri), sans-serif"
-                      : "var(--font-poppins), sans-serif"
-                  }
-                  fontWeight={i === layers.length - 1 ? 600 : 500}
-                  textAnchor={labelAnchor}
-                  direction={rtl ? "rtl" : "ltr"}
-                  unicodeBidi={rtl ? "plaintext" : undefined}
-                >
-                  {lines.map((line, j) => (
-                    <tspan key={j} x={labelX} dy={j === 0 ? 0 : lineHeight}>
-                      {line}
-                    </tspan>
-                  ))}
-                </text>
-              );
-            })()}
-        </g>
-      ))}
+            {isHot(i) && !missing && (
+              <polygon
+                points={plane(STACK_CX, l.y)}
+                fill="none"
+                stroke={`url(#${gradId})`}
+                strokeWidth="2.5"
+              />
+            )}
+            {labelList &&
+              (() => {
+                const { fontSize, lines } = labelLines(labelList[i]);
+                const lineHeight = fontSize * 1.4;
+                const startY = l.y + 4 - ((lines.length - 1) * lineHeight) / 2;
+                return (
+                  <text
+                    className={animate ? "stack-label" : undefined}
+                    style={animate ? { animationDelay: `${0.35 + i * 0.12}s` } : undefined}
+                    x={labelX}
+                    y={startY}
+                    fill={isHot(i) ? "var(--stack-label-active)" : "var(--stack-label)"}
+                    fontSize={fontSize}
+                    fontFamily={
+                      rtl
+                        ? "var(--font-el-messiri), sans-serif"
+                        : "var(--font-poppins), sans-serif"
+                    }
+                    fontWeight={isHot(i) ? 600 : 500}
+                    textAnchor={labelAnchor}
+                    direction={rtl ? "rtl" : "ltr"}
+                    unicodeBidi={rtl ? "plaintext" : undefined}
+                  >
+                    {lines.map((line, j) => (
+                      <tspan key={j} x={labelX} dy={j === 0 ? 0 : lineHeight}>
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
+                );
+              })()}
+          </g>
+        );
+      })}
 
       <line
         className={animate ? "stack-spine" : undefined}
@@ -188,21 +211,23 @@ export default function StackMark({
         y1={bottomY + 28}
         x2={STACK_CX}
         y2={TOP_Y - 12}
-        stroke="url(#edgeLine)"
+        stroke={`url(#${gradId})`}
         strokeWidth="1.5"
         strokeDasharray="2 6"
         opacity="0.55"
       />
 
-      <g
-        transform={`translate(${chevronX} ${chevronY}) rotate(${rtl ? 180 - edgeAngleDeg : edgeAngleDeg})`}
-      >
-        <path
-          className={animate ? "stack-chevron" : undefined}
-          d="M-14 -18 L14 0 L-14 18 L-2 0 Z"
-          fill="var(--orange)"
-        />
-      </g>
+      {missingIndex !== layers.length - 1 && (
+        <g
+          transform={`translate(${chevronX} ${chevronY}) rotate(${rtl ? 180 - edgeAngleDeg : edgeAngleDeg})`}
+        >
+          <path
+            className={animate ? "stack-chevron" : undefined}
+            d="M-14 -18 L14 0 L-14 18 L-2 0 Z"
+            fill="var(--orange)"
+          />
+        </g>
+      )}
     </svg>
   );
 }

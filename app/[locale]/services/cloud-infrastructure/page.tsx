@@ -33,6 +33,10 @@ export default function CloudInfrastructurePage({ params }: { params: { locale: 
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
   return (
-    <ServiceLandingPage locale={locale} content={getCloudInfrastructureContent(locale)} />
+    <ServiceLandingPage
+      locale={locale}
+      content={getCloudInfrastructureContent(locale)}
+      stackLayer={0}
+    />
   );
 }

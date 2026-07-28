@@ -29,13 +29,23 @@ export default async function HomePage({
       <main>
         <Hero dict={dict} locale={locale} />
         <LogoStrip dict={dict} />
-        <Services dict={dict} locale={locale} />
+        <div data-edge-section>
+          <Services dict={dict} locale={locale} />
+        </div>
         <ValueStack dict={dict} />
         <Readiness />
-        <WhyEndEdge dict={dict} />
-        <CaseStudiesTeaser dict={dict} locale={locale} />
-        <TechStack dict={dict} />
-        <Industries dict={dict} />
+        <div data-edge-section>
+          <WhyEndEdge dict={dict} />
+        </div>
+        <div data-edge-section>
+          <CaseStudiesTeaser dict={dict} locale={locale} />
+        </div>
+        <div data-edge-section>
+          <TechStack dict={dict} />
+        </div>
+        <div data-edge-section>
+          <Industries dict={dict} />
+        </div>
         <CTA />
       </main>
       <Footer />

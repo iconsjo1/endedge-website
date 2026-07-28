@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import StackMark from "@/components/ui/StackMark";
 import ChecklistLeadMagnet from "@/components/services/ChecklistLeadMagnet";
 import { COMPANY } from "@/lib/constants/company";
 import { ERP_SLUG, getErpPageContent } from "@/lib/content/erp-e-invoicing";
@@ -58,26 +59,40 @@ export default function ErpEInvoicingPage({
       <Nav />
       <main className="bg-ink pt-24 text-mist">
         {/* Hero */}
-        <section className="shell pb-16">
-          <p className="eyebrow">{c.hero.eyebrow}</p>
-          <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
-            {c.hero.headline}
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{c.hero.subhead}</p>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-mist/90">
-            {c.hero.partnerLine}
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href={`#${c.lead.id}`} className="btn-primary">
-              {c.hero.ctaPrimary}
-            </a>
-            <a href={`mailto:${COMPANY.email}`} className="btn-ghost">
-              {c.hero.ctaSecondary}
-            </a>
+        <section className="shell pb-16" data-edge-section>
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <p className="eyebrow">{c.hero.eyebrow}</p>
+              <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+                {c.hero.headline}
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{c.hero.subhead}</p>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-mist/90">
+                {c.hero.partnerLine}
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <a href={`#${c.lead.id}`} className="btn-primary">
+                  {c.hero.ctaPrimary}
+                </a>
+                <a href={`mailto:${COMPANY.email}`} className="btn-ghost">
+                  {c.hero.ctaSecondary}
+                </a>
+              </div>
+              <p className="mt-6 font-display text-xs uppercase tracking-widest text-muted">
+                {c.hero.trustLine}
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-sm lg:max-w-none">
+              <StackMark
+                className="w-full"
+                labels
+                rtl={locale === "ar"}
+                activeThrough={1}
+                highlightIndex={1}
+                idPrefix="erp"
+              />
+            </div>
           </div>
-          <p className="mt-6 font-display text-xs uppercase tracking-widest text-muted">
-            {c.hero.trustLine}
-          </p>
         </section>
 
         {/* ASP vs partner */}

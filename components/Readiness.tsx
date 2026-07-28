@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
+import StackMark from "@/components/ui/StackMark";
+import { readinessUnlockLayer } from "@/lib/brand/stack-layers";
 import { trackEvent } from "@/lib/analytics";
 
 interface Report {
@@ -65,7 +67,7 @@ export default function Readiness() {
   }
 
   return (
-    <section id="assessment" className="relative border-t border-slate-line bg-ink py-24">
+    <section id="assessment" className="relative border-t border-slate-line bg-ink py-24" data-edge-section>
       <div className="shell">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">{r.eyebrow}</p>
@@ -191,6 +193,18 @@ export default function Readiness() {
                         {report.headline}
                       </h3>
                     </div>
+                  </div>
+
+                  <div className="mx-auto mt-8 max-w-xs">
+                    <StackMark
+                      className="w-full"
+                      labels={dict.stackLabels}
+                      rtl={locale === "ar"}
+                      activeThrough={readinessUnlockLayer(report.total)}
+                      highlightIndex={readinessUnlockLayer(report.total)}
+                      idPrefix="readiness"
+                      animate
+                    />
                   </div>
 
                   <p className="mt-6 whitespace-pre-line text-sm leading-relaxed text-muted">

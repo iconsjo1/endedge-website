@@ -29,5 +29,7 @@ export async function generateMetadata({
 export default function ManagedItPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  return <ServiceLandingPage locale={locale} content={getManagedItContent(locale)} />;
+  return (
+    <ServiceLandingPage locale={locale} content={getManagedItContent(locale)} stackLayer={0} />
+  );
 }
