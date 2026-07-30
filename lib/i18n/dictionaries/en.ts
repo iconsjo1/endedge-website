@@ -357,12 +357,20 @@ export const en: Dictionary = {
     blurb:
       "Enterprise technology & AI, delivered end to end. Modernize your infrastructure, automate operations, and adopt practical AI — with one trusted partner.",
     location: "Dubai, UAE",
+    availableIn: "Available in",
+    countries: {
+      uae: "UAE",
+      jordan: "Jordan",
+      iraq: "Iraq",
+      uk: "UK",
+    },
     trust: {
       tradeLicense: "Trade license",
       trn: "TRN",
       phone: "Phone",
       whatsapp: "WhatsApp",
       email: "Email",
+      countryPhone: "Phone ({country})",
     },
     products: "Products",
     services: "Services",

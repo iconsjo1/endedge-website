@@ -130,12 +130,20 @@ export type Dictionary = {
     tagline: string;
     blurb: string;
     location: string;
+    availableIn: string;
+    countries: {
+      uae: string;
+      jordan: string;
+      iraq: string;
+      uk: string;
+    };
     trust: {
       tradeLicense: string;
       trn: string;
       phone: string;
       whatsapp: string;
       email: string;
+      countryPhone: string;
     };
     products: string;
     services: string;

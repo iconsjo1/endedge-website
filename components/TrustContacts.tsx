@@ -3,6 +3,7 @@
 import {
   COMPANY,
   hasTrustSignals,
+  phoneCountry,
   telHref,
   whatsappHrefForNumber,
 } from "@/lib/constants/company";
@@ -14,6 +15,7 @@ type TrustLabels = {
   phone: string;
   whatsapp: string;
   email: string;
+  countryPhone: string;
 };
 
 type Props = {
@@ -78,7 +80,13 @@ export default function TrustContacts({
             className={textClass}
             onClick={() => trackEvent("contact_click", { method: "phone", location: variant })}
           >
-            {COMPANY.phones.length === 1 || i === 0 ? `${labels.phone}: ` : ""}
+            {(() => {
+              const country = phoneCountry(phone);
+              if (country) {
+                return `${labels.countryPhone.replace("{country}", country)}: `;
+              }
+              return COMPANY.phones.length === 1 || i === 0 ? `${labels.phone}: ` : "";
+            })()}
             {phone}
           </a>
         ))}

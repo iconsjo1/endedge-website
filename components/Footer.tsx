@@ -8,6 +8,7 @@ import BrandLogo from "@/components/BrandLogo";
 export default function Footer() {
   const { locale, dict } = useI18n();
   const f = dict.footer;
+  const countries = [f.countries.uae, f.countries.jordan, f.countries.iraq, f.countries.uk];
 
   const columns = [
     {
@@ -54,6 +55,12 @@ export default function Footer() {
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">{f.blurb}</p>
           <p className="mt-5 font-display text-xs uppercase tracking-widest text-muted">
             {f.location}
+          </p>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted">
+            <span className="font-display text-[11px] uppercase tracking-widest text-muted">
+              {f.availableIn}
+            </span>{" "}
+            <span className="text-mist/85">{countries.join(" · ")}</span>
           </p>
           <TrustContacts labels={f.trust} variant="footer" />
         </div>
