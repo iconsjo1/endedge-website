@@ -68,7 +68,7 @@ const EN: AboutContent = {
     intro:
       "Endedge FZE (trade license 4423081.01) is registered in Sharjah Publishing City Free Zone. The activities below are listed exactly as on our trade license. Each links to the EndEdge service page that covers that scope.",
     authorityNote:
-      "Issued by Sharjah Publishing City Free Zone Authority · License 4423081.01 · Valid through 30 July 2026",
+      "Issued by Sharjah Publishing City Free Zone Authority · License 4423081.01 · Valid through 30 July 2027",
     serviceLink: "View service",
   },
   principles: {
@@ -142,7 +142,7 @@ const AR: AboutContent = {
     intro:
       "إنديدج FZE (الرخصة التجارية 4423081.01) مسجّلة في مدينة الشارقة للنشر — المنطقة الحرة. الأنشطة أدناه مدرجة كما في الرخصة التجارية. كل نشاط يرتبط بصفحة الخدمة في EndEdge التي تغطي هذا النطاق.",
     authorityNote:
-      "صادرة عن هيئة مدينة الشارقة للنشر — المنطقة الحرة · الرخصة 4423081.01 · سارية حتى 30 يوليو 2026",
+      "صادرة عن هيئة مدينة الشارقة للنشر — المنطقة الحرة · الرخصة 4423081.01 · سارية حتى 30 يوليو 2027",
     serviceLink: "عرض الخدمة",
   },
   principles: {
