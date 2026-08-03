@@ -218,6 +218,8 @@ export type Dictionary = {
     readArticle: string;
     related: string;
     allInsights: string;
+    keyTakeaways: string;
+    faq: string;
     nextEyebrow: string;
     nextTitle: string;
     nextBody: string;

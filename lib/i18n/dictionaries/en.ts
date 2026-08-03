@@ -452,10 +452,12 @@ export const en: Dictionary = {
     eyebrow: "Insights",
     title: "Practical guidance for UAE enterprises.",
     description:
-      "Short, opinionated articles on e-invoicing, AI readiness, Arabic-first NLP, cloud migration, managed IT, and building systems that hold up under real load.",
+      "Opinionated articles on agentic AI, sovereign cloud, bilingual RAG, NVMe VPS, AI governance, e-invoicing, and systems that hold up under real UAE and GCC load.",
     readArticle: "Read article",
     related: "Learn more",
     allInsights: "All insights",
+    keyTakeaways: "Key takeaways",
+    faq: "Frequently asked questions",
     nextEyebrow: "Next step",
     nextTitle: "Want to apply this to your organization?",
     nextBody:

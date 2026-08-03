@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 import InsightArticleBody from "@/components/insights/InsightArticleBody";
 import InsightReadingProgress from "@/components/insights/InsightReadingProgress";
 import { COMPANY } from "@/lib/constants/company";
@@ -13,6 +14,7 @@ import {
 } from "@/lib/content/insights";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { insightArticleJsonLd } from "@/lib/seo/json-ld";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -30,9 +32,19 @@ export async function generateMetadata({
   const article = getInsightArticle(locale, params.slug);
   if (!article) return {};
   const path = `/${locale}/insights/${article.slug}`;
+  const published = article.publishedAt ?? undefined;
+  const modified = article.updatedAt ?? article.publishedAt ?? undefined;
   return {
     title: article.title,
     description: article.intro,
+    keywords: [
+      article.category,
+      "EndEdge",
+      "UAE",
+      "GCC",
+      locale === "ar" ? "دبي" : "Dubai",
+      ...(article.keyTakeaways?.slice(0, 3) ?? []),
+    ],
     alternates: {
       canonical: `https://endedge.co${path}`,
       languages: {
@@ -48,6 +60,14 @@ export async function generateMetadata({
       siteName: "EndEdge",
       locale: locale === "ar" ? "ar_AE" : "en_AE",
       type: "article",
+      ...(published ? { publishedTime: published } : {}),
+      ...(modified ? { modifiedTime: modified } : {}),
+      authors: ["EndEdge"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.title} | EndEdge`,
+      description: article.intro,
     },
   };
 }
@@ -70,6 +90,7 @@ export default async function InsightArticlePage({
 
   return (
     <>
+      <JsonLd data={insightArticleJsonLd(locale, article)} />
       <Nav />
       <InsightReadingProgress />
       <main className="bg-ink pt-24 text-mist">
@@ -79,6 +100,8 @@ export default async function InsightArticlePage({
             locale={locale}
             relatedLabel={page.related}
             allInsightsLabel={page.allInsights}
+            keyTakeawaysLabel={page.keyTakeaways}
+            faqLabel={page.faq}
           />
         </div>
 

@@ -37,7 +37,7 @@ What EndEdge offers:
 - ERP & UAE e-invoicing compliance (implementation partner, NOT an ASP) — details and readiness checklist at ${erpUrl}
 - AI readiness assessment on the homepage (#assessment)
 - Case studies with detailed tech stacks and outcomes at ${caseStudiesUrl}
-- Insights articles on e-invoicing, AI readiness, Arabic-first AI, migration, and managed IT at ${insightsUrl}
+- Insights articles on e-invoicing, agentic AI, sovereign cloud, bilingual RAG, NVMe VPS, AI governance, and managed IT at ${insightsUrl}
 - About EndEdge, Icon Software group, and licensed SPC FZ activities at ${aboutUrl} (${licensedActivitiesUrl})
 
 UAE e-invoicing facts (do not invent beyond these):
