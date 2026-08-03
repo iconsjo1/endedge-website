@@ -76,7 +76,13 @@ export function telHref(phone: string): string {
 }
 
 export function phoneCountry(phone: string): string | null {
-  return PHONE_COUNTRY_BY_NUMBER[phone] ?? null;
+  const direct = PHONE_COUNTRY_BY_NUMBER[phone];
+  if (direct) return direct;
+  const digits = phone.replace(/\D/g, "");
+  for (const [known, country] of Object.entries(PHONE_COUNTRY_BY_NUMBER)) {
+    if (known.replace(/\D/g, "") === digits) return country;
+  }
+  return null;
 }
 
 /** WhatsApp Business deep link for one number (E.164 or formatted). */

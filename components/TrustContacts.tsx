@@ -24,6 +24,49 @@ type Props = {
   whatsappPrefill?: string;
 };
 
+function digitsOnly(value: string): string {
+  return value.replace(/\D/g, "");
+}
+
+type ContactLine = {
+  display: string;
+  tel?: string;
+  whatsapp?: string;
+  country: string | null;
+};
+
+/** One row per number — phone + WhatsApp merge when digits match. */
+function buildContactLines(): ContactLine[] {
+  const byDigits = new Map<string, ContactLine>();
+
+  for (const phone of COMPANY.phones) {
+    const key = digitsOnly(phone);
+    if (!key) continue;
+    byDigits.set(key, {
+      display: phone,
+      tel: phone,
+      country: phoneCountry(phone),
+    });
+  }
+
+  for (const wa of COMPANY.whatsapps) {
+    const key = digitsOnly(wa);
+    if (!key) continue;
+    const existing = byDigits.get(key);
+    if (existing) {
+      existing.whatsapp = wa;
+    } else {
+      byDigits.set(key, {
+        display: wa,
+        whatsapp: wa,
+        country: phoneCountry(wa),
+      });
+    }
+  }
+
+  return Array.from(byDigits.values());
+}
+
 export default function TrustContacts({
   labels,
   variant = "footer",
@@ -35,9 +78,14 @@ export default function TrustContacts({
       : "mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2";
   const rowClass =
     variant === "footer"
-      ? "inline-flex items-center gap-2 text-sm text-mist/85 transition-colors hover:text-orange"
-      : "inline-flex items-center gap-2 text-sm text-mist/90 transition-colors hover:text-orange";
+      ? "inline-flex items-center gap-2 text-sm text-mist/85"
+      : "inline-flex items-center gap-2 text-sm text-mist/90";
+  const iconLinkClass =
+    "inline-flex text-orange transition-colors hover:text-orange-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange/50";
+  const numberClass = "transition-colors hover:text-orange";
   const metaClass = "text-xs text-muted";
+
+  const lines = buildContactLines();
 
   if (variant === "cta" && !hasTrustSignals() && !COMPANY.email) {
     return null;
@@ -68,39 +116,62 @@ export default function TrustContacts({
       >
         <a
           href={`mailto:${COMPANY.email}`}
-          className={rowClass}
+          className={`${rowClass} transition-colors hover:text-orange`}
           onClick={() => trackEvent("contact_click", { method: "email", location: variant })}
         >
           <ContactIcon type="email" label={labels.email} />
           <span>{COMPANY.email}</span>
         </a>
-        {COMPANY.phones.map((phone) => (
-          <a
-            key={phone}
-            href={telHref(phone)}
-            className={rowClass}
-            onClick={() => trackEvent("contact_click", { method: "phone", location: variant })}
-          >
-            <ContactIcon type="phone" label={labels.phone} />
-            <span>{phone}</span>
-            {phoneCountry(phone) ? <span className={metaClass}>({phoneCountry(phone)})</span> : null}
-          </a>
-        ))}
-        {COMPANY.whatsapps.map((waNum) => {
-          const href = whatsappHrefForNumber(waNum, whatsappPrefill);
-          if (!href) return null;
+
+        {lines.map((line) => {
+          const waHref = line.whatsapp
+            ? whatsappHrefForNumber(line.whatsapp, whatsappPrefill)
+            : null;
+          const primaryHref = line.tel ? telHref(line.tel) : (waHref ?? "#");
+
           return (
-            <a
-              key={waNum}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={rowClass}
-              onClick={() => trackEvent("contact_click", { method: "whatsapp", location: variant })}
-            >
-              <ContactIcon type="whatsapp" label={labels.whatsapp} />
-              <span>{waNum}</span>
-            </a>
+            <div key={digitsOnly(line.display)} className={rowClass}>
+              {line.tel ? (
+                <a
+                  href={telHref(line.tel)}
+                  className={iconLinkClass}
+                  onClick={() =>
+                    trackEvent("contact_click", { method: "phone", location: variant })
+                  }
+                >
+                  <ContactIcon type="phone" label={labels.phone} />
+                </a>
+              ) : null}
+              {waHref ? (
+                <a
+                  href={waHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={iconLinkClass}
+                  onClick={() =>
+                    trackEvent("contact_click", { method: "whatsapp", location: variant })
+                  }
+                >
+                  <ContactIcon type="whatsapp" label={labels.whatsapp} />
+                </a>
+              ) : null}
+              <a
+                href={primaryHref}
+                className={numberClass}
+                {...(line.tel
+                  ? {}
+                  : { target: "_blank" as const, rel: "noopener noreferrer" })}
+                onClick={() =>
+                  trackEvent("contact_click", {
+                    method: line.tel ? "phone" : "whatsapp",
+                    location: variant,
+                  })
+                }
+              >
+                <span>{line.display}</span>
+              </a>
+              {line.country ? <span className={metaClass}>({line.country})</span> : null}
+            </div>
           );
         })}
       </div>
