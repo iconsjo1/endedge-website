@@ -33,6 +33,7 @@ export function organizationJsonLd(locale: Locale) {
         ? "EndEdge — شريك تقني مؤسسي في دبي: بنية تحتية، وتقنية معلومات مُدارة، وذكاء اصطناعي، وامتثال الفوترة الإلكترونية في الإمارات."
         : "EndEdge — enterprise technology partner in Dubai: infrastructure, managed IT, AI, and UAE e-invoicing compliance.",
     address,
+    sameAs: [COMPANY.linkedin],
     areaServed: ["AE", "GCC", "MENA"],
     knowsLanguage: ["en", "ar"],
   };

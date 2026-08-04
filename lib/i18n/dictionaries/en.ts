@@ -394,6 +394,7 @@ export const en: Dictionary = {
       industries: "Industries",
       readiness: "AI Readiness",
       contact: "Contact",
+      linkedin: "LinkedIn",
     },
     privacy: "Privacy",
     terms: "Terms",

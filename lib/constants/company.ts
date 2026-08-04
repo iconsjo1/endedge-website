@@ -48,6 +48,7 @@ const BASE = {
   location: "Dubai, United Arab Emirates",
   email: "hello@endedge.co",
   website: "https://endedge.co",
+  linkedin: "https://www.linkedin.com/company/endedge",
   lastUpdated: "July 22, 2026",
 } as const;
 

@@ -394,6 +394,7 @@ export const ar: Dictionary = {
       industries: "القطاعات",
       readiness: "جاهزية الذكاء الاصطناعي",
       contact: "تواصل معنا",
+      linkedin: "LinkedIn",
     },
     privacy: "الخصوصية",
     terms: "الشروط",

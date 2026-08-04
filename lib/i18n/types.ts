@@ -167,6 +167,7 @@ export type Dictionary = {
       industries: string;
       readiness: string;
       contact: string;
+      linkedin: string;
     };
     privacy: string;
     terms: string;
