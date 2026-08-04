@@ -19,6 +19,8 @@ const PATHS = [
   "/case-studies",
   "/insights",
   ...getInsightSlugs().map((slug) => `/insights/${slug}`),
+  "/labs",
+
   "/privacy",
   "/terms",
   `/services/${ERP_SLUG}`,

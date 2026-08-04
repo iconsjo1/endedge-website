@@ -11,6 +11,7 @@ export const en: Dictionary = {
     services: "Services",
     caseStudies: "Case Studies",
     insights: "Insights",
+    labs: "Labs",
     about: "About",
     aiReadiness: "AI Readiness",
     technology: "Technology",
@@ -391,6 +392,7 @@ export const en: Dictionary = {
       about: "About",
       caseStudies: "Case Studies",
       insights: "Insights",
+      labs: "Labs",
       industries: "Industries",
       readiness: "AI Readiness",
       contact: "Contact",
@@ -466,6 +468,50 @@ export const en: Dictionary = {
     nextBody:
       "Tell us about your stack, compliance timeline, or AI use case — and we'll give you a clear view of what's feasible.",
     book: "Book a consultation",
+    backHome: "Back to home",
+  },
+  labsPage: {
+    eyebrow: "Labs",
+    metaTitle: "EndEdge Labs — AI Readiness & Demo Playground",
+    title: "Try EndEdge demos before you book a call.",
+    description:
+      "A curated hub of EndEdge demonstrators — AI readiness, the site assistant, UAE e-invoicing checklist, and VPS plans. Experimental on purpose; production work lives in services and case studies.",
+    body: "Labs is where we put try-before-talk tools. Each item is labeled honestly as a demonstrator — useful for orientation, not a substitute for a scoped engagement.",
+    demonstratorNote: "Demonstrator · Not a production product",
+    statusLive: "Live",
+    statusLink: "Open",
+    labs: [
+      {
+        id: "readiness",
+        title: "AI Readiness Check",
+        body: "Five questions. A scored view of data, systems, and team readiness — so you know where to start before funding a six-month science project.",
+        cta: "Take the check",
+      },
+      {
+        id: "chat",
+        title: "Ask EndEdge",
+        body: "Use the site assistant (orange button) for quick answers on services, VPS plans, and AI readiness. For contracts or urgent help, email us.",
+        cta: "Look for Ask EndEdge",
+      },
+      {
+        id: "einvoicing",
+        title: "UAE E-Invoicing Checklist",
+        body: "The gated readiness checklist for ASP appointment, PINT AE mapping, and finance enablement ahead of the UAE mandate dates.",
+        cta: "Open checklist",
+      },
+      {
+        id: "vps",
+        title: "VPS Plan Finder",
+        body: "Clear Starter through Enterprise NVMe tiers with subscription billing on the EndEdge VPS portal.",
+        cta: "View VPS plans",
+      },
+    ],
+    nextEyebrow: "Next step",
+    nextTitle: "Ready to move from demo to delivery?",
+    nextBody:
+      "Tell us about your stack or use case — we'll map a realistic path from this lab into a scoped engagement.",
+    book: "Book a consultation",
+    viewAi: "View AI Automation",
     backHome: "Back to home",
   },
   caseStudies: [

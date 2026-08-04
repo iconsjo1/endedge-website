@@ -8,6 +8,7 @@ export type Dictionary = {
     services: string;
     caseStudies: string;
     insights: string;
+    labs: string;
     about: string;
     aiReadiness: string;
     technology: string;
@@ -164,6 +165,7 @@ export type Dictionary = {
       about: string;
       caseStudies: string;
       insights: string;
+      labs: string;
       industries: string;
       readiness: string;
       contact: string;
@@ -228,6 +230,28 @@ export type Dictionary = {
     nextTitle: string;
     nextBody: string;
     book: string;
+    backHome: string;
+  };
+  labsPage: {
+    eyebrow: string;
+    metaTitle: string;
+    title: string;
+    description: string;
+    body: string;
+    demonstratorNote: string;
+    statusLive: string;
+    statusLink: string;
+    labs: {
+      id: string;
+      title: string;
+      body: string;
+      cta: string;
+    }[];
+    nextEyebrow: string;
+    nextTitle: string;
+    nextBody: string;
+    book: string;
+    viewAi: string;
     backHome: string;
   };
   caseStudies: {

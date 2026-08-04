@@ -18,11 +18,13 @@ export default function Nav() {
   const desktopLinks = [
     { href: `/${locale}/case-studies`, label: n.caseStudies },
     { href: `/${locale}/insights`, label: n.insights },
+    { href: `/${locale}/labs`, label: n.labs },
     { href: `/${locale}/about`, label: n.about },
   ];
 
   const mobileExploreLinks = [
-    { href: `/${locale}/#assessment`, label: n.aiReadiness },
+    { href: `/${locale}/labs#assessment`, label: n.aiReadiness },
+
     { href: `/${locale}/#tech`, label: n.technology },
     { href: `/${locale}/#industries`, label: n.industries },
     { href: `${SITES.portal}/pricing`, label: n.vpsHosting, external: true },
