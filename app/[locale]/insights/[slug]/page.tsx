@@ -60,6 +60,13 @@ export async function generateMetadata({
       siteName: "EndEdge",
       locale: locale === "ar" ? "ar_AE" : "en_AE",
       type: "article",
+      images: [
+        {
+          url: "https://endedge.co/opengraph-image",
+          width: 1200,
+          height: 630,
+        },
+      ],
       ...(published ? { publishedTime: published } : {}),
       ...(modified ? { modifiedTime: modified } : {}),
       authors: ["EndEdge"],
@@ -68,6 +75,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${article.title} | EndEdge`,
       description: article.intro,
+      images: ["https://endedge.co/twitter-image"],
     },
   };
 }

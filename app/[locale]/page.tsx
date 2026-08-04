@@ -42,13 +42,13 @@ export async function generateMetadata({
       siteName: "EndEdge",
       locale: locale === "ar" ? "ar_AE" : "en_AE",
       type: "website",
-      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+      images: [{ url: "https://endedge.co/opengraph-image", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.titleDefault,
       description: dict.meta.description,
-      images: ["/twitter-image"],
+      images: ["https://endedge.co/twitter-image"],
     },
   };
 }

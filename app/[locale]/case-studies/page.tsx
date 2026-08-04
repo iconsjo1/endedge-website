@@ -34,13 +34,13 @@ export async function generateMetadata({
       siteName: "EndEdge",
       locale: params.locale === "ar" ? "ar_AE" : "en_AE",
       type: "website",
-      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+      images: [{ url: "https://endedge.co/opengraph-image", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${p.metaTitle} | EndEdge`,
       description: p.description,
-      images: ["/twitter-image"],
+      images: ["https://endedge.co/twitter-image"],
     },
   };
 }
