@@ -23,9 +23,23 @@ export function organizationJsonLd(locale: Locale) {
     legalName: COMPANY.legalName,
     url: COMPANY.website,
     email: COMPANY.email,
+    logo: {
+      "@type": "ImageObject",
+      url: `${COMPANY.website}/icon-512.png`,
+      width: 512,
+      height: 512,
+    },
+    image: `${COMPANY.website}/opengraph-image`,
     ...(COMPANY.phones.length
       ? {
           telephone: COMPANY.phones.map((p) => p.replace(/[\s()-]/g, "")),
+          contactPoint: COMPANY.phones.map((p) => ({
+            "@type": "ContactPoint",
+            telephone: p.replace(/[\s()-]/g, ""),
+            contactType: "sales",
+            areaServed: ["AE", "JO", "IQ", "GB"],
+            availableLanguage: ["en", "ar"],
+          })),
         }
       : {}),
     description:
@@ -81,7 +95,12 @@ export function insightArticleJsonLd(
       "@type": "Organization",
       name: COMPANY.name,
       url: COMPANY.website,
+      logo: {
+        "@type": "ImageObject",
+        url: `${COMPANY.website}/icon-512.png`,
+      },
     },
+    image: [`${COMPANY.website}/opengraph-image`],
     about: {
       "@type": "Thing",
       name: article.category,
@@ -137,6 +156,72 @@ export function insightArticleJsonLd(
         acceptedAnswer: {
           "@type": "Answer",
           text: item.answer,
+        },
+      })),
+    });
+  }
+
+  return nodes;
+}
+
+/** Service + FAQPage for service landings (rich results). */
+export function serviceLandingJsonLd(
+  locale: Locale,
+  slug: string,
+  content: {
+    meta: { title: string; description: string };
+    faq: { items: { q: string; a: string }[] };
+  },
+): Record<string, unknown>[] {
+  const path = `/${locale}/services/${slug}`;
+  const url = `${COMPANY.website}${path}`;
+
+  const service: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: content.meta.title,
+    description: content.meta.description,
+    url,
+    provider: {
+      "@type": "Organization",
+      name: COMPANY.name,
+      url: COMPANY.website,
+    },
+    areaServed: ["AE", "GCC", "MENA"],
+    inLanguage: locale === "ar" ? "ar-AE" : "en-AE",
+  };
+
+  const breadcrumb: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "EndEdge",
+        item: `${COMPANY.website}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: content.meta.title,
+        item: url,
+      },
+    ],
+  };
+
+  const nodes: Record<string, unknown>[] = [service, breadcrumb];
+
+  if (content.faq.items.length) {
+    nodes.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: content.faq.items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
         },
       })),
     });

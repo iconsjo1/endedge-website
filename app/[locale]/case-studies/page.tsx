@@ -17,12 +17,30 @@ export async function generateMetadata({
   const dict = await getDictionary(params.locale);
   const p = dict.caseStudiesPage;
   return {
-    title: p.eyebrow,
+    title: p.metaTitle,
     description: p.description,
+    alternates: {
+      canonical: `https://endedge.co/${params.locale}/case-studies`,
+      languages: {
+        en: "/en/case-studies",
+        ar: "/ar/case-studies",
+        "x-default": "/en/case-studies",
+      },
+    },
     openGraph: {
-      title: `${p.eyebrow} | EndEdge`,
+      title: `${p.metaTitle} | EndEdge`,
       description: p.description,
       url: `https://endedge.co/${params.locale}/case-studies`,
+      siteName: "EndEdge",
+      locale: params.locale === "ar" ? "ar_AE" : "en_AE",
+      type: "website",
+      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${p.metaTitle} | EndEdge`,
+      description: p.description,
+      images: ["/twitter-image"],
     },
   };
 }

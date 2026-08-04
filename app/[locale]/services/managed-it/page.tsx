@@ -23,6 +23,7 @@ export async function generateMetadata({
     description: meta.description,
     alternates: meta.alternates,
     openGraph: meta.openGraph,
+    twitter: meta.twitter,
   };
 }
 
@@ -30,6 +31,11 @@ export default function ManagedItPage({ params }: { params: { locale: string } }
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
   return (
-    <ServiceLandingPage locale={locale} content={getManagedItContent(locale)} stackLayer={0} />
+    <ServiceLandingPage
+      locale={locale}
+      content={getManagedItContent(locale)}
+      stackLayer={0}
+      slug={MANAGED_IT_SLUG}
+    />
   );
 }

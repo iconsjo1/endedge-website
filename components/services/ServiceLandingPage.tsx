@@ -1,19 +1,28 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 import StackMark from "@/components/ui/StackMark";
 import { COMPANY } from "@/lib/constants/company";
 import type { ServiceLandingContent } from "@/lib/content/service-landing";
 import type { Locale } from "@/lib/i18n/config";
+import { serviceLandingJsonLd } from "@/lib/seo/json-ld";
 
 type Props = {
   locale: Locale;
   content: ServiceLandingContent;
   /** StackMark layer to light (0 Infrastructure … 4 Growth). */
   stackLayer?: number;
+  /** URL slug under /services/ — required for JSON-LD. */
+  slug: string;
 };
 
-export default function ServiceLandingPage({ locale, content: c, stackLayer = 0 }: Props) {
+export default function ServiceLandingPage({
+  locale,
+  content: c,
+  stackLayer = 0,
+  slug,
+}: Props) {
   const secondaryHref = c.hero.ctaSecondaryPath.startsWith("http")
     ? c.hero.ctaSecondaryPath
     : `/${locale}${c.hero.ctaSecondaryPath}`;
@@ -21,6 +30,7 @@ export default function ServiceLandingPage({ locale, content: c, stackLayer = 0 
 
   return (
     <>
+      <JsonLd data={serviceLandingJsonLd(locale, slug, c)} />
       <Nav />
       <main className="bg-ink pt-24 text-mist">
         <section className="shell pb-16" data-edge-section>

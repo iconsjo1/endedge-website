@@ -55,6 +55,13 @@ export function servicePageMetadata(
     siteName: string;
     locale: string;
     type: "website";
+    images: { url: string; width: number; height: number }[];
+  };
+  twitter: {
+    card: "summary_large_image";
+    title: string;
+    description: string;
+    images: string[];
   };
   alternates: {
     canonical: string;
@@ -80,7 +87,14 @@ export function servicePageMetadata(
       url: `https://endedge.co${path}`,
       siteName: "EndEdge",
       locale: locale === "ar" ? "ar_AE" : "en_AE",
-      type: "website",
+      type: "website" as const,
+      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: `${content.meta.title} | EndEdge`,
+      description: content.meta.description,
+      images: ["/twitter-image"],
     },
   };
 }

@@ -21,7 +21,13 @@ export async function generateMetadata({
   const locale = params.locale as Locale;
   const content = getSoftwareTrainingContent(locale);
   const meta = servicePageMetadata(locale, SOFTWARE_TRAINING_SLUG, content);
-  return { title: meta.title, description: meta.description, alternates: meta.alternates, openGraph: meta.openGraph };
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: meta.alternates,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+  };
 }
 
 export default function SoftwareTrainingPage({ params }: { params: { locale: string } }) {
@@ -32,6 +38,7 @@ export default function SoftwareTrainingPage({ params }: { params: { locale: str
       locale={locale}
       content={getSoftwareTrainingContent(locale)}
       stackLayer={2}
+      slug={SOFTWARE_TRAINING_SLUG}
     />
   );
 }

@@ -26,17 +26,19 @@ export async function generateMetadata({
     description: meta.description,
     alternates: meta.alternates,
     openGraph: meta.openGraph,
+    twitter: meta.twitter,
   };
 }
 
-export default function WebMobileDevelopmentPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default function WebMobileDevelopmentPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
   return (
-    <ServiceLandingPage locale={locale} content={getWebMobilePageContent(locale)} stackLayer={1} />
+    <ServiceLandingPage
+      locale={locale}
+      content={getWebMobilePageContent(locale)}
+      stackLayer={1}
+      slug={WEB_MOBILE_SLUG}
+    />
   );
 }

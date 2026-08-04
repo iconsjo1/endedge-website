@@ -18,13 +18,24 @@ export async function generateMetadata({
   const locale = params.locale as Locale;
   const content = getEnergySystemsContent(locale);
   const meta = servicePageMetadata(locale, ENERGY_SYSTEMS_SLUG, content);
-  return { title: meta.title, description: meta.description, alternates: meta.alternates, openGraph: meta.openGraph };
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: meta.alternates,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+  };
 }
 
 export default function EnergySystemsPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
   return (
-    <ServiceLandingPage locale={locale} content={getEnergySystemsContent(locale)} stackLayer={0} />
+    <ServiceLandingPage
+      locale={locale}
+      content={getEnergySystemsContent(locale)}
+      stackLayer={0}
+      slug={ENERGY_SYSTEMS_SLUG}
+    />
   );
 }

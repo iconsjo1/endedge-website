@@ -24,7 +24,7 @@ export type AboutContent = {
 
 const EN: AboutContent = {
   meta: {
-    title: "About EndEdge",
+    title: "About",
     description:
       "EndEdge is the Dubai front office of the Icon Software group — enterprise technology, managed IT, AI, and UAE e-invoicing compliance with nearly two decades of delivery experience.",
   },
@@ -98,7 +98,7 @@ const EN: AboutContent = {
 
 const AR: AboutContent = {
   meta: {
-    title: "عن EndEdge",
+    title: "من نحن",
     description:
       "EndEdge هي المكتب الأمامي في دبي لمجموعة Icon Software — تقنية مؤسسية، وتقنية معلومات مُدارة، وذكاء اصطناعي، وامتثال الفوترة الإلكترونية في الإمارات مع ما يقارب عقدين من خبرة التسليم.",
   },

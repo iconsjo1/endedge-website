@@ -426,6 +426,7 @@ export const en: Dictionary = {
   stackLabels: ["Infrastructure", "Applications", "Automation", "Applied AI", "Growth"],
   caseStudiesPage: {
     eyebrow: "Case studies",
+    metaTitle: "Enterprise Case Studies — Cloud, AI & Migration",
     title: "Production work, documented in detail.",
     description:
       "Beyond our interactive AI readiness check, these anonymized engagements show how EndEdge designs, migrates, and operates systems at enterprise scale. Client names are withheld where required by confidentiality — sector, stack, and outcomes are real.",
@@ -451,6 +452,7 @@ export const en: Dictionary = {
   },
   insightsPage: {
     eyebrow: "Insights",
+    metaTitle: "Enterprise AI, Cloud & E-Invoicing Insights",
     title: "Practical guidance for UAE enterprises.",
     description:
       "Opinionated articles on agentic AI, sovereign cloud, bilingual RAG, NVMe VPS, AI governance, e-invoicing, and systems that hold up under real UAE and GCC load.",

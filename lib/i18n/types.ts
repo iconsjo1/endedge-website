@@ -191,6 +191,7 @@ export type Dictionary = {
   stackLabels: string[];
   caseStudiesPage: {
     eyebrow: string;
+    metaTitle: string;
     title: string;
     description: string;
     discuss: string;
@@ -214,6 +215,8 @@ export type Dictionary = {
   };
   insightsPage: {
     eyebrow: string;
+    /** SERP / <title> — benefit-led, not just “Insights”. */
+    metaTitle: string;
     title: string;
     description: string;
     readArticle: string;

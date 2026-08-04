@@ -22,7 +22,7 @@ export async function generateMetadata({
   const p = dict.insightsPage;
   const path = `/${params.locale}/insights`;
   return {
-    title: p.eyebrow,
+    title: p.metaTitle,
     description: p.description,
     alternates: {
       canonical: `https://endedge.co${path}`,
@@ -33,12 +33,19 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: `${p.eyebrow} | EndEdge`,
+      title: `${p.metaTitle} | EndEdge`,
       description: p.description,
       url: `https://endedge.co${path}`,
       siteName: "EndEdge",
       locale: params.locale === "ar" ? "ar_AE" : "en_AE",
       type: "website",
+      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${p.metaTitle} | EndEdge`,
+      description: p.description,
+      images: ["/twitter-image"],
     },
   };
 }

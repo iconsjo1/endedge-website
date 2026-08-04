@@ -21,7 +21,13 @@ export async function generateMetadata({
   const locale = params.locale as Locale;
   const content = getTechnologySupplyContent(locale);
   const meta = servicePageMetadata(locale, TECHNOLOGY_SUPPLY_SLUG, content);
-  return { title: meta.title, description: meta.description, alternates: meta.alternates, openGraph: meta.openGraph };
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: meta.alternates,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+  };
 }
 
 export default function TechnologySupplyPage({ params }: { params: { locale: string } }) {
@@ -32,6 +38,7 @@ export default function TechnologySupplyPage({ params }: { params: { locale: str
       locale={locale}
       content={getTechnologySupplyContent(locale)}
       stackLayer={0}
+      slug={TECHNOLOGY_SUPPLY_SLUG}
     />
   );
 }

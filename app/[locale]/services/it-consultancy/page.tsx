@@ -18,13 +18,24 @@ export async function generateMetadata({
   const locale = params.locale as Locale;
   const content = getItConsultancyContent(locale);
   const meta = servicePageMetadata(locale, IT_CONSULTANCY_SLUG, content);
-  return { title: meta.title, description: meta.description, alternates: meta.alternates, openGraph: meta.openGraph };
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: meta.alternates,
+    openGraph: meta.openGraph,
+    twitter: meta.twitter,
+  };
 }
 
 export default function ItConsultancyPage({ params }: { params: { locale: string } }) {
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
   return (
-    <ServiceLandingPage locale={locale} content={getItConsultancyContent(locale)} stackLayer={2} />
+    <ServiceLandingPage
+      locale={locale}
+      content={getItConsultancyContent(locale)}
+      stackLayer={2}
+      slug={IT_CONSULTANCY_SLUG}
+    />
   );
 }

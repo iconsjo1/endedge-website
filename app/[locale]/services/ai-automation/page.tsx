@@ -23,6 +23,7 @@ export async function generateMetadata({
     description: meta.description,
     alternates: meta.alternates,
     openGraph: meta.openGraph,
+    twitter: meta.twitter,
   };
 }
 
@@ -30,6 +31,11 @@ export default function AiAutomationPage({ params }: { params: { locale: string 
   if (!isLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
   return (
-    <ServiceLandingPage locale={locale} content={getAiAutomationContent(locale)} stackLayer={3} />
+    <ServiceLandingPage
+      locale={locale}
+      content={getAiAutomationContent(locale)}
+      stackLayer={3}
+      slug={AI_AUTOMATION_SLUG}
+    />
   );
 }

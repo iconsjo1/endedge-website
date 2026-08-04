@@ -26,6 +26,7 @@ export async function generateMetadata({
     description: meta.description,
     alternates: meta.alternates,
     openGraph: meta.openGraph,
+    twitter: meta.twitter,
   };
 }
 
@@ -37,6 +38,7 @@ export default function CloudInfrastructurePage({ params }: { params: { locale: 
       locale={locale}
       content={getCloudInfrastructureContent(locale)}
       stackLayer={0}
+      slug={CLOUD_SLUG}
     />
   );
 }
