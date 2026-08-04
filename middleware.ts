@@ -9,6 +9,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.startsWith("/apple-icon") ||
     pathname.startsWith("/icon") ||
+    pathname.startsWith("/opengraph-image") ||
+    pathname.startsWith("/twitter-image") ||
     pathname.includes(".")
   ) {
     return NextResponse.next();
